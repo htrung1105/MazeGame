@@ -26,7 +26,7 @@ class UserDatabase:
         def pack_data() ::
             Pack a game data into a dictionary, included keys:
                 - 'map', 'level', 'size', 'start', 'end', 'time', 'status', 'username'
-
+            Return a dictionary
 
         def leaderboard() ::
             return False if no user, return a tuple of 3 list:
@@ -122,14 +122,20 @@ class UserDatabase:
 
         return (easy_list, medium_list, hard_list)
 
-    def pack_data(self, map, level, size_x, size_y, start_x, start_y, end_x, end_y, time, status, username):
+    def pack_data(self, map, level, start_x, start_y, end_x, end_y, time, step, status, username):
         data = {}
         data['map'] = map
         data['level'] = level
-        data['size'] = [size_x, size_y]
+        if level == 'hard':
+            data['size'] = 100
+        if level == 'medium':
+            data['size'] = 40
+        if level == 'easy':
+            data['size'] = 20
         data['start'] = [start_x, start_y]
         data['end'] = [end_x, end_y]
         data['time'] = time
+        data['step'] = step
         data['status'] = status
         data['username'] = username
         return data
@@ -151,17 +157,20 @@ print(db.register_user('user6', 'pas1'))
 
 # update thong tin user
 db.save_game('user1', 'pas1', 'game1', {'username':'user1', 'password':'pas1', 'time':12308, 'level' : 'easy'})
+pprint.pprint(db.leaderboard())
 db.save_game('user2', 'pas1', 'game1', {'username':'user2', 'password':'pas1', 'time':456, 'level' : 'easy'})
 db.save_game('user3', 'pas1', 'game1', {'username':'user3', 'password':'pas1', 'time':789, 'level' : 'easy'})
 db.save_game('user4', 'pas1', 'game1', {'username':'user4', 'password':'pas1', 'time':1234, 'level' : 'medium'})
 db.save_game('user5', 'pas1', 'game1', {'username':'user5', 'password':'pas1', 'time':4567, 'level' : 'medium'})
 db.save_game('user6', 'pas1', 'game1', {'username':'user6', 'password':'pas1', 'time':7890, 'level' : 'hard'})
 db.save_game('user6', 'pas1', 'game2', {'username':'user6', 'password':'pas1', 'time':23, 'level' : 'hard'})
+
+pprint.pprint(db.leaderboard())
 db.save_game('user6', 'pas1', 'game3', {'username':'user6', 'password':'pas1', 'time':4, 'level' : 'hard'})
 db.save_game('user4', 'pas1', 'game2', {'username':'user4', 'password':'pas1', 'time':34, 'level' : 'hard'})
 db.save_game('user4', 'pas1', 'game3', {'username':'user4', 'password':'pas1', 'time':455, 'level' : 'hard'})
 
 pprint.pprint(db.leaderboard())
-pprint.pprint(db.users)
+#pprint.pprint(db.users)
 
 '''
