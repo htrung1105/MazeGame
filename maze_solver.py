@@ -1,7 +1,6 @@
 import heapq
-from maze_generator import *
+from testing import *
 
-# tạo class hàng đợi ưu tiên
 class priority_queue:
     def __init__(self):
         self.heap = []
@@ -17,17 +16,31 @@ class priority_queue:
 
     def __len__(self):
         return len(self.heap)
-
-# tạo class giải mê cung
+    
 class mazeSolver:
     def __init__(self, maze: Maze):
-        '''
-        vì self.maze là một view nên khi chạy thuật toán không được tác động lên 
-        các thông số của maze ngoại trừ maze.trace
-        '''
         self.maze = maze
     
-    def AStarSearch(self):
+    # trả về list gồm thứ tự các đường đi bao gồm cả điểm bắt đầu và kết thúc
+    def tracePath(self):
+        # lấy các thông số của mê cung để xử lý cho dễ
+        maze = self.maze
+        startX = self.maze.startX
+        startY = self.maze.startY
+        x = self.maze.endX
+        y = self.maze.endY
+
+        # truy ngược đường đi
+        path = []
+        while (x, y) != (startX, startY):
+            path.append((x, y))
+            x, y = maze.trace[x][y]
+        path.append((x, y))
+        path.reverse()
+        return path
+
+    # chạy thuật toán A* và trả về đường đi
+    def AStarSearch(self) -> list[tuple]:
         # lấy các thông số của mê cung để xử lý cho dễ
         maze = self.maze
         startX = self.maze.startX
@@ -38,7 +51,7 @@ class mazeSolver:
         # hàm heuristic
         heuristic = lambda x, y: (x - endX) ** 2 + (y - endY) ** 2
         
-        # khởi tạo các biến
+        # khởi tạo các biến 
         oo = float('inf')
         pq = priority_queue()
         g = [[oo] * maze.size for _ in range(maze.size)]
@@ -55,8 +68,7 @@ class mazeSolver:
             maze.grid[x][y].visited = True
 
             if (x, y) == (endX, endY):
-                # tìm thấy đường đi
-                break
+                return self.tracePath()
             
             # duyệt qua các ô xung quanh
             for nx, ny in maze.grid[x][y].neighbor():
@@ -68,3 +80,4 @@ class mazeSolver:
                     g[nx][ny] = new_g
                     f[nx][ny] = new_f
                     pq.push((new_f, nx, ny))
+
