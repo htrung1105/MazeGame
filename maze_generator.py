@@ -24,7 +24,7 @@ class Cell:
 
 # tạo class cho một mê cung
 class Maze:
-    def __init__(self, size: int, startX, startY, endX, endY):
+    def __init__(self, size: int, startX: int, startY: int, endX: int, endY: int):
         '''
         size: kích thước của mê cung
         startX, startY: tọa độ ô bắt đầu
@@ -61,7 +61,7 @@ class Maze:
         visited = [[False] * self.size for _ in range(self.size)]
         visited[0][0] = True
         stack = [(0, 0)]
-        
+
         while stack:
             x, y = stack[-1]
             dir = [(0, 1), (1, 0), (0, -1), (-1, 0)]
