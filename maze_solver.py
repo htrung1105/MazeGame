@@ -66,7 +66,8 @@ class mazeSolver:
             _, x, y = pq.pop()
             # ô (x, y) đã đươc thăm
             maze.grid[x][y].visited = True
-
+            
+            # tìm thấy đường đi
             if (x, y) == (endX, endY):
                 return self.tracePath()
             
