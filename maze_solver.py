@@ -51,7 +51,6 @@ class mazeSolver:
         # chạy thuật toán A*
         while pq:
             _, x, y = pq.pop()
-            print(x, y)
             # ô (x, y) đã đươc thăm
             maze.grid[x][y].visited = True
 
