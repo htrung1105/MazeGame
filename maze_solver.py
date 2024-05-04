@@ -1,5 +1,5 @@
 import heapq
-from testing import *
+from maze_generator import *
 
 class priority_queue:
     def __init__(self):
