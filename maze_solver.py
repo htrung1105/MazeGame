@@ -89,7 +89,7 @@ class mazeSolver:
                 # thêm một ô vào hàng đợi
                 new_g = g[x][y] + 1
                 new_f = new_g + heuristic(nx, ny)
-                if new_f < f[nx][ny]:
+                if new_g < g[nx][ny]:
                     maze.trace[nx][ny] = (x, y)
                     g[nx][ny] = new_g
                     f[nx][ny] = new_f
