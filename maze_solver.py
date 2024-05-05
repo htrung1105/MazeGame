@@ -1,6 +1,13 @@
+'''
+file này gồm các class:
+class priority_queue: hàng đợi ưu tiên
+class mazeSolver: giải mê cung
+'''
+
 import heapq
 from maze_generator import *
 
+# hàng đợi ưu tiên
 class priority_queue:
     def __init__(self):
         self.heap = []
@@ -18,6 +25,11 @@ class priority_queue:
         return len(self.heap)
     
 class mazeSolver:
+    '''
+    các hàm của class:
+    def tracePath(self): trả về list gồm thứ tự các đường đi tìm được bao gồm cả điểm bắt đầu và kết thúc 
+    def AStarSearch(self) -> list[tuple]: chạy thuật toán A* và trả về list thứ tự thăm các ô
+    '''
     def __init__(self, maze: Maze):
         self.maze = maze
     

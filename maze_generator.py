@@ -1,7 +1,16 @@
+'''
+file này gồm các class:
+class Cell: Một ô của mê cung
+class Maze: Mê cung
+'''
 import random
 
 # tạo class cho một ô
 class Cell:
+    '''
+    các hàm của class:
+    def neighbor(self): trả về tọa độ của các ô kể cạnh không bị ngăn cách bởi tường
+    '''
     def __init__(self, x: int, y: int):
         '''
         x, y: tọa độ của ô
@@ -24,6 +33,11 @@ class Cell:
 
 # tạo class cho một mê cung
 class Maze:
+    '''
+    class gồm các hàm:
+    def breakWall(self, x: int , y: int, dx: int, dy: int): phá tường theo hướng (dx, dy)
+    def mazeGenerate(self): Sinh một mê cung
+    '''
     def __init__(self, size: int, startX: int, startY: int, endX: int, endY: int):
         '''
         size: kích thước của mê cung
