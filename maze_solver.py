@@ -21,9 +21,9 @@ class mazeSolver:
     def __init__(self, maze: Maze):
         self.maze = maze
     
-    # trả về list gồm thứ tự các đường đi bao gồm cả điểm bắt đầu và kết thúc
+    # trả về list gồm thứ tự các đường đi tìm được bao gồm cả điểm bắt đầu và kết thúc
     def tracePath(self):
-        # lấy các thông số của mê cung để xử lý cho dễ
+        # lấy các thông số của mê cung để dễ xử lý
         maze = self.maze
         startX = self.maze.startX
         startY = self.maze.startY
@@ -39,9 +39,9 @@ class mazeSolver:
         path.reverse()
         return path
 
-    # chạy thuật toán A* và trả về đường đi
+    # chạy thuật toán A* và trả về thứ tự thăm các ô
     def AStarSearch(self) -> list[tuple]:
-        # lấy các thông số của mê cung để xử lý cho dễ
+        # lấy các thông số của mê cung để dễ xử lý
         maze = self.maze
         startX = self.maze.startX
         startY = self.maze.startY
@@ -51,7 +51,7 @@ class mazeSolver:
         # hàm heuristic
         heuristic = lambda x, y: (x - endX) ** 2 + (y - endY) ** 2
         
-        # khởi tạo các biến 
+        # khởi tạo các biến
         oo = float('inf')
         pq = priority_queue()
         g = [[oo] * maze.size for _ in range(maze.size)]
@@ -61,15 +61,16 @@ class mazeSolver:
         f[startX][startY] = heuristic(startX, startY)
         pq.push((f[startX][startY], startX, startY))
 
-        # chạy thuật toán A*
+        visited = []
         while pq:
             _, x, y = pq.pop()
             # ô (x, y) đã đươc thăm
             maze.grid[x][y].visited = True
+            visited.append((x, y))
             
             # tìm thấy đường đi
             if (x, y) == (endX, endY):
-                return self.tracePath()
+                break
             
             # duyệt qua các ô xung quanh
             for nx, ny in maze.grid[x][y].neighbor():
@@ -81,4 +82,5 @@ class mazeSolver:
                     g[nx][ny] = new_g
                     f[nx][ny] = new_f
                     pq.push((new_f, nx, ny))
+        return visited
 
