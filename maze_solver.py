@@ -77,7 +77,6 @@ class mazeSolver:
         while pq:
             _, x, y = pq.pop()
             # ô (x, y) đã đươc thăm
-            maze.grid[x][y].visited = True
             visited.append((x, y))
             
             # tìm thấy đường đi
