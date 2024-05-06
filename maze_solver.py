@@ -5,6 +5,7 @@ class mazeSolver: giải mê cung
 '''
 
 import heapq
+from queue import Queue
 from maze_generator import *
 
 # hàng đợi ưu tiên
@@ -29,6 +30,7 @@ class mazeSolver:
     các hàm của class:
     def tracePath(self): trả về list gồm thứ tự các đường đi tìm được bao gồm cả điểm bắt đầu và kết thúc 
     def AStarSearch(self) -> list[tuple]: chạy thuật toán A* và trả về list thứ tự thăm các ô
+    def BFS(self) -> list[tuple]: chạy thuật toán BFS và trả về list thứ tự thăm các ô
     '''
     def __init__(self, maze: Maze):
         self.maze = maze
@@ -95,3 +97,37 @@ class mazeSolver:
                     pq.push((new_f, nx, ny))
         return visited
 
+    def BFS(self):
+        # lấy các thông số của mê cung
+        maze = self.maze
+        startX = self.maze.startX
+        startY = self.maze.startY
+        endX = self.maze.endX
+        endY = self.maze.endY
+
+        # khởi tạo các biến
+        vis_time = [[-1] * maze.size for _ in range(maze.size)]
+        visited = []
+        q = Queue()
+
+        vis_time[startX][startY] = 0
+        q.put((startX, startY))
+
+        # Thuật toán BFS
+        while q:
+            x, y = q.get()
+
+            # ô (x, y) đã đươc thăm
+            visited.append((x, y))
+
+            # Tìm thấy đường đi
+            if (x, y) == (endX, endY):
+                break
+
+            # Duyệt các ô xung quanh chưa thăm
+            for nx, ny in maze.grid[x][y].neighbors():
+                if vis_time[nx][ny] == -1:
+                    vis_time[nx][ny] = vis_time[x][y] + 1
+                    maze.trace[nx][ny] = (x, y)
+                    q.put((nx, ny))
+        return visited
