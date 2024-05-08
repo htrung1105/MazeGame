@@ -19,17 +19,21 @@ def loadMaze(filename: str):
         maze = pickle.load(f)
     return maze
 
+def getImage(filename: str):
+    return pygame.image.load(rf'assets\{filename}').convert_alpha()
+
 # main function
 def main():
     clock = pygame.time.Clock()
     run = True
+
     while run:
-        clock.tick(FPS)
-
         for event in pygame.event.get():
-
             if event.type == pygame.QUIT:
                 run = False
+
+        pygame.display.update()
+        clock.tick(FPS)
 
 if __name__ == '__main__':
     main()
