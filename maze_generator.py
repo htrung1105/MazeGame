@@ -4,6 +4,7 @@ class Cell: Một ô của mê cung
 class Maze: Mê cung
 '''
 import random
+from queue import Queue
 import pygame
 pygame.init()
 
@@ -96,6 +97,8 @@ class Maze:
     def mazeGenerate(self): Sinh một mê cung
     def update_pos_now(self, x, y): cập nhật vị trí hiện tại là (x, y)
     def render(self, screen, pos_x, pos_y, x, y, len): Sinh display (góc trái trên là pos_x, pos_y) là ma trận có chỉ số [x -> x + len][y -> y + len]
+    def makeHint(self): tạo gợi ý đường đi bằng BFS cho toàn bộ ô trong mê cung
+    def hint(self, x: int, y: int) -> list[tuple]: trả về đường đi gợi ý cho người chơi hướng đến điểm kết thúc đến khi gặp ngã ba
     '''
     def __init__(self, size: int, startX: int, startY: int, endX: int, endY: int, cell_size: int, image_character = None, image_goal = None, scale = 1,
                  wall_thickness = 3, dir_thickness = 3, wall_color = BLACK, dir_color = GREEN, maze_color = WHITE):
@@ -119,6 +122,7 @@ class Maze:
         trace: tọa độ của ô trước đó đã đi vào ô (x, y)
         image_character: ảnh nhân vật di chuyển
         display: màn hình xuất maze
+        hint: gợi ý ô tiếp theo hướng đến điểm kết thúc
         '''
         self.size = size
         self.startX, self.startY = startX, startY
@@ -131,6 +135,7 @@ class Maze:
         self.nowX, self.nowY = startX, startY
         self.grid = [[Cell(x, y, self.cell_size, wall_thickness, dir_thickness, wall_color, dir_color) for y in range(size)] for x in range(size)]
         self.trace = [[(0, 0)] * size for _ in range(size)]
+        self.hint = [[(0, 0)] * size for _ in range(size)]
 
         # Update ảnh cho Cell bắt đầu và kết thúc
         if image_character != None:
@@ -143,7 +148,7 @@ class Maze:
         width = cell_size * size - wall_thickness * (size - 1)
         self.display = pygame.Surface((width, width))
         self.display.fill(WHITE)
-
+    
     # phá tường theo hướng (dx, dy)
     def breakWall(self, x: int , y: int, dx: int, dy: int):
         nx, ny = x + dx, y + dy
@@ -159,6 +164,43 @@ class Maze:
         if dy == -1:
             self.grid[x][y].walls['left'] = False
             self.grid[nx][ny].walls['right'] = False
+
+    # trả về đường đi gợi ý cho người chơi hướng đến điểm kết thúc đến khi gặp ngã 3
+    def hint(self, x: int, y: int) -> list[tuple]:
+        startNode = (self.startX, self.startY)
+        
+        hintPath = []
+        while True:
+            if (x, y) == startNode:
+                break
+            x, y = self.hint[x][y]
+            hintPath.append(x, y)
+            if list(self.grid[x][y].walls.values()).count(False) != 1:
+                break
+        return hintPath
+
+    # tạo gợi ý đường đi bằng BFS cho toàn bộ ô trong mê cung
+    def makeHint(self):
+        # lấy các thông số của mê cung
+        maze = self.maze
+        endX = self.maze.endX
+        endY = self.maze.endY
+
+        # khởi tạo các biến
+        visited = [[False] * maze.size for _ in range(maze.size)]
+        q = Queue()
+
+        visited[endX][endY] = True
+        q.put((endX, endY))
+
+        # BFS
+        while q:
+            x, y = q.get()
+            for nx, ny in maze.grid[x][y].neighbors():
+                if visited[nx][ny] == False:
+                    visited[nx][ny] = True
+                    maze.hint[nx][ny] = (x, y)
+                    q.put((nx, ny))
 
     # Sinh ra một mê cung
     def mazeGenerate(self):
@@ -184,6 +226,8 @@ class Maze:
                     break
             if deadEnd == 1:
                 stack.pop()
+        # Sau khi sinh xong mê cung thì tạo gợi ý
+        self.makeHint()
 
     def update_pos_now(self, x: int, y: int):
         self.grid[self.nowX][self.nowY].image = None
@@ -206,5 +250,3 @@ class Maze:
             for i in range(len):
                 self.grid[x + i][y + j].render(self.display, (self.cell_size - self.wall_thickness) * j, (self.cell_size - self.wall_thickness) * i)
         screen.blit(self.display, (pos_x, pos_y))
-
-
