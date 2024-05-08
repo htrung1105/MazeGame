@@ -25,7 +25,7 @@ class priority_queue:
     def __len__(self):
         return len(self.heap)
     
-class mazeSolver:
+class Maze_solver:
     '''
     các hàm của class:
     def tracePath(self): trả về list gồm thứ tự các đường đi tìm được bao gồm cả điểm bắt đầu và kết thúc 
