@@ -68,7 +68,7 @@ class LoginMenu():
         self.regis_noti.set_title('Register now')
 
     def reset_noti_login(self, a):
-        self.login_noti.set_title('Login now')
+        self.login_noti.set_title('User Login')
             
     def init_theme(self):
         b_img = pygame_menu.baseimage.BaseImage(
@@ -87,52 +87,62 @@ class LoginMenu():
             image_id='background')
 
         my_theme = pygame_menu.themes.Theme(
-            background_color=b_img,
-            border_color=(0, 255, 0),
-            border_width=15,
-            title=True,
-            title_background_color=(249, 72, 82),
-            title_bar_style=pygame_menu.widgets.MENUBAR_STYLE_ADAPTIVE,
-            title_close_button=True,
-            title_close_button_background_color=(10, 10, 10),
-            title_font=pygame_menu.font.FONT_COMIC_NEUE,
-            title_font_antialias=True,
-            title_font_color=(255, 255, 255),
-            title_font_shadow=True,
-            title_font_shadow_color=(0, 0, 0),
-            widget_selection_effect=pygame_menu.widgets.LeftArrowSelection(
+            background_color = b_img, 
+            border_color = (0, 255, 0),
+            border_width = 15,
+            #cursor_color = (15, 15, 15),
+            #focus_background_color = None,                          
+
+            title = True,                                                 # có hay không title
+            title_background_color = (249,72,82),                         # màu nền của title
+            title_bar_style = pygame_menu.widgets.MENUBAR_STYLE_ADAPTIVE, # style title bar
+            title_close_button = True,                                    # nút thoát // quay lại
+            title_close_button_background_color = (10, 10, 10),           # màu nút thoát // quay lại
+            title_font = pygame_menu.font.FONT_COMIC_NEUE,                # font title
+            title_font_antialias = True,                                  # khử răng cưa title font
+            title_font_color = (255, 255, 255),                           # màu title
+            title_font_shadow = True,                                     # bóng chữ title
+            title_font_shadow_color = (0, 0, 0),                          # màu bóng chữ title
+
+            # effect khi chọn
+            widget_selection_effect = pygame_menu.widgets.LeftArrowSelection(
                 arrow_size=(10, 15), arrow_right_margin=10, arrow_vertical_offset=0, blink_ms=0),
-            widget_font=pygame_menu.font.FONT_COMIC_NEUE,
-            widget_font_antialias=True,
-            widget_font_color=(0, 0, 0),
-            selection_color=(255, 255, 255),
-            widget_background_color=(249, 72, 82, 0),
-            widget_font_size=30,
-            widget_offset=(0, 0),
-            widget_margin=(0, 25),
-            widget_alignment=pygame_menu.locals.ALIGN_CENTER,
-            widget_box_arrow_color=(34, 24, 142),
-            widget_box_border_width=2,
-            widget_box_border_color=(0, 0, 0),
-            widget_box_margin=(10, 0),
-            widget_box_background_color=(255, 255, 255)
+
+            widget_font = pygame_menu.font.FONT_COMIC_NEUE,               # font widget
+            widget_font_antialias = True,                                 # font widget, khử răng cưa
+            widget_font_color = (0, 0, 0),                                # màu chữ chưa được chọn
+            selection_color = (255, 255, 255),                            # màu chữ được chọn
+            widget_background_color = (249,72,82, 0),                     # màu nền widget
+            widget_font_size = 30,                                        # size font widget                              
+            widget_offset = (0, 0),                                       # x-axis and y-axis (x, y) offset
+            widget_margin = (0, 25),                                      # khoảng cách của các ô
+            widget_alignment = pygame_menu.locals.ALIGN_CENTER,           # căn giữa
+            
+            widget_box_arrow_color = (34, 24, 142),                       # màu mũi tên chọn hộp
+            widget_box_border_width = 2,                                  # độ dày viền hộp chọn
+            widget_box_border_color = (0, 0, 0),                          # màu viền hộp chọn
+            widget_box_margin = (10, 0),                                  # vị trí hộp chọn
+            widget_box_background_color = (255, 255, 255)                 # màu hộp chọn
         )
 
         self.main_menu_theme = my_theme.copy()
         self.main_menu_theme.background_color = b_img
-        self.main_menu_theme.widget_offset = (0, 0.5) # need for main menu
+        self.main_menu_theme.widget_offset = (0.01, 0.505) # need for main menu
         self.main_menu_theme.title_close_button = False
+        self.main_menu_theme.selection_color=(249,16,23)
 
         self.login_menu_theme = my_theme.copy()
         self.login_menu_theme.background_color = login_img
-        self.login_menu_theme.widget_offset = (0, 0.4)  # need for main menu
+        self.login_menu_theme.widget_offset = (0.38, 0.22)  
         self.login_menu_theme.title_close_button = True
-        
-        self.register_menu_theme= my_theme.copy()
-        self.register_menu_theme.background_color = register_img
-        self.register_menu_theme.widget_offset = (0, 0.4)  # need for main menu
-        self.register_menu_theme.title_close_button = True
+        self.login_menu_theme.widget_alignment = pygame_menu.locals.ALIGN_LEFT
 
+        
+        self.register_menu_theme = my_theme.copy()
+        self.register_menu_theme.background_color = register_img
+        self.register_menu_theme.widget_offset = (0.38, 0.22)  
+        self.register_menu_theme.title_close_button = True
+        self.register_menu_theme.widget_alignment = pygame_menu.locals.ALIGN_LEFT
 
     def init_login_menu(self):
         self.login_menu = pygame_menu.Menu(
@@ -144,19 +154,23 @@ class LoginMenu():
             width=WINDOW_SIZE[0],  # * 0.8
         )
 
-        self.login_noti = self.login_menu.add.label('Login now')
+        self.login_noti = self.login_menu.add.label('User Login')
         usern_login = self.login_menu.add.text_input(
-            title='Username: ',
+            title='                     ',
             maxchar=10,
             textinput_id='username',
+            input_underline = '__',
+            # input_underline_vmargin = 3,
             onchange = self.reset_noti_login)
         passw_login = self.login_menu.add.text_input(
-            title='Password: ',
+            title='                     ',
             maxchar=10,
             textinput_id='password',
+            input_underline = '__',
+            # input_underline_vmargin = 1,
             password=False,
             onchange = self.reset_noti_login)
-        self.login_menu.add.button('Login', self.check_login)
+        self.login_menu.add.button('                            Login', self.check_login)
         self.login_menu.add.button('Return to main menu', pygame_menu.events.BACK)
 
     def init_register_menu(self):
@@ -171,23 +185,20 @@ class LoginMenu():
 
         self.regis_noti = self.register_menu.add.label('Register now')
         usern_regis = self.register_menu.add.text_input(
-            title='Username: ',
+            title='                     ',
             maxchar=10,
             textinput_id='username',
             onchange = self.reset_noti_regis)
         passw_regis = self.register_menu.add.text_input(
-            title='Password: ',
+            title='                     ',
             maxchar=10,
             textinput_id='password',
             password=False,
             onchange = self.reset_noti_regis)
-        self.register_menu.add.button('Register', self.check_register)
+        self.register_menu.add.button('                          Register', self.check_register)
         self.register_menu.add.button('Return to main menu', pygame_menu.events.BACK)
 
-
     def init_main_menu(self):
-        
-
          self.main_menu = pygame_menu.Menu(
             overflow=(False, False),
             height=WINDOW_SIZE[1],  # * 0.7,
@@ -197,15 +208,11 @@ class LoginMenu():
             width=WINDOW_SIZE[0]  # * 0.8
          )
 
-         Login_button= self.main_menu.add.button('Login', self.login_menu)
-         Login_button.set_position(300,400)
+         Login_button = self.main_menu.add.button('Login', self.login_menu)
         
-         Register_button= self.main_menu.add.button('Register', self.register_menu)
-         Register_button.set_position(300,500)
+         Register_button = self.main_menu.add.button('Register', self.register_menu)
         
-         Qiut_button =self.main_menu.add.button('Quit', pygame_menu.events.EXIT)
-         Qiut_button.set_position(300,600)
-
+         Quit_button = self.main_menu.add.button('Quit', pygame_menu.events.EXIT)
 
     def init_menu(self):
         self.init_login_menu()
@@ -313,6 +320,10 @@ class MenuGame():
             drawing_mode=101,
             image_path = 'assets/Home.png',
             image_id = 'nbackground')
+        startgame_img = pygame_menu.baseimage.BaseImage(
+            drawing_mode=101,
+            image_path = 'assets/start.png',
+            image_id = 'nbackground')
         Setting_img = pygame_menu.baseimage.BaseImage(
             drawing_mode=101,
             image_path = 'assets/Setting.png',
@@ -321,8 +332,7 @@ class MenuGame():
             drawing_mode=101,
             image_path = 'assets/leaderboard.png',
             image_id = 'nbackground')
-        
-        
+              
         my_theme = pygame_menu.themes.Theme(
             background_color = background_img, 
             border_color = (0, 255, 0),
@@ -360,39 +370,42 @@ class MenuGame():
             widget_box_border_color = (0, 0, 0),                          # màu viền hộp chọn
             widget_box_margin = (10, 0),                                  # vị trí hộp chọn
             widget_box_background_color = (255, 255, 255)                 # màu hộp chọn
-        )
+            )
 
         self.my_main_menu_theme = my_theme.copy()
         self.my_main_menu_theme.background_color = nbackground_img
-        self.my_main_menu_theme.widget_offset = (0, 0.45) # need for main menu
+        #self.my_main_menu_theme # need for main menu
         self.my_main_menu_theme.title_close_button = False
+        self.my_main_menu_theme.widget_margin = (-380, 10)
+        self.my_main_menu_theme.widget_offset = (0, 50)
+        self.my_main_menu_theme.selection_color=(249,16,23)
 
         self.my_start_game_theme = my_theme.copy()
-        #self.my_start_game_theme.background_color= background_img
+        self.my_start_game_theme.background_color= startgame_img
         self.my_start_game_theme.widget_font_size = 25
         self.my_start_game_theme.widget_alignment = pygame_menu.locals.ALIGN_LEFT
-        self.my_start_game_theme.widget_offset = (125, 0)
+        self.my_start_game_theme.widget_offset = (70, 210)
         self.my_start_game_theme.widget_margin = (-60, 25)
-        self.my_start_game_theme.widget_font_color = (255, 255, 255),                        # màu chữ chưa được chọn
+        self.my_start_game_theme.widget_font_color = (0, 0, 0),                        # màu chữ chưa được chọn
         self.my_start_game_theme.selection_color = (247, 12, 12),                            # màu chữ được chọn
-        self.my_start_game_theme.widget_box_background_color = (0, 0, 0) 
+        self.my_start_game_theme.widget_box_background_color = (0, 0, 0, 0) 
         #my_start_game_theme.widget_margin = (0, 0)
         
         self.my_load_game_theme = my_theme.copy()
         self.my_load_game_theme.widget_font_size = 25
-        self.my_load_game_theme.widget_font_color = (255, 255, 255),
+        self.my_load_game_theme.widget_font_color = (0, 0, 0),
         self.my_load_game_theme.selection_color = (247, 12, 12),
 
         self.leaderboard_theme = my_theme.copy()
         self.leaderboard_theme.background_color=Leaderboard_img
         self.leaderboard_theme.widget_font_size = 25
-        self.leaderboard_theme.widget_font_color = (255, 255, 255),
+        self.leaderboard_theme.widget_font_color = (0, 0, 0),
         self.leaderboard_theme.selection_color = (247, 12, 12),
 
         self.my_settings_menu_theme = my_theme.copy()
         self.my_settings_menu_theme.background_color=Setting_img 
         self.my_settings_menu_theme.widget_font_size = 20
-        self.my_settings_menu_theme.widget_font_color = (255, 255, 255),
+        self.my_settings_menu_theme.widget_font_color = (0, 0, 0),
         self.my_settings_menu_theme.selection_color = (247, 12, 12),                            # màu chữ được chọn
         self.my_settings_menu_theme.selection_color = (247, 12, 12),
         self.my_settings_menu_theme.widget_box_background_color = (0, 0, 0)
@@ -400,15 +413,15 @@ class MenuGame():
         self.my_settings_menu_theme.widget_margin = (-180, 25)
         self.my_settings_menu_theme.widget_alignment = pygame_menu.locals.ALIGN_LEFT
 
-
     def init_start_game(self):
         self.start_game_menu = pygame_menu.Menu(
         height=WINDOW_SIZE[1], #* 0.85,
         theme=self.my_start_game_theme,
         title='Start Game',
         width=WINDOW_SIZE[0], #* 0.6
-        columns= 2,
-        rows = [5, 6],
+        overflow = (False, False),
+        #columns= 2,
+        #rows = [5, 6],
         )
         items_levels = [('Easy (20x20)', '20'),
              ('Medium (40x40)', '40'),
@@ -494,7 +507,7 @@ class MenuGame():
             readonly_color = (247, 12, 12),
             selected_color = (247, 12, 12),
             readonly_selected_color = (247, 12, 12),
-            background_color = (0, 0, 0))
+            background_color = (0, 0, 0, 0))
         tam_row = self.start_game_menu.add.text_input(
             'Tam location (row): ',
             default=0,
@@ -532,6 +545,20 @@ class MenuGame():
             cursor_selection_enable=False
         ).hide()
 
+        location_input = self.start_game_menu.add.frame_v(
+            background_color=(0, 0, 0, 0),
+            border_color=(0, 0, 0, 0),
+            border_width=1,
+            float=True,
+            height=600,
+            max_height=600,
+            width=500
+        )
+
+        for j in [randomm, tam_row, tam_col, giahuy_row, giahuy_col]:
+            location_input.pack(j)
+        location_input.translate(400, -180)
+
     def init_load_game(self):
         DB = UserDatabase()
         data = DB.load_users(self.username, self.password)
@@ -541,54 +568,98 @@ class MenuGame():
                 games.append(game)
 
         self.saved_games = pygame_menu.Menu(
-            columns=2,
+            columns=1,
             height=WINDOW_SIZE[1], #* 0.45,
-            rows=[(len(games) + 1) // 2 + 1, (len(games) + 1) // 2 + 1],
             theme=self.my_load_game_theme,
+            column_max_width = 500,
             title='Load Game',
             width=WINDOW_SIZE[0], #* 0.9
         )
+        f = self.saved_games.add.frame_v(
+            background_color='#d2d3f7',
+            border_color='#36372f',
+            border_width=1,
+            float=True,
+            height=max(len(games) * 40, 250),
+            max_height=250,
+            width=400
+        )
+        labels = [self.saved_games.add.button(f'Game {i + 1}: {games[i]}', self.start_a_saved_game,) for i in range(len(games))]
+        for j in labels:
+            f.pack(j)
+        f.translate(130, -45)
+        '''
         for i in range(len(games)):
             self.saved_games.add.button(
                 f'Game {i + 1}: {games[i]}',
                 self.start_a_saved_game,
             )   ## START A SAVED GAME
-
-        self.saved_games.add.button(
-            'Return to main menu', pygame_menu.events.BACK,
-            background_color=pygame_menu.BaseImage(
-                image_path=pygame_menu.baseimage.IMAGE_EXAMPLE_METAL
-            )
-        ).background_inflate_to_selection_effect()
+        '''
+        button = self.saved_games.add.button('Return to main menu', pygame_menu.events.BACK,).background_inflate_to_selection_effect()
+        button.translate(130, 220)
 
     def init_leaderboard(self):
-     easy_list = self.get_data_leaderboard('easy')
-     medium_list = self.get_data_leaderboard('medium')
-     hard_list = self.get_data_leaderboard('hard')
+        easy_list = self.get_data_leaderboard('easy')
+        medium_list = self.get_data_leaderboard('medium')
+        hard_list = self.get_data_leaderboard('hard')
 
-     self.leaderboard = pygame_menu.Menu(
-        height=WINDOW_SIZE[1], #* 0.45,
-        theme=self.leaderboard_theme,
-        title='Leaderboard',
-        columns = 3,
-        rows = [len(easy_list)//2 + 1, len(medium_list)//2 + 1, len(hard_list)//2 + 2],
-        width=WINDOW_SIZE[0], #* 0.9
-    )
+        self.leaderboard = pygame_menu.Menu(
+            height=WINDOW_SIZE[1], #* 0.45,
+            theme=self.leaderboard_theme,
+            title='Leaderboard',
+            columns = 3,
+            rows = [len(easy_list)//2 + 1, len(medium_list)//2 + 1, len(hard_list)//2 + 2],
+            width=WINDOW_SIZE[0], #* 0.9
+            )
 
-     self.leaderboard.add.button('EASYLOVE')
-     for i in range(0, len(easy_list), 2):
-        self.leaderboard.add.label(easy_list[i] + ' - ' + str(easy_list[i + 1]))
+        easy_labels = [self.leaderboard.add.label(easy_list[i] + ' : ' + str(easy_list[i + 1]) + 's') for i in range(0, len(easy_list), 2)]
+        medium_labels = [self.leaderboard.add.label(medium_list[i] + ' : ' + str(medium_list[i + 1]) + 's') for i in range(0, len(medium_list), 2)]
+        hard_labels = [self.leaderboard.add.label(hard_list[i] + ' : ' + str(hard_list[i + 1]) + 's') for i in range(0, len(hard_list), 2)]
 
-     self.leaderboard.add.button('MEDIUMLOVE')
-     for i in range(0, len(medium_list), 2):
-        self.leaderboard.add.label(medium_list[i] + ' - ' + str(medium_list[i + 1]))
+        easy = self.leaderboard.add.frame_v(
+            background_color=(0, 0, 0, 0),   #'#d2d3f7',
+            border_color=(0, 0, 0, 0),  #'#36372f',
+            border_width=1,
+            float=True,
+            height=max(len(easy_labels) * 40 , 420),
+            max_height=420,
+            width=300
+        )
 
-     self.leaderboard.add.button('HARDLOVE')
-     for i in range(0, len(hard_list), 2):
-        self.leaderboard.add.label(hard_list[i] + ' - ' + str(hard_list[i + 1]))
-    
-     self.leaderboard.add.button('Return to main menu', pygame_menu.events.BACK)
+        medium = self.leaderboard.add.frame_v(
+            background_color=(0, 0, 0, 0),
+            border_color=(0, 0, 0, 0),
+            border_width=1,
+            float=True,
+            height=max(len(medium_labels) * 40 , 420),
+            max_height=420,
+            width=300
+        )
 
+        hard = self.leaderboard.add.frame_v(
+            background_color=(0, 0, 0, 0),
+            border_color=(0, 0, 0, 0),
+            border_width=1,
+            float=True,
+            height=max(len(hard_labels) * 40 , 420),
+            max_height=420,
+            width=300
+        )
+
+        for j in easy_labels:
+            easy.pack(j)
+        easy.translate(-250, 34)
+
+        for j in medium_labels:
+            medium.pack(j)
+        medium.translate(110, 34)
+
+        for j in hard_labels:
+            hard.pack(j)
+        hard.translate(465, 34)
+        
+        button = self.leaderboard.add.button('Return to main menu', pygame_menu.events.BACK)
+        button.translate(150, 480)
 
     def init_setting(self):
         self.settings_menu = pygame_menu.Menu(
@@ -672,16 +743,19 @@ class MenuGame():
         onclose=pygame_menu.events.EXIT,  # User press ESC button
         theme=self.my_main_menu_theme,
         title='Main menu',
+        position = (20, 20),
         width=WINDOW_SIZE[0] #* 0.8
         )
 
-
-        self.main_menu.add.button('Start Game', self.start_game_menu)
+        self.main_menu.add.button('Start game', self.start_game_menu)
+        self.main_menu.add.vertical_margin(85)
         self.main_menu.add.button('Load game', self.saved_games)
+        self.main_menu.add.vertical_margin(85)
         self.main_menu.add.button('Leaderboard', self.leaderboard)
+        self.main_menu.add.vertical_margin(75)
         self.main_menu.add.button('Settings', self.settings_menu)
-        self.main_menu.add.button('Log out', self.return_to_login)
-        
+        self.main_menu.add.vertical_margin(75)
+        self.main_menu.add.button('Log out', self.return_to_login)  
     
     def init_menu(self):
         self.init_start_game()
