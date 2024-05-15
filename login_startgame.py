@@ -60,6 +60,9 @@ class LoginMenu():
             self.regis_noti.set_title('Register DONE!')
             print('register OK!')
             pygame.time.delay(1500)
+            self.running_menu = False
+            g = MenuGame(data['username'], data['password'])
+            g.start()
         else:
             print('not register ok')
             self.regis_noti.set_title('Register AGAIN!')
@@ -111,7 +114,7 @@ class LoginMenu():
             widget_font = pygame_menu.font.FONT_COMIC_NEUE,               # font widget
             widget_font_antialias = True,                                 # font widget, khử răng cưa
             widget_font_color = (0, 0, 0),                                # màu chữ chưa được chọn
-            selection_color = (255, 255, 255),                            # màu chữ được chọn
+            selection_color = (249,16,23),                                # màu chữ được chọn
             widget_background_color = (249,72,82, 0),                     # màu nền widget
             widget_font_size = 30,                                        # size font widget                              
             widget_offset = (0, 0),                                       # x-axis and y-axis (x, y) offset
@@ -136,6 +139,7 @@ class LoginMenu():
         self.login_menu_theme.widget_offset = (0.38, 0.22)  
         self.login_menu_theme.title_close_button = True
         self.login_menu_theme.widget_alignment = pygame_menu.locals.ALIGN_LEFT
+        
 
         
         self.register_menu_theme = my_theme.copy()
@@ -170,7 +174,7 @@ class LoginMenu():
             # input_underline_vmargin = 1,
             password=False,
             onchange = self.reset_noti_login)
-        self.login_menu.add.button('                            Login', self.check_login)
+        self.login_menu.add.button('Login', self.check_login)
         self.login_menu.add.button('Return to main menu', pygame_menu.events.BACK)
 
     def init_register_menu(self):
@@ -621,9 +625,9 @@ class MenuGame():
             border_color=(0, 0, 0, 0),  #'#36372f',
             border_width=1,
             float=True,
-            height=max(len(easy_labels) * 40 , 420),
-            max_height=420,
-            width=300
+            height=max(len(easy_labels) * 40 , 320),
+            max_height=320,
+            width=270
         )
 
         medium = self.leaderboard.add.frame_v(
@@ -631,9 +635,9 @@ class MenuGame():
             border_color=(0, 0, 0, 0),
             border_width=1,
             float=True,
-            height=max(len(medium_labels) * 40 , 420),
-            max_height=420,
-            width=300
+            height=max(len(medium_labels) * 40 , 320),
+            max_height=320,
+            width=270
         )
 
         hard = self.leaderboard.add.frame_v(
@@ -641,25 +645,25 @@ class MenuGame():
             border_color=(0, 0, 0, 0),
             border_width=1,
             float=True,
-            height=max(len(hard_labels) * 40 , 420),
-            max_height=420,
-            width=300
+            height=max(len(hard_labels) * 40 , 320),
+            max_height=320,
+            width=270
         )
 
         for j in easy_labels:
             easy.pack(j)
-        easy.translate(-250, 34)
+        easy.translate(-250, 0)
 
         for j in medium_labels:
             medium.pack(j)
-        medium.translate(110, 34)
+        medium.translate(110, 0)
 
         for j in hard_labels:
             hard.pack(j)
-        hard.translate(465, 34)
+        hard.translate(465, 0)
         
         button = self.leaderboard.add.button('Return to main menu', pygame_menu.events.BACK)
-        button.translate(150, 480)
+        button.translate(150, 435)
 
     def init_setting(self):
         self.settings_menu = pygame_menu.Menu(
