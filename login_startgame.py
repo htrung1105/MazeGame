@@ -60,6 +60,9 @@ class LoginMenu():
             self.regis_noti.set_title('Register DONE!')
             print('register OK!')
             pygame.time.delay(1500)
+            self.running_menu = False
+            g = MenuGame(data['username'], data['password'])
+            g.start()
         else:
             print('not register ok')
             self.regis_noti.set_title('Register AGAIN!')
@@ -136,6 +139,7 @@ class LoginMenu():
         self.login_menu_theme.widget_offset = (0.38, 0.22)  
         self.login_menu_theme.title_close_button = True
         self.login_menu_theme.widget_alignment = pygame_menu.locals.ALIGN_LEFT
+        
 
         
         self.register_menu_theme = my_theme.copy()
@@ -170,7 +174,7 @@ class LoginMenu():
             # input_underline_vmargin = 1,
             password=False,
             onchange = self.reset_noti_login)
-        self.login_menu.add.button('                            Login', self.check_login)
+        self.login_menu.add.button('Login', self.check_login)
         self.login_menu.add.button('Return to main menu', pygame_menu.events.BACK)
 
     def init_register_menu(self):
