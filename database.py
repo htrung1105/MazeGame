@@ -171,6 +171,12 @@ db.save_game('user4', 'pas1', 'game2', {'username':'user4', 'password':'pas1', '
 db.save_game('user4', 'pas1', 'game3', {'username':'user4', 'password':'pas1', 'time':455, 'level' : 'hard'})
 db.save_game('user4', 'pas1', 'gameeasy', {'username':'user4', 'password':'pas1', 'time':23, 'level' : 'hard'})
 db.save_game('user4', 'pas1', 'gamekhooday', {'username':'user4', 'password':'pas1', 'time': 1, 'level' : 'hard'})
+db.save_game('user2', 'pas1', 'aaabsd', {'username':'user2', 'password':'pas1', 'time':34, 'level' : 'hard'})
+db.save_game('user4', 'pas1', 't1lol234', {'username':'user4', 'password':'pas1', 'time': 2324, 'level' : 'hard'})
+db.save_game('user4', 'pas1', 'gaasooday', {'username':'user4', 'password':'pas1', 'time': 12, 'level' : 'hard'})
+db.save_game('user2', 'pas1', 'aadasdsd', {'username':'user2', 'password':'pas1', 'time':556, 'level' : 'hard'})
+db.save_game('user4', 'pas1', 'tccdds34', {'username':'user4', 'password':'pas1', 'time': 34424, 'level' : 'hard'})
+
 
 pprint.pprint(db.leaderboard())
 #pprint.pprint(db.users)
