@@ -125,7 +125,7 @@ class MazeSolver:
                 break
 
             # Duyệt các ô xung quanh chưa thăm
-            for nx, ny in maze.grid[x][y].neighbors():
+            for nx, ny in maze.grid[x][y].neighbor():
                 if vis_time[nx][ny] == -1:
                     vis_time[nx][ny] = vis_time[x][y] + 1
                     maze.trace[nx][ny] = (x, y)

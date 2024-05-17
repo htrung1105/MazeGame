@@ -4,8 +4,7 @@ from maze_solver import *
 import pickle # save game/load game library
 
 # constant
-WIDTH, HEIGHT = 1300, 750
-FPS = 60
+WIDTH, HEIGHT, FPS = 1300, 750, 60
 SCREEN = pygame.display.set_mode((WIDTH, HEIGHT))
 
 # save a maze into a file
@@ -27,7 +26,11 @@ def main():
     clock = pygame.time.Clock()
     run = True
 
+    maze = Maze(40, 0, 0, 10, 10, 20)
+    maze.mazeGenerate()
+
     while run:
+        maze.render(SCREEN, 10, 10)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
