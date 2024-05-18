@@ -427,9 +427,9 @@ class MenuGame():
         #columns= 2,
         #rows = [5, 6],
         )
-        items_levels = [('Easy (20x20)', '20'),
+        items_levels = [('  Easy (20x20)  ', '20'),
              ('Medium (40x40)', '40'),
-             ('Hard (100x100)', '100')]
+             ('Hard (100x100) ', '100')]
 
         def data_fun_sgm() -> None:
             """
