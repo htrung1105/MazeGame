@@ -192,11 +192,13 @@ class LoginMenu():
             title='                     ',
             maxchar=10,
             textinput_id='username',
+            input_underline = '__',
             onchange = self.reset_noti_regis)
         passw_regis = self.register_menu.add.text_input(
             title='                     ',
             maxchar=10,
             textinput_id='password',
+            input_underline = '__',
             password=False,
             onchange = self.reset_noti_regis)
         self.register_menu.add.button('Register', self.check_register).translate(285,22)
