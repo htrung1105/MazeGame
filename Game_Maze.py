@@ -309,7 +309,7 @@ class Game:
         while self.current_page == "Playauto":
             self.draw_page('Playauto')
             time_text = self.FONT.render(self.clock.display_time(), True, ((211,151,68)))
-            self.screen.blit(time_text, (990, 500))
+            self.screen.blit(time_text, (990, 470))
             for event in pygame.event.get():
                 if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
                     pygame.quit()
@@ -422,5 +422,5 @@ if __name__ == "__main__":
     # Thay đổi chế độ chơi ở đây
     play_mode, name_game, difficult= "Auto", "Sheet1" , "Hard"
     pygame.init()  # Khởi tạo pygame
-    game = Game(play_mode, name_game, difficult,play_mode_game[1])  # Khởi tạo trò chơi
+    game = Game(play_mode, name_game, difficult,play_mode_game[0])  # Khởi tạo trò chơi
     game.run()     # Chạy trò chơi
