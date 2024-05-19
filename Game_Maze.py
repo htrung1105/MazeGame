@@ -309,7 +309,7 @@ class Game:
         while self.current_page == "Playauto":
             self.draw_page('Playauto')
             time_text = self.FONT.render(self.clock.display_time(), True, ((211,151,68)))
-            self.screen.blit(time_text, (990, 470))
+            self.screen.blit(time_text, (1000, 470))
             for event in pygame.event.get():
                 if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
                     pygame.quit()
@@ -374,7 +374,7 @@ class Game:
         while self.current_page == "Playyourself":
             self.draw_page('Playyourself')
             time_text = self.FONT.render(self.clock.display_time(), True, ((211,151,68)))
-            self.screen.blit(time_text, (990, 470))
+            self.screen.blit(time_text, (1000, 470))
             for event in pygame.event.get():
                 if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
                     pygame.quit()
