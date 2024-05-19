@@ -492,8 +492,8 @@ class MenuGame():
         location = self.start_game_menu.add.selector(
             title = 'Location',
             onchange = show_location,
-            items=[('Random', 0),
-                ('Selectable ', 1),],
+            items=[('  Random  ', 0),
+                (' Selectable', 1),],
             selector_id='location_mode',
             default=0,
             style='fancy'
