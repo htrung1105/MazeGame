@@ -577,7 +577,7 @@ class MenuGame():
             columns=1,
             height=WINDOW_SIZE[1], #* 0.45,
             theme=self.my_load_game_theme,
-            column_max_width = 500,
+            column_max_width = 700,
             title='Load Game',
             width=WINDOW_SIZE[0], #* 0.9
         )
@@ -588,12 +588,12 @@ class MenuGame():
             float=True,
             height=max(len(games) * 40, 250),
             max_height=250,
-            width=400
+            width=600
         )
         labels = [self.saved_games.add.button(f'Game {i + 1}: {games[i]}', self.start_a_saved_game,) for i in range(len(games))]
         for j in labels:
             f.pack(j)
-        f.translate(130, -45)
+        f.translate(100, -45)
         '''
         for i in range(len(games)):
             self.saved_games.add.button(
@@ -602,7 +602,7 @@ class MenuGame():
             )   ## START A SAVED GAME
         '''
         button = self.saved_games.add.button('Return to main menu', pygame_menu.events.BACK,).background_inflate_to_selection_effect()
-        button.translate(130, 220)
+        button.translate(100, 235)
 
     def init_leaderboard(self):
         easy_list = self.get_data_leaderboard('easy')
@@ -665,7 +665,7 @@ class MenuGame():
         hard.translate(465, 0)
         
         button = self.leaderboard.add.button('Return to main menu', pygame_menu.events.BACK)
-        button.translate(150, 435)
+        button.translate(185, 435)
 
     def init_setting(self):
         self.settings_menu = pygame_menu.Menu(
