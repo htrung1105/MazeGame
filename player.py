@@ -1,6 +1,7 @@
 import pygame
 from settings import *
 from utils import import_folder
+from tile import Goal
 from debug import *
 
 class Player(pygame.sprite.Sprite):
@@ -17,7 +18,7 @@ class Player(pygame.sprite.Sprite):
         self.animation_speed = 0.5
 
         self.direction = pygame.math.Vector2()
-        self.speed = 2
+        self.speed = 1
 
         self.obstacle_sprites = obstacle_sprites
 
@@ -59,11 +60,11 @@ class Player(pygame.sprite.Sprite):
                 self.status = self.status + '_idle'
 
     def move(self, speed):
-        # Tách di chuyển 1 bước 64 ô thành 'step' bước 'speed' ô
-        step = TILESIZE // speed    # mỗi bước di chuyển trong 1 frame
-        time_delay = PING // step   # thời gian delay sau mỗi frame
+        # Di chuyển mượt mà hơn
+        frame = TILESIZE // speed    # mỗi bước di chuyển trong 1 frame
+        time_delay = PING // frame   # thời gian delay sau mỗi frame
 
-        for _ in range(step):
+        for _ in range(frame):
             self.rect.x += self.direction.x * speed
             self.collision('horizontal')
             self.rect.y += self.direction.y * speed
@@ -110,3 +111,4 @@ class Player(pygame.sprite.Sprite):
         self.get_status()
         self.move(self.speed)
         self.animate()
+
