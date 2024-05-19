@@ -1,4 +1,5 @@
 from os import walk
+from settings import *
 import pygame
 
 def import_folder(path):
@@ -8,6 +9,7 @@ def import_folder(path):
         for image in img_files:
             full_path = path + '/' + image
             image_surf = pygame.image.load(full_path).convert_alpha()
+            image_surf = pygame.transform.smoothscale(image_surf, (TILESIZE, TILESIZE))
             surface_list.append(image_surf)
 
     return surface_list

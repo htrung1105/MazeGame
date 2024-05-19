@@ -11,16 +11,17 @@ class Level:
         self.display_surface = pygame.display.get_surface()
         self.world_map = world_map
 
+        self.num_row = len(self.world_map)
+        self.num_col = len(world_map[0])
+
         # sprite group setup
-        self.visible_sprites = YSortCameraGroup()
+        self.visible_sprites = YSortCameraGroup(self.num_row, self.num_col)
         self.obstacles_sprites = pygame.sprite.Group()
 
         self.create_map()
 
     def create_map(self):
-        self.num_row = len(self.world_map)
         for row_index, row in enumerate(self.world_map):
-            self.num_col = len(row)
             for col_index, col in enumerate(row):
                 x = col_index * TILESIZE
                 y = row_index * TILESIZE
@@ -35,7 +36,7 @@ class Level:
         self.visible_sprites.update()
 
 class YSortCameraGroup(pygame.sprite.Group):
-    def __init__(self):
+    def __init__(self, num_row, num_col):
 
         # general setup
         super().__init__()
@@ -46,6 +47,7 @@ class YSortCameraGroup(pygame.sprite.Group):
         self.offset = pygame.math.Vector2()
 
         self.floor_surf = pygame.image.load("assets/tilemap/ground.png").convert_alpha()
+        self.floor_surf = pygame.transform.smoothscale(self.floor_surf, (TILESIZE * num_col, TILESIZE * num_row))
         self.floor_rect = self.floor_surf.get_rect(topleft = (0, 0))
 
     def custom_draw(self, player, num_row, num_col):
