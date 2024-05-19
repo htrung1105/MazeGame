@@ -65,10 +65,10 @@ class LoginMenu():
             g.start()
         else:
             print('not register ok')
-            self.regis_noti.set_title('Register AGAIN!')
+            self.regis_noti.set_title('Invalid username or password')
 
     def reset_noti_regis(self, a):
-        self.regis_noti.set_title('Register now')
+        self.regis_noti.set_title('User Registration')
 
     def reset_noti_login(self, a):
         self.login_noti.set_title('User Login')
@@ -187,7 +187,7 @@ class LoginMenu():
             width=WINDOW_SIZE[0]  # * 0.8
         )
 
-        self.regis_noti = self.register_menu.add.label('Register now')
+        self.regis_noti = self.register_menu.add.label('User Registration')
         usern_regis = self.register_menu.add.text_input(
             title='                     ',
             maxchar=10,
