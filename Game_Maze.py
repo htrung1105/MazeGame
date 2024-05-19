@@ -276,8 +276,8 @@ class Game:
         home_page_buttons = [
             Button('', (0, 0), (170, 50)),
             Button(self.name, (945, 286), (250, 50)),
-            Button(self.playmode, (945, 350), (250, 50)),
-            Button(self.Difficult, (945, 410),(250, 50)),
+            Button(self.Difficult, (945, 350), (250, 50)),
+            Button(self.playmode, (945, 410),(250, 50)),
         ]
             
         
@@ -339,8 +339,8 @@ class Game:
         home_page_buttons = [
             Button('', (0, 0), (170, 50)),
             Button(self.name, (945, 286), (250, 50)),
-            Button(self.playmode, (945, 350), (250, 50)),
-            Button(self.Difficult, (945, 410),(250, 50)),
+            Button(self.Difficult, (945, 350), (250, 50)),
+            Button(self.playmode, (945, 410),(250, 50)),
         ]
             
         
