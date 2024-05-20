@@ -65,10 +65,10 @@ class LoginMenu():
             g.start()
         else:
             print('not register ok')
-            self.regis_noti.set_title('Register AGAIN!')
+            self.regis_noti.set_title('Invalid username or password')
 
     def reset_noti_regis(self, a):
-        self.regis_noti.set_title('Register now')
+        self.regis_noti.set_title('User Registration')
 
     def reset_noti_login(self, a):
         self.login_noti.set_title('User Login')
@@ -136,7 +136,7 @@ class LoginMenu():
 
         self.login_menu_theme = my_theme.copy()
         self.login_menu_theme.background_color = login_img
-        self.login_menu_theme.widget_offset = (0.38, 0.22)  
+        self.login_menu_theme.widget_offset = (0.395, 0.28)  
         self.login_menu_theme.title_close_button = True
         self.login_menu_theme.widget_alignment = pygame_menu.locals.ALIGN_LEFT
         
@@ -144,7 +144,7 @@ class LoginMenu():
         
         self.register_menu_theme = my_theme.copy()
         self.register_menu_theme.background_color = register_img
-        self.register_menu_theme.widget_offset = (0.38, 0.22)  
+        self.register_menu_theme.widget_offset = (0.395, 0.28) 
         self.register_menu_theme.title_close_button = True
         self.register_menu_theme.widget_alignment = pygame_menu.locals.ALIGN_LEFT
 
@@ -160,22 +160,22 @@ class LoginMenu():
 
         self.login_noti = self.login_menu.add.label('User Login')
         usern_login = self.login_menu.add.text_input(
-            title='                     ',
+            title='                       ',
             maxchar=10,
             textinput_id='username',
             input_underline = '__',
             # input_underline_vmargin = 3,
             onchange = self.reset_noti_login)
         passw_login = self.login_menu.add.text_input(
-            title='                     ',
+            title='                       ',
             maxchar=10,
             textinput_id='password',
             input_underline = '__',
             # input_underline_vmargin = 1,
             password=False,
             onchange = self.reset_noti_login)
-        self.login_menu.add.button('Login', self.check_login).translate(295,22)
-        self.login_menu.add.button('Return to main menu', pygame_menu.events.BACK).translate(440,180)
+        self.login_menu.add.button('Login', self.check_login).translate(323,5)
+        self.login_menu.add.button('Return to main menu', pygame_menu.events.BACK).translate(410,135)
 
     def init_register_menu(self):
         self.register_menu = pygame_menu.Menu(
@@ -187,7 +187,7 @@ class LoginMenu():
             width=WINDOW_SIZE[0]  # * 0.8
         )
 
-        self.regis_noti = self.register_menu.add.label('Register now')
+        self.regis_noti = self.register_menu.add.label('User Registration')
         usern_regis = self.register_menu.add.text_input(
             title='                     ',
             maxchar=10,
@@ -201,8 +201,8 @@ class LoginMenu():
             input_underline = '__',
             password=False,
             onchange = self.reset_noti_regis)
-        self.register_menu.add.button('Register', self.check_register).translate(285,22)
-        self.register_menu.add.button('Return to main menu', pygame_menu.events.BACK).translate(440,180)
+        self.register_menu.add.button('Register', self.check_register).translate(305,5)
+        self.register_menu.add.button('Return to main menu', pygame_menu.events.BACK).translate(410,135)
 
     def init_main_menu(self):
          self.main_menu = pygame_menu.Menu(
@@ -429,9 +429,9 @@ class MenuGame():
         #columns= 2,
         #rows = [5, 6],
         )
-        items_levels = [('  Easy (20x20)  ', '20'),
-             ('Medium (40x40)', '40'),
-             ('Hard (100x100) ', '100')]
+        items_levels = [('  Easy (20x20)   ', '20'),
+             (' Medium (40x40) ', '40'),
+             (' Hard (100x100) ', '100')]
 
         def data_fun_sgm() -> None:
             """
@@ -492,8 +492,8 @@ class MenuGame():
         location = self.start_game_menu.add.selector(
             title = 'Location',
             onchange = show_location,
-            items=[('Random', 0),
-                ('Selectable ', 1),],
+            items=[('  Random  ', 0),
+                (' Selectable', 1),],
             selector_id='location_mode',
             default=0,
             style='fancy'
@@ -577,7 +577,7 @@ class MenuGame():
             columns=1,
             height=WINDOW_SIZE[1], #* 0.45,
             theme=self.my_load_game_theme,
-            column_max_width = 500,
+            column_max_width = 700,
             title='Load Game',
             width=WINDOW_SIZE[0], #* 0.9
         )
@@ -588,12 +588,12 @@ class MenuGame():
             float=True,
             height=max(len(games) * 40, 250),
             max_height=250,
-            width=400
+            width=600
         )
         labels = [self.saved_games.add.button(f'Game {i + 1}: {games[i]}', self.start_a_saved_game,) for i in range(len(games))]
         for j in labels:
             f.pack(j)
-        f.translate(130, -45)
+        f.translate(100, -45)
         '''
         for i in range(len(games)):
             self.saved_games.add.button(
@@ -602,7 +602,7 @@ class MenuGame():
             )   ## START A SAVED GAME
         '''
         button = self.saved_games.add.button('Return to main menu', pygame_menu.events.BACK,).background_inflate_to_selection_effect()
-        button.translate(130, 220)
+        button.translate(100, 235)
 
     def init_leaderboard(self):
         easy_list = self.get_data_leaderboard('easy')
@@ -665,7 +665,7 @@ class MenuGame():
         hard.translate(465, 0)
         
         button = self.leaderboard.add.button('Return to main menu', pygame_menu.events.BACK)
-        button.translate(150, 435)
+        button.translate(185, 435)
 
     def init_setting(self):
         self.settings_menu = pygame_menu.Menu(
@@ -678,9 +678,9 @@ class MenuGame():
         )
 
         # Selectable items
-        items = [('Easy', 'EASY'),
+        items = [(' Easy ', ' EASY '),
                  ('Medium', 'MEDIUM'),
-                 ('Hard', 'HARD')]
+                 (' Hard ', ' HARD ')]
 
         self.settings_menu.add.selector(
             'Select difficulty fancy',
