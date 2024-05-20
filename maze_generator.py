@@ -92,16 +92,16 @@ class Maze:
             self.grid[nx][ny].walls['right'] = False
 
     # trả về đường đi gợi ý cho người chơi hướng đến điểm kết thúc đến khi gặp ngã 3
-    def hint(self, x: int, y: int) -> list[tuple]:
-        startNode = (self.startX, self.startY)
+    def getHint(self, x: int, y: int) -> list[tuple]:
+        endNode = (self.endX, self.endY)
 
         hintPath = []
         while True:
-            if (x, y) == startNode:
+            if (x, y) == endNode:
                 break
             x, y = self.hint[x][y]
             hintPath.append((x, y))
-            if list(self.grid[x][y].walls.values()).count(False) != 1:
+            if list(self.grid[x][y].walls.values()).count(False) > 2:
                 break
         return hintPath
 
@@ -115,9 +115,8 @@ class Maze:
         q.put((self.endX, self.endY))
 
         # BFS
-        while q:
+        while q.qsize() > 0:
             x, y = q.get()
-            print(x, y)
             for nx, ny in self.grid[x][y].neighbor():
                 if visited[nx][ny] is False:
                     visited[nx][ny] = True
@@ -149,7 +148,7 @@ class Maze:
             if deadEnd == 1:
                 stack.pop()
         # Sau khi sinh xong mê cung thì tạo gợi ý
-        # self.makeHint()
+        self.makeHint()
 
     def convert(self) -> list[list[str]]:
         grid = [['x'] * (self.size * 2 + 1) for _ in range(self.size * 2 + 1)]
