@@ -1,6 +1,7 @@
 import pygame
 from tile import Tile, Goal
 from player import Player
+from utils import import_folder
 
 class Level:
     def __init__(self, screen, world_map, tilesize):
@@ -9,6 +10,7 @@ class Level:
         self.display_surface = screen
         self.world_map = world_map
         self.tilesize = tilesize
+        self.pause = False
 
         self.num_row = len(self.world_map)
         self.num_col = len(world_map[0])
@@ -34,13 +36,15 @@ class Level:
     def run(self):
         # winning
         if self.goal.rect.colliderect(self.player.rect):
-            print('Win!!')
-            return True
+            self.player.rect = self.goal.rect
+            self.player.pause = True
+            self.pause = True
+            self.visible_sprites.remove(self.goal)
 
         # update and draw the game
         self.visible_sprites.custom_draw(self.player, self.num_row, self.num_col)
         self.visible_sprites.update()
-        return True
+        return self.pause
 
 class YSortCameraGroup(pygame.sprite.Group):
     def __init__(self, screen, num_row, num_col, tilesize):

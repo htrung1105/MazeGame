@@ -22,15 +22,14 @@ class Game:
                     sys.exit()
 
             self.screen.fill('black')
-            if self.level.run() is False:
-                running = False
+            print(self.level.run())
 
             pygame.display.update()
             self.clock.tick(60) # FPS = 60
 
 if __name__ == '__main__':
     screen = pygame.display.set_mode((1300, 750))
-    maze = Maze(10, 0, 0, 9, 9)
+    maze = Maze(5, 0, 0, 4, 4)
     maze.mazeGenerate()
     WORLD_MAP = maze.convert()
     TILESIZE = 64
