@@ -1,8 +1,7 @@
 from os import walk
-from settings import *
 import pygame
 
-def import_folder(path):
+def import_folder(path, TILESIZE):
     surface_list = []
 
     for _,__,img_files in walk(path):

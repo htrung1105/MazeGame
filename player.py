@@ -1,21 +1,22 @@
 import pygame
-from settings import *
 from utils import import_folder
-from tile import Goal
-from debug import *
+
+# const
+PING = 150
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, pos, groups, obstacle_sprites):
+    def __init__(self, pos, tilesize, groups, obstacle_sprites):
         super().__init__(groups)
+        self.tilesize = tilesize
         self.image = pygame.image.load("assets/test/player.png").convert_alpha()
-        self.image = pygame.transform.smoothscale(self.image, (TILESIZE, TILESIZE))
+        self.image = pygame.transform.smoothscale(self.image, (self.tilesize, self.tilesize))
         self.rect = self.image.get_rect(topleft = pos)
 
         # graphics setup
         self.import_player_assets()
         self.status = 'down'
         self.frame_index = 0
-        self.animation_speed = 0.5
+        self.animation_speed = 1
 
         self.direction = pygame.math.Vector2()
         self.speed = 1
@@ -29,7 +30,7 @@ class Player(pygame.sprite.Sprite):
 
         for animation in self.animations.keys():
             full_path = character_path + animation
-            self.animations[animation] = import_folder(full_path)
+            self.animations[animation] = import_folder(full_path, self.tilesize)
 
     def input(self):
         keys = pygame.key.get_pressed()
@@ -61,8 +62,8 @@ class Player(pygame.sprite.Sprite):
 
     def move(self, speed):
         # Di chuyển mượt mà hơn
-        frame = TILESIZE // speed    # mỗi bước di chuyển trong 1 frame
-        time_delay = PING // frame   # thời gian delay sau mỗi frame
+        frame = self.tilesize // speed    # mỗi bước di chuyển trong 1 frame
+        time_delay = PING // frame
 
         for _ in range(frame):
             self.rect.x += self.direction.x * speed
@@ -70,10 +71,10 @@ class Player(pygame.sprite.Sprite):
             self.rect.y += self.direction.y * speed
             self.collision('vertical')
             pygame.time.delay(time_delay)
-        if TILESIZE % speed != 0:
-            self.rect.x += self.direction.x * (TILESIZE % speed)
+        if self.tilesize % speed != 0:
+            self.rect.x += self.direction.x * (self.tilesize % speed)
             self.collision('horizontal')
-            self.rect.y += self.direction.y * (TILESIZE % speed)
+            self.rect.y += self.direction.y * (self.tilesize % speed)
             self.collision('vertical')
             pygame.time.delay(time_delay)
 

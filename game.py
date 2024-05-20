@@ -1,18 +1,17 @@
-import pygame, sys
+import pygame, sys, re
 
 from maze_generator import Maze
-from settings import *
 from level import Level
 
 class Game:
-    def __init__(self, screen, WORLD_MAP):
+    def __init__(self, screen, WORLD_MAP, TILESIZE):
 
         # general setup
         pygame.init()
         self.screen = screen
         self.clock = pygame.time.Clock()
 
-        self.level = Level(screen, WORLD_MAP)
+        self.level = Level(screen, WORLD_MAP, TILESIZE)
 
     def run(self):
         running = True
@@ -27,13 +26,14 @@ class Game:
                 running = False
 
             pygame.display.update()
-            self.clock.tick(FPS)
+            self.clock.tick(60) # FPS = 60
 
 if __name__ == '__main__':
-    screen = pygame.display.set_mode((WIDTH, HEIGHT))
-    maze = Maze(40, 0, 0, 39, 39)
+    screen = pygame.display.set_mode((1300, 750))
+    maze = Maze(10, 0, 0, 9, 9)
     maze.mazeGenerate()
     WORLD_MAP = maze.convert()
+    TILESIZE = 50
 
-    game = Game(screen, WORLD_MAP)
+    game = Game(screen, WORLD_MAP, TILESIZE)
     game.run()
