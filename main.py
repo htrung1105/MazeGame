@@ -26,11 +26,10 @@ def main():
     clock = pygame.time.Clock()
     run = True
 
-    maze = Maze(40, 0, 0, 10, 10, 20)
+    maze = Maze(40, 0, 0, 10, 10)
     maze.mazeGenerate()
 
     while run:
-        maze.render(SCREEN, 10, 10)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False

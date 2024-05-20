@@ -33,7 +33,7 @@ if __name__ == '__main__':
     maze = Maze(10, 0, 0, 9, 9)
     maze.mazeGenerate()
     WORLD_MAP = maze.convert()
-    TILESIZE = 50
+    TILESIZE = 64
 
     game = Game(screen, WORLD_MAP, TILESIZE)
     game.run()
