@@ -53,7 +53,7 @@ class Maze:
     def breakWall(self, x: int , y: int, dx: int, dy: int): phá tường theo hướng (dx, dy)
     def mazeGenerate(self): Sinh một mê cung
     def makeHint(self): tạo gợi ý đường đi bằng BFS cho toàn bộ ô trong mê cung
-    def hint(self, x: int, y: int) -> list[tuple]: trả về đường đi gợi ý cho người chơi hướng đến điểm kết thúc đến khi gặp ngã ba
+    def getHint(self, x: int, y: int) -> list[tuple]: trả về đường đi gợi ý cho người chơi hướng đến điểm kết thúc đến khi gặp ngã ba
     '''
 
     def __init__(self, size: int, startX: int, startY: int, endX: int, endY: int):
@@ -93,14 +93,21 @@ class Maze:
 
     # trả về đường đi gợi ý cho người chơi hướng đến điểm kết thúc đến khi gặp ngã 3
     def getHint(self, x: int, y: int) -> list[tuple]:
+        
+        def addPath(hintPath, x, y, nx, ny):
+            dx, dy = nx - x, ny - y
+            hintPath.append((1 + x * 2 + dx, 1 + y * 2 + dy))
+            hintPath.append((1 + nx * 2, 1 + ny * 2))
+
         endNode = (self.endX, self.endY)
 
         hintPath = []
         while True:
             if (x, y) == endNode:
                 break
-            x, y = self.hint[x][y]
-            hintPath.append((x, y))
+            nx, ny = self.hint[x][y]
+            addPath(hintPath, x, y, nx, ny)
+            x, y = nx, ny
             if list(self.grid[x][y].walls.values()).count(False) > 2:
                 break
         return hintPath
