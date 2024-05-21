@@ -35,6 +35,7 @@ class LoginMenu:
         self.sound.load_example_sounds()
         self.sound.set_sound(pygame_menu.sound.SOUND_TYPE_ERROR, None)
         self.enabled_sound = True
+        self.bgm_volume = 0.5
 
     def check_login(self):
         data = self.login_menu.get_input_data()
@@ -283,9 +284,11 @@ class MenuGame:
         if enabled:
             self.main_menu.set_sound(self.sound, recursive=True)
             print('Menu sounds were enabled')
+            pygame.mixer.music.set_volume(self.bgm_volume)
         else:
             self.main_menu.set_sound(None, recursive=True)
             print('Menu sounds were disabled')
+            pygame.mixer.music.set_volume(0)
 
     def return_to_login(self):
         self.running_menu = False
@@ -340,16 +343,22 @@ class MenuGame:
 
     def reset_all_setting(self):
         self.settings_menu.reset_value()
-        self.enabled_sound = self.sound_switch.get_value()
+        self.bgm_volume = 0.5
+        self.enabled_sound = True
         self.update_menu_sound_switch(self.enabled_sound)
+        pygame.mixer.music.set_volume(self.bgm_volume)
+        self.change_sfx(50)
 
     def change_bgm(self, volume):
         volume = int(volume) * 0.01
-        pygame.mixer.music.set_volume(volume)
+        self.bgm_volume = volume
+        if self.enabled_sound:
+            pygame.mixer.music.set_volume(volume)
 
     def change_sfx(self, volume):
         volume = int(volume) * 0.01
         self.sound.load_example_sounds(volume = volume)
+        self.main_menu.set_sound(self.sound, recursive=True)
 
     def init_theme(self):
         asset = ['Themebeach/', 'assets/']
@@ -771,6 +780,7 @@ class MenuGame:
             rangeslider_id='soundeffect',
             value_format=lambda x: str(int(x)),
             onchange = self.change_sfx)
+        self.bgm_volume = int(volume_slider.get_value()) * 0.01
 
         # Add a clock
         #self.settings_menu.add.clock(clock_format='%Y/%m/%d %H:%M', title_format='Clock: {0}')
