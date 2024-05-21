@@ -23,6 +23,8 @@ class LoginMenu():
     def __init__(self):
         self.running_menu = True
         self.surface = create_example_window('Maze Game', WINDOW_SIZE)
+        icon = pygame.image.load('assets/LOGOHCMUS.png')
+        pygame.display.set_icon(icon)
         self.main_menu = pygame_menu.Menu(
             overflow=(False, False),
             height=WINDOW_SIZE[1],  # * 0.7,
@@ -33,8 +35,8 @@ class LoginMenu():
 
     def check_login(self):
         data = self.login_menu.get_input_data()
-        for k in data.keys():
-            print(f'\t{k}\t=>\t{data[k]}')
+        #for k in data.keys():
+            #print(f'\t{k}\t=>\t{data[k]}')
 
         DB = UserDatabase()
         if not DB.login_user(username = data['username'], password = data['password']):
@@ -51,8 +53,8 @@ class LoginMenu():
 
     def check_register(self):
         data = self.register_menu.get_input_data()
-        for k in data.keys():
-            print(f'\t{k}\t=>\t{data[k]}')
+        #for k in data.keys():
+            #print(f'\t{k}\t=>\t{data[k]}')
 
         DB = UserDatabase()
         if DB.register_user(username = data['username'], password = data['password']):
@@ -155,6 +157,7 @@ class LoginMenu():
             onclose=pygame_menu.events.EXIT,  # User press ESC button
             theme=self.login_menu_theme,
             title='Login',
+            center_content=False,
             width=WINDOW_SIZE[0],  # * 0.8
         )
 
@@ -184,6 +187,7 @@ class LoginMenu():
             onclose=pygame_menu.events.EXIT,  # User press ESC button
             theme=self.register_menu_theme,
             title='Register',
+            center_content=False,
             width=WINDOW_SIZE[0]  # * 0.8
         )
 
@@ -211,6 +215,7 @@ class LoginMenu():
             onclose=pygame_menu.events.EXIT,  # User press ESC button
             theme=self.main_menu_theme,
             title='Main menu',
+            center_content=False,
             width=WINDOW_SIZE[0]  # * 0.8
          )
 
@@ -251,6 +256,8 @@ class MenuGame():
         self.theme_idx = theme_idx
 
         self.surface = create_example_window('Maze Game', WINDOW_SIZE)
+        icon = pygame.image.load('assets/LOGOHCMUS.png')
+        pygame.display.set_icon(icon)
         self.main_menu = pygame_menu.Menu(
             overflow = (False, False),
             height=WINDOW_SIZE[1] ,#* 0.7,
@@ -296,7 +303,7 @@ class MenuGame():
                 elif player['level'] == 'hard':
                     level_hard.append(player['username'])
                     level_hard.append(player['time'])
-        print(level_easy, level_medium, level_hard)
+        #print(level_easy, level_medium, level_hard)
         if level_to_return == 'easy':
             return level_easy
         elif level_to_return == 'medium':
@@ -310,13 +317,13 @@ class MenuGame():
         game = self.saved_games.get_index()
         data = self.saved_games.get_widgets()
         data = data[game].get_title()
-        print(data)
+        #print(data)
         game_name = ''
         for i in range(len(data) - 1):
             if data[i:i + 2] == ': ':
                 game_name = data[i + 2:]
                 break
-        print(game_name)
+        print('Load game:: ' + game_name)
         return (self.username, self.password, game_name) ## START A SAVED GAME
 
     def change_theme(self, a, b):
@@ -400,8 +407,8 @@ class MenuGame():
         self.my_start_game_theme.background_color= startgame_img
         self.my_start_game_theme.widget_font_size = 25
         self.my_start_game_theme.widget_alignment = pygame_menu.locals.ALIGN_LEFT
-        self.my_start_game_theme.widget_offset = (70, 210)
-        self.my_start_game_theme.widget_margin = (-60, 25)
+        self.my_start_game_theme.widget_offset = (70, 200)
+        self.my_start_game_theme.widget_margin = (-60, 20)
         self.my_start_game_theme.widget_font_color = (0, 0, 0),                        # màu chữ chưa được chọn
         self.my_start_game_theme.selection_color = (247, 12, 12),                            # màu chữ được chọn
         self.my_start_game_theme.widget_box_background_color = (0, 0, 0, 0) 
@@ -436,6 +443,7 @@ class MenuGame():
         title='Start Game',
         width=WINDOW_SIZE[0], #* 0.6
         overflow = (False, False),
+        center_content=False,
         #columns= 2,
         #rows = [5, 6],
         )
@@ -465,6 +473,14 @@ class MenuGame():
             if next_step:
                 print('valid !! playgame now')
                 self.running_menu = False
+
+        game_name = self.start_game_menu.add.text_input(
+            title='Game name:  ',
+            maxchar=10,
+            textinput_id='game_name',
+            input_underline = '__',
+            # input_underline_vmargin = 1,
+            password=False)        
 
         # Add some buttons
         self.start_game_menu.add.selector(
@@ -523,7 +539,7 @@ class MenuGame():
             readonly_color = (247, 12, 12),
             selected_color = (247, 12, 12),
             readonly_selected_color = (247, 12, 12),
-            background_color = (0, 0, 0, 0))
+            background_color = (246,243,229, 255))
         tam_row = self.start_game_menu.add.text_input(
             'Tam location (row): ',
             default=0,
@@ -570,10 +586,11 @@ class MenuGame():
             max_height=600,
             width=500
         )
+        location_input._pack_margin_warning = False
 
         for j in [randomm, tam_row, tam_col, giahuy_row, giahuy_col]:
             location_input.pack(j)
-        location_input.translate(400, -180)
+        location_input.translate(420, -220)
 
     def init_load_game(self):
         DB = UserDatabase()
@@ -600,6 +617,7 @@ class MenuGame():
             max_height=250,
             width=600
         )
+        f._pack_margin_warning = False
         labels = [self.saved_games.add.button(f'Game {i + 1}: {games[i]}', self.start_a_saved_game,) for i in range(len(games))]
         for j in labels:
             f.pack(j)
@@ -641,6 +659,7 @@ class MenuGame():
             max_height=320,
             width=270
         )
+        easy._pack_margin_warning = False
 
         medium = self.leaderboard.add.frame_v(
             background_color=(0, 0, 0, 0),
@@ -651,6 +670,7 @@ class MenuGame():
             max_height=320,
             width=270
         )
+        medium._pack_margin_warning = False
 
         hard = self.leaderboard.add.frame_v(
             background_color=(0, 0, 0, 0),
@@ -661,6 +681,7 @@ class MenuGame():
             max_height=320,
             width=270
         )
+        hard._pack_margin_warning = False
 
         for j in easy_labels:
             easy.pack(j)
@@ -748,6 +769,7 @@ class MenuGame():
             max_height=800,
             width=500
         )
+        left_setting._pack_margin_warning = False
 
         right_setting = self.settings_menu.add.frame_v(
             background_color=(0, 0, 0, 0),   #'#d2d3f7',
@@ -758,6 +780,7 @@ class MenuGame():
             max_height=800,
             width=500
         )
+        right_setting._pack_margin_warning = False
 
         fill_l, fill_r = [0, 0, 0, 0], [0, 0, 0, 0]
         for i in range(4):
@@ -787,6 +810,7 @@ class MenuGame():
         theme=self.my_main_menu_theme,
         title='Main menu',
         position = (20, 20),
+        center_content=False,
         width=WINDOW_SIZE[0] #* 0.8
         )
 
