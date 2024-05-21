@@ -73,7 +73,7 @@ class LoginMenu():
         self.login_noti.set_title('User Login')
             
     def init_theme(self):
-        asset= ['asset1/', 'assets/']
+        asset= ['Themebeach/', 'assets/']
         x=0
         b_img = pygame_menu.baseimage.BaseImage(
             drawing_mode=101,
@@ -318,7 +318,7 @@ class MenuGame():
         return (self.username, self.password, game_name) ## START A SAVED GAME
 
     def init_theme(self):
-        asset= ['asset1/', 'assets/']
+        asset= ['Themebeach/', 'assets/']
         x= 0
         background_img = pygame_menu.baseimage.BaseImage(
             drawing_mode=101,
