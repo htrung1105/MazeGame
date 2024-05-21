@@ -35,6 +35,16 @@ class MazeSolver:
     def __init__(self, maze: Maze):
         self.maze = maze
     
+    def standardized(self, path):
+        resPath = []
+        for i in range(len(path) - 1):
+            x, y = path[i]
+            nx, ny = path[i + 1]
+            dx, dy = nx - x, ny - y
+            resPath.append((1 + x * 2 + dx, 1 + y * 2 + dy))
+            resPath.append((1 + nx * 2, 1 + ny * 2))
+        return resPath
+
     # trả về list gồm thứ tự các đường đi tìm được bao gồm cả điểm bắt đầu và kết thúc
     def tracePath(self):
         # lấy các thông số của mê cung để dễ xử lý
@@ -45,13 +55,13 @@ class MazeSolver:
         y = self.maze.endY
 
         # truy ngược đường đi
-        path = []
+        path = [(x, y)]
         while (x, y) != (startX, startY):
-            path.append((x, y))
             x, y = maze.trace[x][y]
-        path.append((x, y))
+            path.append((x, y))
         path.reverse()
-        return path
+        print(path)
+        return self.standardized(path)
 
     # chạy thuật toán A* và trả về thứ tự thăm các ô
     def AStarSearch(self) -> list[tuple]:
@@ -95,7 +105,7 @@ class MazeSolver:
                     g[nx][ny] = new_g
                     f[nx][ny] = new_f
                     pq.push((new_f, nx, ny))
-        return visited
+        return self.standardized(visited)
 
     def BFS(self):
         # lấy các thông số của mê cung
@@ -114,7 +124,7 @@ class MazeSolver:
         q.put((startX, startY))
 
         # Thuật toán BFS
-        while q:
+        while q.qsize() > 0:
             x, y = q.get()
 
             # ô (x, y) đã đươc thăm
@@ -130,4 +140,4 @@ class MazeSolver:
                     vis_time[nx][ny] = vis_time[x][y] + 1
                     maze.trace[nx][ny] = (x, y)
                     q.put((nx, ny))
-        return visited
+        return self.standardized(visited)
