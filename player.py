@@ -114,6 +114,9 @@ class Player(pygame.sprite.Sprite):
         self.image = animation[int(self.frame_index)]
         self.rect = self.image.get_rect(center = self.rect.center)
 
+    def get_position(self):
+        return self.rect.topleft[1] // self.tilesize, self.rect.topleft[0] // self.tilesize
+
     def update(self):
         self.input()
         self.get_status()

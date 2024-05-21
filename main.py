@@ -1,11 +1,15 @@
 import pygame
-from maze_generator import *
+
+from game import *
 from maze_solver import *
+from maze_generator import *
+
 import pickle # save game/load game library
 
 # constant
 WIDTH, HEIGHT, FPS = 1300, 750, 60
 SCREEN = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("Maze Game by Group 2 - 23TNT1")
 
 # save a maze into a file
 def saveMaze(maze: Maze, filename: str):
@@ -26,13 +30,16 @@ def main():
     clock = pygame.time.Clock()
     run = True
 
-    maze = Maze(40, 0, 0, 10, 10)
+    maze = Maze(40, 0, 0, 39, 39)
     maze.mazeGenerate()
 
     while run:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
+
+        game = Game(SCREEN, maze, 50)
+        game.run()
 
         pygame.display.update()
         clock.tick(FPS)

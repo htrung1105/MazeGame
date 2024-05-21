@@ -1,19 +1,23 @@
 import pygame
-from tile import Tile, Goal
+from tile import *
 from player import Player
-from utils import import_folder
+from maze_generator import Maze
+from debug import debug
 
 class Level:
-    def __init__(self, screen, world_map, tilesize):
+    def __init__(self, screen, maze, tilesize):
 
         # get the display surface
         self.display_surface = screen
-        self.world_map = world_map
+        self.maze = maze
         self.tilesize = tilesize
+
+        self.world_map = maze.convert()
         self.pause = False
+        self.hint = False
 
         self.num_row = len(self.world_map)
-        self.num_col = len(world_map[0])
+        self.num_col = len(self.world_map[0])
 
         # sprite group setup
         self.visible_sprites = YSortCameraGroup(screen, self.num_row, self.num_col, self.tilesize)
@@ -35,15 +39,34 @@ class Level:
 
     def run(self):
         # winning
-        if self.goal.rect.colliderect(self.player.rect):
+        if self.pause is False and self.goal.rect.colliderect(self.player.rect):
             self.player.rect = self.goal.rect
             self.player.pause = True
             self.pause = True
             self.visible_sprites.remove(self.goal)
 
+        x, y = 0, 0
+        nx, ny = 0, 0
+        dir = None
+        if self.hint is False:
+            self.visible_sprites.remove(self.hint)
+        else:
+            x, y = self.player.get_position()
+            nx, ny = self.maze.hint[x][y]
+            if nx - x > 0:
+                dir = 'right'
+            elif nx - x < 0:
+                dir = 'left'
+            elif ny - y > 0:
+                dir = 'down'
+            else:
+                dir = 'up'
+            self.hint = Hint((ny * self.tilesize, nx * self.tilesize), self.tilesize, dir, [self.visible_sprites])
+
         # update and draw the game
         self.visible_sprites.custom_draw(self.player, self.num_row, self.num_col)
         self.visible_sprites.update()
+        debug(self.display_surface, (self.hint, x, y, nx, ny, dir))
         return self.pause
 
 class YSortCameraGroup(pygame.sprite.Group):
