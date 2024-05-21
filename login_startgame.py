@@ -19,7 +19,6 @@ WINDOW_SIZE = (1300, 750)
 #   g = MenuGame(username, password)
 #   g.start()
 # -------------------------------------------------------
-
 class LoginMenu():
     def __init__(self):
         self.running_menu = True
@@ -74,21 +73,22 @@ class LoginMenu():
         self.login_noti.set_title('User Login')
             
     def init_theme(self):
+        asset= ['asset1/', 'assets/']
+        x=0
         b_img = pygame_menu.baseimage.BaseImage(
             drawing_mode=101,
-            image_path='assets/background.png',
+            image_path=asset[x] + 'background.png',
             image_id='background')
        
         login_img = pygame_menu.baseimage.BaseImage(
             drawing_mode=101,
-            image_path='assets/login.png',
+            image_path=asset[x]+ 'login.png',
             image_id='background')
             
         register_img = pygame_menu.baseimage.BaseImage(
             drawing_mode=101,
-            image_path='assets/register.png',
+            image_path=asset[x]+'register.png',
             image_id='background')
-
         my_theme = pygame_menu.themes.Theme(
             background_color = b_img, 
             border_color = (0, 255, 0),
@@ -318,25 +318,27 @@ class MenuGame():
         return (self.username, self.password, game_name) ## START A SAVED GAME
 
     def init_theme(self):
+        asset= ['asset1/', 'assets/']
+        x= 0
         background_img = pygame_menu.baseimage.BaseImage(
             drawing_mode=101,
-            image_path = 'assets/nbackground.png',
+            image_path = asset[x]+ 'nbackground.png',
             image_id = 'background')
         nbackground_img = pygame_menu.baseimage.BaseImage(
             drawing_mode=101,
-            image_path = 'assets/Home.png',
+            image_path = asset[x]+'Home.png',
             image_id = 'nbackground')
         startgame_img = pygame_menu.baseimage.BaseImage(
             drawing_mode=101,
-            image_path = 'assets/start.png',
+            image_path = asset[x]+'start.png',
             image_id = 'nbackground')
         Setting_img = pygame_menu.baseimage.BaseImage(
             drawing_mode=101,
-            image_path = 'assets/Setting.png',
+            image_path = asset[x]+ 'Setting.png',
             image_id = 'nbackground')
         Leaderboard_img=pygame_menu.baseimage.BaseImage(
             drawing_mode=101,
-            image_path = 'assets/leaderboard.png',
+            image_path =asset[x]+ 'leaderboard.png',
             image_id = 'nbackground')
               
         my_theme = pygame_menu.themes.Theme(
