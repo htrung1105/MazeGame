@@ -239,7 +239,7 @@ class LoginMenu():
             pygame.display.flip()
 
 class MenuGame():
-    def __init__(self, username, password):
+    def __init__(self, username, password, theme_idx = 0):
         self.username = username
         self.password = password
         self.running_menu = True
@@ -248,7 +248,9 @@ class MenuGame():
         self.sound.load_example_sounds()
         self.sound.set_sound(pygame_menu.sound.SOUND_TYPE_ERROR, None)
 
-        self.surface = create_example_window('Main Menu', WINDOW_SIZE)
+        self.theme_idx = theme_idx
+
+        self.surface = create_example_window('Maze Game', WINDOW_SIZE)
         self.main_menu = pygame_menu.Menu(
             overflow = (False, False),
             height=WINDOW_SIZE[1] ,#* 0.7,
@@ -257,19 +259,19 @@ class MenuGame():
             width=WINDOW_SIZE[0] #* 0.8
         )
 
-    def update_menu_sound(self, value: Tuple, enabled: bool) -> None:
+    def update_menu_sound_switch(self, enabled: bool) -> None:
         """
         Update menu sound.
 
         :param value: Value of the selector (Label and index)
         :param enabled: Parameter of the selector, (True/False)
         """
-        assert isinstance(value, tuple)
+        # assert isinstance(value, tuple)
         if enabled:
-            main_menu.set_sound(sound, recursive=True)
+            self.main_menu.set_sound(self.sound, recursive=True)
             print('Menu sounds were enabled')
         else:
-            main_menu.set_sound(None, recursive=True)
+            self.main_menu.set_sound(None, recursive=True)
             print('Menu sounds were disabled')
 
     def return_to_login(self):
@@ -317,28 +319,34 @@ class MenuGame():
         print(game_name)
         return (self.username, self.password, game_name) ## START A SAVED GAME
 
+    def change_theme(self, a, b):
+        self.theme_idx = a[1]
+        self.running_menu = False 
+        g = MenuGame(self.username, self.password, a[1])
+        g.start()
+
     def init_theme(self):
-        asset= ['Themebeach/', 'assets/']
-        x= 0
+        asset = ['Themebeach/', 'assets/']
+        x = self.theme_idx
         background_img = pygame_menu.baseimage.BaseImage(
             drawing_mode=101,
-            image_path = asset[x]+ 'nbackground.png',
+            image_path = asset[x] + 'nbackground.png',
             image_id = 'background')
         nbackground_img = pygame_menu.baseimage.BaseImage(
             drawing_mode=101,
-            image_path = asset[x]+'Home.png',
+            image_path = asset[x] + 'Home.png',
             image_id = 'nbackground')
         startgame_img = pygame_menu.baseimage.BaseImage(
             drawing_mode=101,
-            image_path = asset[x]+'start.png',
+            image_path = asset[x] + 'start.png',
             image_id = 'nbackground')
         Setting_img = pygame_menu.baseimage.BaseImage(
             drawing_mode=101,
-            image_path = asset[x]+ 'Setting.png',
+            image_path = asset[x] + 'Setting.png',
             image_id = 'nbackground')
         Leaderboard_img=pygame_menu.baseimage.BaseImage(
             drawing_mode=101,
-            image_path =asset[x]+ 'leaderboard.png',
+            image_path =asset[x] + 'leaderboard.png',
             image_id = 'nbackground')
               
         my_theme = pygame_menu.themes.Theme(
@@ -416,7 +424,7 @@ class MenuGame():
         self.my_settings_menu_theme.widget_font_color = (0, 0, 0),
         self.my_settings_menu_theme.selection_color = (247, 12, 12),                            # màu chữ được chọn
         self.my_settings_menu_theme.selection_color = (247, 12, 12),
-        self.my_settings_menu_theme.widget_box_background_color = (0, 0, 0)
+        self.my_settings_menu_theme.widget_box_background_color = (0, 0, 0, 0)
         self.my_settings_menu_theme.widget_offset = (125, 0)
         self.my_settings_menu_theme.widget_margin = (-180, 25)
         self.my_settings_menu_theme.widget_alignment = pygame_menu.locals.ALIGN_LEFT
@@ -670,79 +678,106 @@ class MenuGame():
         button.translate(185, 435)
 
     def init_setting(self):
+        self.setting_help = pygame_menu.Menu(
+        height=WINDOW_SIZE[1], #* 0.85,
+        theme=self.my_settings_menu_theme,
+        title='Help',
+        width=WINDOW_SIZE[0], #* 0.6
+        )
+
+        self.setting_about = pygame_menu.Menu(
+        height=WINDOW_SIZE[1], #* 0.85,
+        theme=self.my_settings_menu_theme,
+        title='About',
+        width=WINDOW_SIZE[0], #* 0.6
+        )
+
         self.settings_menu = pygame_menu.Menu(
         height=WINDOW_SIZE[1], #* 0.85,
         theme=self.my_settings_menu_theme,
         title='Settings',
         width=WINDOW_SIZE[0], #* 0.6
-        columns = 2,
-        rows = [6, 6]
+        #columns = 2,
+        #rows = [6, 6]
         )
 
-        # Selectable items
-        items = [(' Easy ', ' EASY '),
-                 ('Medium', 'MEDIUM'),
-                 (' Hard ', ' HARD ')]
+        # Theme
+        items = [('  Beach  ', 'Theme2'),
+                (' Default ', 'Theme1'),]
 
-        self.settings_menu.add.selector(
-            'Select difficulty fancy',
+        select_theme = self.settings_menu.add.selector(
+            'Select theme (enter to apply)',
             items,
-            selector_id='difficulty_fancy',
-            default=1,
-            style='fancy'
-        )
+            selector_id='theme',
+            onreturn = self.change_theme,
+            default=self.theme_idx,
+            style='fancy')
 
-        # Create switch
-        self.settings_menu.add.toggle_switch('First Switch', False,
-                                        toggleswitch_id='first_switch')
-        self.settings_menu.add.toggle_switch('Other Switch', True,
-                                        toggleswitch_id='second_switch',
-                                        state_text=('Apagado', 'Encendido'))
+        # Sound
 
-        # Single value from range
-        rslider = self.settings_menu.add.range_slider('Volume', 50, (0, 100), 1,
+        sound_switch = self.settings_menu.add.toggle_switch('Sound', True,
+                                        toggleswitch_id='sound_switch',
+                                        onchange=self.update_menu_sound_switch,
+                                        state_text=('Off', 'On'))
+
+        volume_slider = self.settings_menu.add.range_slider('BGM', 50, (0, 100), 1,
                                                  rangeslider_id='volume',
                                                  value_format=lambda x: str(int(x)))
-        rslider = self.settings_menu.add.range_slider('Sound effect', 50, (0, 100), 1,
+        sfx_slider = self.settings_menu.add.range_slider('SFX', 50, (0, 100), 1,
                                                  rangeslider_id='soundeffect',
                                                  value_format=lambda x: str(int(x)))
 
-        # Add a progress bar
-        progress = self.settings_menu.add.progress_bar('Progress', default=rslider.get_value(), progressbar_id='progress')
+        # Add a clock
+        #self.settings_menu.add.clock(clock_format='%Y/%m/%d %H:%M', title_format='Clock: {0}')
 
-        def on_change_slider(val: int) -> None:
-            """
-            Updates the progress bar.
-
-            :param val: Value of the progress from 0 to 100
-            """
-            progress.set_value(val)
-
-        rslider.set_onchange(on_change_slider)
-
-        # Add a block
-        self.settings_menu.add.clock(clock_format='%Y/%m/%d %H:%M', title_format='Clock: {0}')
-
-        def data_fun() -> None:
-            """
-            Print data of the menu.
-            """
-            print('Settings data:')
-            data = settings_menu.get_input_data()
-            for k in data.keys():
-                print(f'\t{k}\t=>\t{data[k]}')
+        # Add help, about
+        help_button = self.settings_menu.add.button('Help', self.setting_help)
+        about_button = self.settings_menu.add.button('About', self.setting_about)
 
         # Add final buttons
-        self.settings_menu.add.selector(
-            'Menu sounds ',
-            [('Off', False), ('On', True)],
-            onchange=self.update_menu_sound,
-            style='fancy'
-                               )
-        self.settings_menu.add.button('Store data', data_fun, button_id='store')  # Call function
-        self.settings_menu.add.button('Restore original values', self.settings_menu.reset_value)
-        self.settings_menu.add.button('Return to main menu', pygame_menu.events.BACK,
-                                 align=pygame_menu.locals.ALIGN_CENTER)
+        restore_button = self.settings_menu.add.button('Restore original setting', self.settings_menu.reset_value)
+        return_button = self.settings_menu.add.button('Return to main menu', pygame_menu.events.BACK)#,align=pygame_menu.locals.ALIGN_CENTER)
+
+        
+        left_setting = self.settings_menu.add.frame_v(
+            background_color=(0, 0, 0, 0),   #'#d2d3f7',
+            border_color=(0, 0, 0, 0),  #'#36372f',
+            border_width=1,
+            float=True,
+            height=800,
+            max_height=800,
+            width=500
+        )
+
+        right_setting = self.settings_menu.add.frame_v(
+            background_color=(0, 0, 0, 0),   #'#d2d3f7',
+            border_color=(0, 0, 0, 0),  #'#36372f',
+            border_width=1,
+            float=True,
+            height=800,
+            max_height=800,
+            width=500
+        )
+
+        fill_l, fill_r = [0, 0, 0, 0], [0, 0, 0, 0]
+        for i in range(4):
+            fill_l[i] = self.settings_menu.add.vertical_margin(35)
+            fill_r[i] = self.settings_menu.add.vertical_margin(35)
+
+        left_widget = [select_theme, sound_switch, volume_slider, sfx_slider]
+        right_widget = [help_button, about_button, restore_button, return_button]
+
+        for i in range(4):
+            left_setting.pack(left_widget[i])
+            left_setting.pack(fill_l[i])
+            right_setting.pack(right_widget[i])
+            right_setting.pack(fill_r[i])
+
+        left_setting.translate(0,230)
+        left_setting.force_menu_surface_update()
+
+        right_setting.translate(680,230)
+        right_setting.force_menu_surface_update()
 
     def init_main_menu(self):
         self.main_menu = pygame_menu.Menu(
@@ -787,5 +822,7 @@ class MenuGame():
 
 
 if __name__ == '__main__':
-    g = LoginMenu()
+    #g = LoginMenu()
+    #g.start()
+    g = MenuGame('user4','pas1')
     g.start()
