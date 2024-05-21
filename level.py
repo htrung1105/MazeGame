@@ -3,6 +3,7 @@ from tile import *
 from player import Player
 from maze_generator import Maze
 from debug import debug
+pygame.init()
 
 class Level:
     def __init__(self, screen, maze, tilesize):
@@ -14,7 +15,6 @@ class Level:
 
         self.world_map = maze.convert()
         self.pause = False
-        self.hint = False
 
         self.num_row = len(self.world_map)
         self.num_col = len(self.world_map[0])
@@ -24,6 +24,7 @@ class Level:
         self.obstacles_sprites = pygame.sprite.Group()
 
         self.create_map()
+        self.stack = []
 
     def create_map(self):
         for row_index, row in enumerate(self.world_map):
@@ -45,28 +46,33 @@ class Level:
             self.pause = True
             self.visible_sprites.remove(self.goal)
 
-        x, y = 0, 0
-        nx, ny = 0, 0
-        dir = None
-        if self.hint is False:
-            self.visible_sprites.remove(self.hint)
-        else:
-            x, y = self.player.get_position()
-            nx, ny = self.maze.hint[x][y]
-            if nx - x > 0:
-                dir = 'right'
-            elif nx - x < 0:
-                dir = 'left'
-            elif ny - y > 0:
-                dir = 'down'
-            else:
-                dir = 'up'
-            self.hint = Hint((ny * self.tilesize, nx * self.tilesize), self.tilesize, dir, [self.visible_sprites])
+        # save old pos of player
+        pre_pos = self.player.rect.topleft
 
         # update and draw the game
         self.visible_sprites.custom_draw(self.player, self.num_row, self.num_col)
         self.visible_sprites.update()
-        debug(self.display_surface, (self.hint, x, y, nx, ny, dir))
+
+        # get new pos of player
+        now_pos = self.player.rect.topleft
+        dx, dy = now_pos[0] - pre_pos[0], now_pos[1] - pre_pos[1]
+
+        if dx != 0 or dy != 0:
+            if dx > 0:
+                status = 'right'
+            elif dx < 0:
+                status = 'left'
+            elif dy > 0:
+                status = 'down'
+            else:
+                status = 'up'
+
+            if len(self.stack) > 0 and now_pos == self.stack[-1].pos:
+                self.visible_sprites.remove(self.stack.pop())
+            else:
+                self.stack.append(Hint(pre_pos, self.tilesize, status, [self.visible_sprites]))
+
+        # return game is running or not
         return self.pause
 
 class YSortCameraGroup(pygame.sprite.Group):

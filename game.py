@@ -3,6 +3,7 @@ import pygame, sys, re
 from maze_generator import Maze
 from level import Level
 from main import FPS
+from settings import *
 
 class Game:
     def __init__(self, screen, maze, TILESIZE):
@@ -27,11 +28,8 @@ class Game:
                     sys.exit()
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_h:
-                        self.level.hint = True
-                if event.type == pygame.KEYUP:
-                    if event.key == pygame.K_h:
-                        self.level.hint = False
-            print(self.level.run())
+                        self.level.getHint()
+            self.level.run()
 
             self.screen.fill('white')
             self.screen.blit(img_bg, (0, 40))

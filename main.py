@@ -30,7 +30,7 @@ def main():
     clock = pygame.time.Clock()
     run = True
 
-    maze = Maze(40, 0, 0, 39, 39)
+    maze = Maze(5, 0, 0, 4, 4)
     maze.mazeGenerate()
 
     while run:
