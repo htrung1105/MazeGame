@@ -8,6 +8,8 @@ class Player(pygame.sprite.Sprite):
     def __init__(self, pos, tilesize, groups, obstacle_sprites):
         super().__init__(groups)
         self.tilesize = tilesize
+        self.pause = False
+
         self.image = pygame.image.load("assets/test/player.png").convert_alpha()
         self.image = pygame.transform.smoothscale(self.image, (self.tilesize, self.tilesize))
         self.rect = self.image.get_rect(topleft = pos)
@@ -26,7 +28,8 @@ class Player(pygame.sprite.Sprite):
     def import_player_assets(self):
         character_path = 'assets/player/'
         self.animations = {'up': [], 'down': [], 'left': [], 'right': [],
-                           'right_idle' : [], 'left_idle' : [], 'up_idle' : [], 'down_idle' : []}
+                           'right_idle' : [], 'left_idle' : [], 'up_idle' : [], 'down_idle' : [],
+                           'catch_idle' : []}
 
         for animation in self.animations.keys():
             full_path = character_path + animation
@@ -52,6 +55,10 @@ class Player(pygame.sprite.Sprite):
             self.status = 'left'
         else:
             self.direction.x = 0
+
+        if self.pause:
+            self.direction = pygame.math.Vector2(0, 0)
+            self.status = 'catch'
 
     def get_status(self):
 
@@ -106,6 +113,9 @@ class Player(pygame.sprite.Sprite):
         # set the image
         self.image = animation[int(self.frame_index)]
         self.rect = self.image.get_rect(center = self.rect.center)
+
+    def get_position(self):
+        return self.rect.topleft[1] // self.tilesize, self.rect.topleft[0] // self.tilesize
 
     def update(self):
         self.input()
