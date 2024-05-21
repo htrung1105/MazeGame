@@ -23,7 +23,7 @@ class LoginMenu():
     def __init__(self):
         self.running_menu = True
         self.surface = create_example_window('Maze Game', WINDOW_SIZE)
-        icon = pygame.image.load('assets/LOGOHCMUS.png')
+        icon = pygame.image.load('assets/LOGO HCMUS.png')
         pygame.display.set_icon(icon)
         self.main_menu = pygame_menu.Menu(
             overflow=(False, False),
@@ -256,8 +256,9 @@ class MenuGame():
         self.theme_idx = theme_idx
 
         self.surface = create_example_window('Maze Game', WINDOW_SIZE)
-        icon = pygame.image.load('assets/LOGOHCMUS.png')
+        icon = pygame.image.load('assets/LOGO HCMUS.png')
         pygame.display.set_icon(icon)
+    
         self.main_menu = pygame_menu.Menu(
             overflow = (False, False),
             height=WINDOW_SIZE[1] ,#* 0.7,
@@ -836,6 +837,7 @@ class MenuGame():
         self.init_menu()
 
         self.running_menu = True
+
         while self.running_menu:
             
             # Main menu
