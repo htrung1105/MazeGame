@@ -1,7 +1,7 @@
-WIDTH, HEIGHT = 1300, 750
-FPS = 60
-PING = 80
+import pygame
 
-def change_atributes(val):
-    global PING
-    PING = val
+class setting:
+    screen = pygame.display.set_mode((1300, 750))
+    maze = None
+    fps = 60
+    tilesize = 64

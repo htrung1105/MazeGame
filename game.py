@@ -1,24 +1,23 @@
-import pygame, sys, re
+import pygame, sys
 
 from maze_generator import Maze
 from level import Level
-from main import FPS
-from settings import *
+from settings import setting
 
 class Game:
-    def __init__(self, screen, maze, TILESIZE):
+    def __init__(self):
 
         # general setup
         pygame.init()
-        self.screen = screen
+        self.screen = setting.screen
         self.clock = pygame.time.Clock()
 
-        self.display_surface = pygame.surface.Surface((1300, 700))
-        self.level = Level(self.display_surface, maze, TILESIZE)
+        setting.tilesize = 64
+        self.level = Level()
 
     def run(self):
         running = True
-        img_bg = pygame.image.load("assets/tilemap/ground.png")
+        img_bg = pygame.image.load('assets/tilemap/ground.png')
 
         while running:
             # setup display
@@ -28,12 +27,11 @@ class Game:
                     sys.exit()
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_h:
-                        self.level.getHint()
+                        pass
+                        #self.level.getHint()
+
+            self.screen.blit(img_bg, (0, 0))
             self.level.run()
 
-            self.screen.fill('white')
-            self.screen.blit(img_bg, (0, 40))
-            self.screen.blit(self.display_surface, (0, 40))
-
             pygame.display.update()
-            self.clock.tick(FPS)
+            self.clock.tick(setting.fps)
