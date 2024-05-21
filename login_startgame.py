@@ -19,19 +19,19 @@ WINDOW_SIZE = (1300, 750)
 #   g = MenuGame(username, password)
 #   g.start()
 # -------------------------------------------------------
-class LoginMenu():
+class LoginMenu:
     def __init__(self):
         self.running_menu = True
+
         self.surface = create_example_window('Maze Game', WINDOW_SIZE)
         icon = pygame.image.load('assets/LOGO HCMUS.png')
         pygame.display.set_icon(icon)
-        self.main_menu = pygame_menu.Menu(
-            overflow=(False, False),
-            height=WINDOW_SIZE[1],  # * 0.7,
-            onclose=pygame_menu.events.EXIT,  # User press ESC button
-            title='Main menu',
-            width=WINDOW_SIZE[0]  # * 0.8
-        )
+
+        self.sound = pygame_menu.sound.Sound()
+        self.sound.load_example_sounds()
+        self.sound.set_sound(pygame_menu.sound.SOUND_TYPE_ERROR, None)
+        self.enabled_sound = True
+
 
     def check_login(self):
         data = self.login_menu.get_input_data()
@@ -49,7 +49,7 @@ class LoginMenu():
             pygame.time.delay(300)
             self.running_menu = False
             g = MenuGame(data['username'], data['password'])
-            g.start()
+            g.start(self.enabled_sound)
 
     def check_register(self):
         data = self.register_menu.get_input_data()
@@ -209,7 +209,7 @@ class LoginMenu():
         self.register_menu.add.button('Return to main menu', pygame_menu.events.BACK).translate(410,135)
 
     def init_main_menu(self):
-         self.main_menu = pygame_menu.Menu(
+        self.main_menu = pygame_menu.Menu(
             overflow=(False, False),
             height=WINDOW_SIZE[1],  # * 0.7,
             onclose=pygame_menu.events.EXIT,  # User press ESC button
@@ -217,22 +217,27 @@ class LoginMenu():
             title='Main menu',
             center_content=False,
             width=WINDOW_SIZE[0]  # * 0.8
-         )
+        )
 
-         Login_button = self.main_menu.add.button('Login', self.login_menu)
+        Login_button = self.main_menu.add.button('Login', self.login_menu)
         
-         Register_button = self.main_menu.add.button('Register', self.register_menu)
+        Register_button = self.main_menu.add.button('Register', self.register_menu)
         
-         Quit_button = self.main_menu.add.button('Quit', pygame_menu.events.EXIT)
+        Quit_button = self.main_menu.add.button('Quit', pygame_menu.events.EXIT)
 
     def init_menu(self):
         self.init_login_menu()
         self.init_register_menu()
         self.init_main_menu()
 
-    def start(self):
+    def start(self, enabled_sound = True):
         self.init_theme()
         self.init_menu()
+        self.enabled_sound = enabled_sound
+        if enabled_sound:
+            self.main_menu.set_sound(self.sound, recursive = True)
+        else:
+            self.main_menu.set_sound(None, recursive = True)
 
         self.running_menu = True
         while self.running_menu:
@@ -243,7 +248,7 @@ class LoginMenu():
             # Flip surface
             pygame.display.flip()
 
-class MenuGame():
+class MenuGame:
     def __init__(self, username, password, theme_idx = 0):
         self.username = username
         self.password = password
@@ -252,20 +257,13 @@ class MenuGame():
         self.sound = pygame_menu.sound.Sound()
         self.sound.load_example_sounds()
         self.sound.set_sound(pygame_menu.sound.SOUND_TYPE_ERROR, None)
+        self.enabled_sound = True # can be changed in init_def
 
         self.theme_idx = theme_idx
 
         self.surface = create_example_window('Maze Game', WINDOW_SIZE)
         icon = pygame.image.load('assets/LOGO HCMUS.png')
         pygame.display.set_icon(icon)
-    
-        self.main_menu = pygame_menu.Menu(
-            overflow = (False, False),
-            height=WINDOW_SIZE[1] ,#* 0.7,
-            onclose=pygame_menu.events.EXIT,  # User press ESC button
-            title='Main menu',
-            width=WINDOW_SIZE[0] #* 0.8
-        )
 
     def update_menu_sound_switch(self, enabled: bool) -> None:
         """
@@ -275,6 +273,7 @@ class MenuGame():
         :param enabled: Parameter of the selector, (True/False)
         """
         # assert isinstance(value, tuple)
+        self.enabled_sound = enabled
         if enabled:
             self.main_menu.set_sound(self.sound, recursive=True)
             print('Menu sounds were enabled')
@@ -285,7 +284,7 @@ class MenuGame():
     def return_to_login(self):
         self.running_menu = False
         g = LoginMenu()
-        g.start()
+        g.start(self.enabled_sound)
 
     def get_data_leaderboard(self, level_to_return):
         DB = UserDatabase()
@@ -332,6 +331,11 @@ class MenuGame():
         self.running_menu = False 
         g = MenuGame(self.username, self.password, a[1])
         g.start()
+
+    def reset_all_setting(self):
+        self.settings_menu.reset_value()
+        self.enabled_sound = self.sound_switch.get_value()
+        self.update_menu_sound_switch(self.enabled_sound)
 
     def init_theme(self):
         asset = ['Themebeach/', 'assets/']
@@ -723,6 +727,7 @@ class MenuGame():
         #rows = [6, 6]
         )
 
+
         # Theme
         items = [('  Beach  ', 'Theme2'),
                 (' Default ', 'Theme1'),]
@@ -737,7 +742,7 @@ class MenuGame():
 
         # Sound
 
-        sound_switch = self.settings_menu.add.toggle_switch('Sound', True,
+        sound_switch = self.sound_switch = self.settings_menu.add.toggle_switch('Sound', self.enabled_sound,
                                         toggleswitch_id='sound_switch',
                                         onchange=self.update_menu_sound_switch,
                                         state_text=('Off', 'On'))
@@ -757,7 +762,7 @@ class MenuGame():
         about_button = self.settings_menu.add.button('About', self.setting_about)
 
         # Add final buttons
-        restore_button = self.settings_menu.add.button('Restore original setting', self.settings_menu.reset_value)
+        restore_button = self.settings_menu.add.button('Restore original setting', self.reset_all_setting)
         return_button = self.settings_menu.add.button('Return to main menu', pygame_menu.events.BACK)#,align=pygame_menu.locals.ALIGN_CENTER)
 
         
@@ -812,8 +817,7 @@ class MenuGame():
         title='Main menu',
         position = (20, 20),
         center_content=False,
-        width=WINDOW_SIZE[0] #* 0.8
-        )
+        width=WINDOW_SIZE[0]) #* 0.8)
 
         self.main_menu.add.button('Start game', self.start_game_menu)
         self.main_menu.add.vertical_margin(85)
@@ -824,6 +828,8 @@ class MenuGame():
         self.main_menu.add.button('Settings', self.settings_menu)
         self.main_menu.add.vertical_margin(75)
         self.main_menu.add.button('Log out', self.return_to_login)  
+
+        self.update_menu_sound_switch(self.enabled_sound)
     
     def init_menu(self):
         self.init_start_game()
@@ -832,7 +838,8 @@ class MenuGame():
         self.init_setting()
         self.init_main_menu()
 
-    def start(self):
+    def start(self, enabled_sound = True):
+        self.enabled_sound = enabled_sound
         self.init_theme()
         self.init_menu()
 
