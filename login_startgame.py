@@ -822,7 +822,7 @@ class MenuGame():
 
 
 if __name__ == '__main__':
-    #g = LoginMenu()
-    #g.start()
-    g = MenuGame('user4','pas1')
+    g = LoginMenu()
     g.start()
+    #g = MenuGame('user4','pas1')
+    #g.start()
