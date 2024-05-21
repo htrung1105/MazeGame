@@ -323,6 +323,9 @@ class MenuGame:
             return None
 
     def start_a_saved_game(self):
+        pygame.mixer.music.stop()
+        pygame.mixer.music.unload()
+
         game = self.saved_games.get_index()
         data = self.saved_games.get_widgets()
         data = data[game].get_title()
@@ -499,6 +502,9 @@ class MenuGame:
                     next_step = False
                     break
             if next_step:
+                pygame.mixer.music.stop()
+                pygame.mixer.music.unload()
+                
                 print('valid !! playgame now')
                 self.running_menu = False
 
@@ -882,7 +888,6 @@ class MenuGame:
             
             # Flip surface
             pygame.display.flip()
-
 
 if __name__ == '__main__':
     g = LoginMenu()
