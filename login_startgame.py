@@ -5,7 +5,11 @@ from pygame_menu.examples import create_example_window
 from database import UserDatabase
 
 from typing import Tuple, Optional
+
 pygame.init()
+pygame.mixer.music.load('sound/bgm.wav')
+pygame.mixer.music.set_volume(0.5)
+pygame.mixer.music.play()
 
 # Constants and global variables
 WINDOW_SIZE = (1300, 750)
@@ -32,7 +36,6 @@ class LoginMenu:
         self.sound.set_sound(pygame_menu.sound.SOUND_TYPE_ERROR, None)
         self.enabled_sound = True
 
-
     def check_login(self):
         data = self.login_menu.get_input_data()
         #for k in data.keys():
@@ -49,7 +52,7 @@ class LoginMenu:
             pygame.time.delay(300)
             self.running_menu = False
             g = MenuGame(data['username'], data['password'])
-            g.start(self.enabled_sound)
+            g.start(self.enabled_sound, self.sound)
 
     def check_register(self):
         data = self.register_menu.get_input_data()
@@ -230,11 +233,14 @@ class LoginMenu:
         self.init_register_menu()
         self.init_main_menu()
 
-    def start(self, enabled_sound = True):
+    def start(self, enabled_sound = True, sound_engine = None):
         self.init_theme()
         self.init_menu()
         self.enabled_sound = enabled_sound
+
         if enabled_sound:
+            if sound_engine != None:
+                self.sound = sound_engine
             self.main_menu.set_sound(self.sound, recursive = True)
         else:
             self.main_menu.set_sound(None, recursive = True)
@@ -284,7 +290,7 @@ class MenuGame:
     def return_to_login(self):
         self.running_menu = False
         g = LoginMenu()
-        g.start(self.enabled_sound)
+        g.start(self.enabled_sound, self.sound)
 
     def get_data_leaderboard(self, level_to_return):
         DB = UserDatabase()
@@ -336,6 +342,14 @@ class MenuGame:
         self.settings_menu.reset_value()
         self.enabled_sound = self.sound_switch.get_value()
         self.update_menu_sound_switch(self.enabled_sound)
+
+    def change_bgm(self, volume):
+        volume = int(volume) * 0.01
+        pygame.mixer.music.set_volume(volume)
+
+    def change_sfx(self, volume):
+        volume = int(volume) * 0.01
+        self.sound.load_example_sounds(volume = volume)
 
     def init_theme(self):
         asset = ['Themebeach/', 'assets/']
@@ -747,12 +761,16 @@ class MenuGame:
                                         onchange=self.update_menu_sound_switch,
                                         state_text=('Off', 'On'))
 
-        volume_slider = self.settings_menu.add.range_slider('BGM', 50, (0, 100), 1,
-                                                 rangeslider_id='volume',
-                                                 value_format=lambda x: str(int(x)))
-        sfx_slider = self.settings_menu.add.range_slider('SFX', 50, (0, 100), 1,
-                                                 rangeslider_id='soundeffect',
-                                                 value_format=lambda x: str(int(x)))
+        volume_slider = self.settings_menu.add.range_slider(
+            'BGM', 50, (0, 100), 1,
+            rangeslider_id='volume',
+            value_format=lambda x: str(int(x)),
+            onchange = self.change_bgm)
+        sfx_slider = self.settings_menu.add.range_slider(
+            'SFX', 50, (0, 100), 1,
+            rangeslider_id='soundeffect',
+            value_format=lambda x: str(int(x)),
+            onchange = self.change_sfx)
 
         # Add a clock
         #self.settings_menu.add.clock(clock_format='%Y/%m/%d %H:%M', title_format='Clock: {0}')
@@ -838,8 +856,10 @@ class MenuGame:
         self.init_setting()
         self.init_main_menu()
 
-    def start(self, enabled_sound = True):
+    def start(self, enabled_sound = True, sound_engine = None):
         self.enabled_sound = enabled_sound
+        if sound_engine != None:
+            self.sound = sound_engine
         self.init_theme()
         self.init_menu()
 
