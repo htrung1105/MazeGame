@@ -7,9 +7,9 @@ from database import UserDatabase
 from typing import Tuple, Optional
 
 pygame.init()
-pygame.mixer.music.load('sound/bgm.wav')
-pygame.mixer.music.set_volume(0.5)
-pygame.mixer.music.play()
+pygame.mixer.music.load('sound/bgm.mp3')
+pygame.mixer.music.set_volume(0.3)
+pygame.mixer.music.play(-1)
 
 # Constants and global variables
 WINDOW_SIZE = (1300, 750)
