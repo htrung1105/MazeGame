@@ -79,7 +79,7 @@ class UserDatabase:
     # Use this function to load a game from a user    
     def load_game(self, username, game_name):
         if username in self.users:
-            if game_name in self.users[username]
+            if game_name in self.users[username]:
                 return self.users[username][game_name]
         return False
     
