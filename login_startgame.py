@@ -182,7 +182,7 @@ class LoginMenu:
             password=False,
             onchange = self.reset_noti_login)
         self.login_menu.add.button('      Login      ', self.check_login).translate(260,5)
-        self.login_menu.add.button('Return to main menu', pygame_menu.events.BACK).translate(410,135)
+        self.login_menu.add.button('   Return to main menu  ', pygame_menu.events.BACK).translate(375,135)
 
     def init_register_menu(self):
         self.register_menu = pygame_menu.Menu(
@@ -209,8 +209,8 @@ class LoginMenu:
             input_underline = '__',
             password=False,
             onchange = self.reset_noti_regis)
-        self.register_menu.add.button('Register', self.check_register).translate(305,5)
-        self.register_menu.add.button('Return to main menu', pygame_menu.events.BACK).translate(410,135)
+        self.register_menu.add.button('    Register    ', self.check_register).translate(261,5)
+        self.login_menu.add.button('   Return to main menu  ', pygame_menu.events.BACK).translate(375,135)
 
     def init_main_menu(self):
         self.main_menu = pygame_menu.Menu(
