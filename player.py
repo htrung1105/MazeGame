@@ -1,29 +1,29 @@
 import pygame
 from utils import import_folder
-from settings import setting
+from maze_generator import *
 
 # const
-PING = 80
+PING = 300
 
-class Player(pygame.sprite.Sprite):
-    def __init__(self, pos, groups, obstacle_sprites):
-        super().__init__(groups)
-        self.pause = False
+class Player():
+    def __init__(self, maze, tilesize):
+        self.maze = maze
+        self.loc = (maze.startX, maze.startY)
+        self.tilesize = tilesize
 
         self.image = pygame.image.load("assets/test/player.png").convert_alpha()
-        self.image = pygame.transform.smoothscale(self.image, (setting.tilesize, setting.tilesize))
-        self.rect = self.image.get_rect(topleft = pos)
+        self.image = pygame.transform.smoothscale(self.image, (tilesize, tilesize))
+        self.rect = self.image.get_rect(topleft=maze.grid[self.loc[0]][self.loc[1]].get_center())
 
         # graphics setup
         self.import_player_assets()
         self.status = 'down'
+
         self.frame_index = 0
         self.animation_speed = 1
 
-        self.direction = pygame.math.Vector2()
-        self.speed = setting.tilesize
-
-        self.obstacle_sprites = obstacle_sprites
+        self.direction = pygame.math.Vector2(0, 0)
+        self.hintPath = []
 
     def import_player_assets(self):
         character_path = 'assets/player/'
@@ -33,73 +33,68 @@ class Player(pygame.sprite.Sprite):
 
         for animation in self.animations.keys():
             full_path = character_path + animation
-            self.animations[animation] = import_folder(full_path)
+            self.animations[animation] = import_folder(full_path, self.tilesize)
 
     def input(self):
-        keys = pygame.key.get_pressed()
+        if self.status == 'catch':
+            self.direction = pygame.math.Vector2(0, 0)
+            return
 
-        if keys[pygame.K_UP]:
-            self.direction = pygame.math.Vector2(0, -1)
-            self.status = 'up'
-        elif keys[pygame.K_DOWN]:
-            self.direction = pygame.math.Vector2(0, 1)
-            self.status = 'down'
-        elif keys[pygame.K_RIGHT]:
-            self.direction = pygame.math.Vector2(1, 0)
-            self.status = 'right'
-        elif keys[pygame.K_LEFT]:
-            self.direction = pygame.math.Vector2(-1, 0)
-            self.status = 'left'
+        if len(self.hintPath) > 0:
+            y, x = self.loc[0], self.loc[1]
+            ny, nx = self.hintPath[0]
+            del self.hintPath[0]
+
+            dx, dy = nx - x, ny - y
+            if dy < 0:
+                self.direction = (0, -1)
+                self.status = 'up'
+            elif dy > 0:
+                self.direction = (0, 1)
+                self.status = 'down'
+            elif dx > 0:
+                self.direction = (1, 0)
+                self.status = 'right'
+            elif dx < 0:
+                self.direction = (-1, 0)
+                self.status = 'left'
+            else:
+                self.direction = (0, 0)
         else:
-            self.direction = pygame.math.Vector2(0, 0)
+            keys = pygame.key.get_pressed()
+            grid = self.maze.grid[self.loc[0]][self.loc[1]]
 
-        if self.pause:
-            self.direction = pygame.math.Vector2(0, 0)
-            self.status = 'catch'
+            if keys[pygame.K_UP] and grid.walls['top'] is False:
+                self.direction = (0, -1)
+                self.status = 'up'
+            elif keys[pygame.K_DOWN] and grid.walls['bottom'] is False:
+                self.direction = (0, 1)
+                self.status = 'down'
+            elif keys[pygame.K_RIGHT] and grid.walls['right'] is False:
+                self.direction = (1, 0)
+                self.status = 'right'
+            elif keys[pygame.K_LEFT] and grid.walls['left'] is False:
+                self.direction = (-1, 0)
+                self.status = 'left'
+            else:
+                self.direction = (0, 0)
 
-    def get_status(self):
+    def move(self):
+        new_loc = (self.loc[0] + self.direction[1], self.loc[1] + self.direction[0])
+        self.maze.grid[new_loc[0]][new_loc[1]].draw(self.image)
+        self.loc = new_loc
 
-        # idle status
-        if self.direction.x == 0 and self.direction.y == 0:
-            if not 'idle' in self.status:
-                self.status = self.status + '_idle'
+        if self.direction != pygame.math.Vector2(0, 0):
+            pygame.time.delay(PING)
 
-    def move(self, speed):
-        # Di chuyển mượt mà hơn
-        frame = setting.tilesize // speed    # mỗi bước di chuyển trong 1 frame
-        time_delay = PING // frame
-
-        for _ in range(frame):
-            self.rect.x += self.direction.x * speed
-            self.collision('horizontal')
-            self.rect.y += self.direction.y * speed
-            self.collision('vertical')
-            pygame.time.delay(time_delay)
-        if setting.tilesize % speed != 0:
-            self.rect.x += self.direction.x * (setting.tilesize % speed)
-            self.collision('horizontal')
-            self.rect.y += self.direction.y * (setting.tilesize % speed)
-            self.collision('vertical')
-            pygame.time.delay(time_delay)
-
-    def collision(self, direction):
-        if direction == 'horizontal':
-            for sprite in self.obstacle_sprites:
-                if sprite.rect.colliderect(self.rect):
-                    if self.direction.x > 0:    # moving right
-                        self.rect.right = sprite.rect.left
-                    if self.direction.x < 0:    # moving left
-                        self.rect.left = sprite.rect.right
-
-        if direction == 'vertical':
-            for sprite in self.obstacle_sprites:
-                if sprite.rect.colliderect(self.rect):
-                    if self.direction.y > 0:  # moving down
-                        self.rect.bottom = sprite.rect.top
-                    if self.direction.y < 0:  # moving up
-                        self.rect.top = sprite.rect.bottom
+    def getPosition(self):
+        return self.maze.grid[self.loc[0]][self.loc[1]].get_center()
 
     def animate(self):
+        # idle status
+        if self.direction == (0, 0):
+            if 'idle' not in self.status:
+                self.status = self.status + '_idle'
         animation = self.animations[self.status]
 
         # loop over the frame index
@@ -109,11 +104,11 @@ class Player(pygame.sprite.Sprite):
 
         # set the image
         self.image = animation[int(self.frame_index)]
-        self.rect = self.image.get_rect(center = self.rect.center)
+
+    def getHint(self):
+        self.hintPath = self.maze.getHint(self.loc[0], self.loc[1])
 
     def update(self):
         self.input()
-        self.get_status()
-        self.move(self.speed)
         self.animate()
-
+        self.move()

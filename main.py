@@ -1,9 +1,7 @@
 import pygame
 
 from game import *
-from maze_solver import *
 from maze_generator import *
-from settings import setting
 
 import pickle # save game/load game library
 
@@ -31,22 +29,19 @@ def main():
     clock = pygame.time.Clock()
     run = True
 
-    maze = Maze(5, 0, 0, 4, 4)
+    maze = Maze(SCREEN, 10, 0, 0, 9, 9, 100, 30)
     maze.mazeGenerate()
-
-    setting.screen = SCREEN
-    setting.maze = maze
 
     while run:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
 
-        game = Game()
+        game = Game(SCREEN, maze)
         game.run()
 
         pygame.display.update()
-        clock.tick(setting.fps)
+        clock.tick(FPS)
 
 if __name__ == '__main__':
     main()
