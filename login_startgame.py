@@ -342,12 +342,13 @@ class MenuGame:
         self.theme_idx = a[1]
         self.running_menu = False 
         g = MenuGame(self.username, self.password, a[1])
-        g.start()
+        g.start(self.enabled_sound, self.sound)
 
     def reset_all_setting(self):
         self.settings_menu.reset_value()
         self.bgm_volume = 0.5
         self.enabled_sound = True
+        self.sound_switch.reset_value()
         self.update_menu_sound_switch(self.enabled_sound)
         pygame.mixer.music.set_volume(self.bgm_volume)
         self.change_sfx(50)
@@ -504,7 +505,7 @@ class MenuGame:
             if next_step:
                 pygame.mixer.music.stop()
                 pygame.mixer.music.unload()
-                
+
                 print('valid !! playgame now')
                 self.running_menu = False
 
