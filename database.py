@@ -11,15 +11,15 @@ class UserDatabase:
             Login user with username and password
             Return tuple of (username, password) if success, False if fail
 
-        def load_user(username, password) ::
+        def load_user(username) ::
             Load data from a user (all game, password, username)
             Return False if fail, return user data if success
 
-        def load_game(username, password, game_name) ::
+        def load_game(username, game_name) ::
             Load a game from a user
             Return False if fail, return game data if success
 
-        def save_game(username, password, game_name, data) ::
+        def save_game(username, game_name, data) ::
             Save a game to a user
             Return False if fail, return True if success
 
@@ -71,26 +71,24 @@ class UserDatabase:
             return False # wrong username
 
     # Use this function to load data from a user (all game, password, username)    
-    def load_users(self, username, password):
+    def load_users(self, username):
         if username in self.users:
-            if self.users[username]['password'] == password:
-                return self.users[username]
+            return self.users[username]
         return False
         
     # Use this function to load a game from a user    
-    def load_game(self, username, password, game_name):
+    def load_game(self, username, game_name):
         if username in self.users:
-            if self.users[username]['password'] == password:
+            if game_name in self.users[username]
                 return self.users[username][game_name]
         return False
     
     # Use this function to save a game to a user 
-    def save_game(self, username, password, game_name, data):
+    def save_game(self, username, game_name, data):
         if username in self.users:
-            if self.users[username]['password'] == password:
-                self.users[username][game_name] = data
-                self.save_data()
-                return True
+            self.users[username][game_name] = data
+            self.save_data()
+            return True
         return False
 
     def leaderboard(self):
@@ -122,9 +120,9 @@ class UserDatabase:
 
         return (easy_list, medium_list, hard_list)
 
-    def pack_data(self, map, level, start_x, start_y, end_x, end_y, time, step, status, username):
+    def pack_data(self, maze, level, start_x, start_y, end_x, end_y, time, step, status, username):
         data = {}
-        data['map'] = map
+        data['maze'] = maze
         data['level'] = level
         if level == 'hard':
             data['size'] = 100
@@ -143,43 +141,44 @@ class UserDatabase:
 
 #########################DEMO##########################
 
-db = UserDatabase('user_data.json')
+def init_some_user():
+    db = UserDatabase('user_data.json')
 
-# Dang ki tai khoan
-print(db.register_user('user1', 'pas1'))
-print(db.register_user('user2', 'pas1'))
-print(db.register_user('user3', 'pas1'))
-print(db.register_user('user4', 'pas1'))
-print(db.register_user('user5', 'pas1'))
-print(db.register_user('user6', 'pas1'))
-# Dang nhap
-#print(db.login_user('user3', 'pas1'))
+    # Dang ki tai khoan
+    print(db.register_user('user1', 'pas1'))
+    print(db.register_user('user2', 'pas1'))
+    print(db.register_user('user3', 'pas1'))
+    print(db.register_user('user4', 'pas1'))
+    print(db.register_user('user5', 'pas1'))
+    print(db.register_user('user6', 'pas1'))
+    # Dang nhap
+    #print(db.login_user('user3', 'pas1'))
 
-# update thong tin user
-db.save_game('user1', 'pas1', 'game1', {'username':'user1', 'password':'pas1', 'time':12308, 'level' : 'easy'})
-pprint.pprint(db.leaderboard())
-db.save_game('user2', 'pas1', 'game1', {'username':'user2', 'password':'pas1', 'time':456, 'level' : 'easy'})
-db.save_game('user3', 'pas1', 'game1', {'username':'user3', 'password':'pas1', 'time':789, 'level' : 'easy'})
-db.save_game('user4', 'pas1', 'game1', {'username':'user4', 'password':'pas1', 'time':1234, 'level' : 'medium'})
-db.save_game('user5', 'pas1', 'game1', {'username':'user5', 'password':'pas1', 'time':4567, 'level' : 'medium'})
-db.save_game('user6', 'pas1', 'game1', {'username':'user6', 'password':'pas1', 'time':7890, 'level' : 'hard'})
-db.save_game('user6', 'pas1', 'game2', {'username':'user6', 'password':'pas1', 'time':23, 'level' : 'hard'})
+    # update thong tin user
+    db.save_game('user1', 'game1', {'username':'user1', 'password':'pas1', 'time':12308, 'level' : 'easy'})
+    pprint.pprint(db.leaderboard())
+    db.save_game('user2', 'game1', {'username':'user2', 'password':'pas1', 'time':456, 'level' : 'easy'})
+    db.save_game('user3', 'game1', {'username':'user3', 'password':'pas1', 'time':789, 'level' : 'easy'})
+    db.save_game('user4', 'game1', {'username':'user4', 'password':'pas1', 'time':1234, 'level' : 'medium'})
+    db.save_game('user5', 'game1', {'username':'user5', 'password':'pas1', 'time':4567, 'level' : 'medium'})
+    db.save_game('user6', 'game1', {'username':'user6', 'password':'pas1', 'time':7890, 'level' : 'hard'})
+    db.save_game('user6', 'game2', {'username':'user6', 'password':'pas1', 'time':23, 'level' : 'hard'})
 
-pprint.pprint(db.leaderboard())
-db.save_game('user6', 'pas1', 'game3', {'username':'user6', 'password':'pas1', 'time':4, 'level' : 'hard'})
-db.save_game('user4', 'pas1', 'game2', {'username':'user4', 'password':'pas1', 'time':34, 'level' : 'hard'})
-db.save_game('user4', 'pas1', 'game3', {'username':'user4', 'password':'pas1', 'time':455, 'level' : 'hard'})
-db.save_game('user4', 'pas1', 'gameeasy', {'username':'user4', 'password':'pas1', 'time':23, 'level' : 'hard'})
-db.save_game('user4', 'pas1', 'gamekhooday', {'username':'user4', 'password':'pas1', 'time': 1, 'level' : 'hard'})
-db.save_game('user2', 'pas1', 'aaabsd', {'username':'user2', 'password':'pas1', 'time':34, 'level' : 'hard'})
-db.save_game('user4', 'pas1', 't1lol234', {'username':'user4', 'password':'pas1', 'time': 2324, 'level' : 'hard'})
-db.save_game('user4', 'pas1', 'gaasooday', {'username':'user4', 'password':'pas1', 'time': 12, 'level' : 'hard'})
-db.save_game('user2', 'pas1', 'aadasdsd', {'username':'user2', 'password':'pas1', 'time':556, 'level' : 'hard'})
-db.save_game('user4', 'pas1', 'tccdds34', {'username':'user4', 'password':'pas1', 'time': 34424, 'level' : 'hard'})
+    pprint.pprint(db.leaderboard())
+    db.save_game('user6', 'game3', {'username':'user6', 'password':'pas1', 'time':4, 'level' : 'hard'})
+    db.save_game('user4', 'game2', {'username':'user4', 'password':'pas1', 'time':34, 'level' : 'hard'})
+    db.save_game('user4', 'game3', {'username':'user4', 'password':'pas1', 'time':455, 'level' : 'hard'})
+    db.save_game('user4', 'gameeasy', {'username':'user4', 'password':'pas1', 'time':23, 'level' : 'hard'})
+    db.save_game('user4', 'gamekhooday', {'username':'user4', 'password':'pas1', 'time': 1, 'level' : 'hard'})
+    db.save_game('user2', 'aaabsd', {'username':'user2', 'password':'pas1', 'time':34, 'level' : 'hard'})
+    db.save_game('user4', 't1lol234', {'username':'user4', 'password':'pas1', 'time': 2324, 'level' : 'hard'})
+    db.save_game('user4', 'gaasooday', {'username':'user4', 'password':'pas1', 'time': 12, 'level' : 'hard'})
+    db.save_game('user2', 'aadasdsd', {'username':'user2', 'password':'pas1', 'time':556, 'level' : 'hard'})
+    db.save_game('user4', 'tccdds34', {'username':'user4', 'password':'pas1', 'time': 34424, 'level' : 'hard'})
 
 
-pprint.pprint(db.leaderboard())
-#pprint.pprint(db.users)
+    pprint.pprint(db.leaderboard())
+    #pprint.pprint(db.users)
 
-pprint.pprint(db.load_users('user4', 'pas1'))
+    pprint.pprint(db.load_users('user4', 'pas1'))
 
