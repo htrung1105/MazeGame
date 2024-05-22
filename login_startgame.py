@@ -181,7 +181,7 @@ class LoginMenu:
             # input_underline_vmargin = 1,
             password=False,
             onchange = self.reset_noti_login)
-        self.login_menu.add.button('Login', self.check_login).translate(323,5)
+        self.login_menu.add.button('      Login      ', self.check_login).translate(260,5)
         self.login_menu.add.button('Return to main menu', pygame_menu.events.BACK).translate(410,135)
 
     def init_register_menu(self):
