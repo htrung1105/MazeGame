@@ -629,7 +629,7 @@ class MenuGame:
 
     def init_load_game(self):
         DB = UserDatabase()
-        data = DB.load_users(self.username, self.password)
+        data = DB.load_users(self.username)
         games = []
         for game in data:
             if game != 'password':
