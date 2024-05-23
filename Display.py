@@ -1,6 +1,26 @@
 import pygame
-import sys
 from pygame.locals import *
+from database import UserDatabase
+
+class Clock:
+    def __init__(self, minutes, seconds):
+        self.minutes = minutes
+        self.seconds = seconds
+
+    def reset(self):
+        self.minutes = 0
+        self.seconds = 0
+
+    def update(self):
+        self.seconds += 1
+        if self.seconds == 60:
+            self.minutes += 1
+            self.seconds = 0
+        if self.minutes == 60:
+            self.minutes = 0
+
+    def display_time(self):
+        return f"{self.minutes:02d}:{self.seconds:02d}"
 
 class Button:
     def __init__(self, text, position, size):
@@ -51,16 +71,22 @@ class Button:
 class Button_Image():
     def __init__(self, image_path, pos, scale):
         BASE_PATH = 'assets/button/'
-        self.original_image = pygame.image.load(BASE_PATH + image_path)
-        self.scaled_image = pygame.transform.scale(self.original_image, scale) # Thay đổi kích thước tùy ý
-        self.rect = self.scaled_image.get_rect(topleft=pos)
+        image = pygame.image.load(BASE_PATH + image_path + '.png')
+        self.image = pygame.transform.scale(image, scale)
+
+        image = pygame.image.load(BASE_PATH + image_path + '_clicked.png')
+        self.image_clicked = pygame.transform.scale(image, scale)
+
+        self.rect = self.image.get_rect(topleft=pos)
         self.clicked = False
 
     def draw(self, surface):
         action = False
         pos = pygame.mouse.get_pos()
+        surface.blit(self.image, self.rect.topleft)
 
         if self.rect.collidepoint(pos):
+            surface.blit(self.image_clicked, self.rect.topleft)
             if pygame.mouse.get_pressed()[0] == 1 and not self.clicked:
                 self.clicked = True
                 action = True
@@ -68,78 +94,59 @@ class Button_Image():
         if pygame.mouse.get_pressed()[0] == 0:
             self.clicked = False
 
-        surface.blit(self.scaled_image, self.rect.topleft)
         return action
 
+class TextBox:
+    def __init__(self, pos, text = ''):
+        self.pos = pos
+        self.font = pygame.font.Font('font/Montserrat-SemiBold.ttf', 40)
+        self.text = self.font.render(text, True, (211, 151, 68))
+        self.rect = self.text.get_rect(topleft = pos)
+
+    def update(self, text):
+        self.text = self.font.render(text, True, (211, 151, 68))
+        self.rect = self.text.get_rect(topleft=self.pos)
+
+    def draw(self, screen):
+        screen.blit(self.text, self.rect)
+
+
 class Display():
-    def __init__(self, screen):
+    def __init__(self, screen, buttons, text_boxes):
+        '''
+        :param screen:
+        :param buttons:
+        :param text_boxes: [(info, pos)]
+        '''
         self.screen = screen
 
-    def import_button_assets(self):
-        BASE_X, BASE_Y, BASE_DIST = 0, 0, 50
-        self.buttons = {'home': (BASE_X + BASE_DIST, BASE_Y), 'reset': (BASE_X + BASE_DIST * 2, BASE_Y), 'help': (BASE_X + BASE_DIST * 3, BASE_Y)
-                        , 'hint': (BASE_X, BASE_Y), 'reverse': (BASE_X, BASE_Y)}
-
+        # get button
+        self.buttons = buttons
         for button in self.buttons.keys():
-            self.buttons[button] = Button_Image(rf'{button}.png', self.buttons[button],(800,400))
+            self.buttons[button] = Button_Image(button, self.buttons[button],(96, 96))
 
-class Display():
-    def __init__(self, screen):
-        pygame.init()
-        self.screen = screen
-        self.clock = pygame.time.Clock()
-
-        x, y = 275, 150
-        self.Display = Button_Image('button1.png', x, y,(800,400))
-        self.Button1 = Button_Image('button2.png', x + 180, y + 190,(70,70))
-        self.Button2 = Button_Image('button3.png', x + 280, y + 190,(70,70))
-        self.Button3 = Button_Image('button4.png', x + 380, y + 190,(70,70))
-        self.Button4 = Button_Image('button5.png', x + 480, y + 190,(70,70))
-        self.Button5 = Button_Image('button6.png', x + 570, y + 120,(40,40))
-        self.buttons = []
-
-    def reset_page(self):
-        self.buttons = []
-
-    def add_button(self, button):
-        self.buttons.append(button)
+        # get board
+        self.text_boxes = []
+        for text_box in text_boxes:
+            self.text_boxes.append(TextBox(text_box[1], text_box[0]))
+        self.clock = Clock(0, 0)
 
     def draw_page(self):
         for button in self.buttons:
             if isinstance(button, Button):
                 button.draw(self.screen)
 
-    def run(self):
-        self.reset_page()
-        running = True
-        home_page_buttons = []
+    def reset_time(self):
+        self.clock.reset()
 
-        for button in home_page_buttons:
-            self.add_button(button)
+    def render(self): # need update
+        self.draw_page()
+        for button in self.buttons.keys():
+            if self.buttons[button].draw(self.screen):
+                return button
 
-        while running:
-            for event in pygame.event.get():
-                if event.type == QUIT:
-                    running = False
-            self.draw_page()
+        self.text_boxes[-1].update('Clock: ' + self.clock.display_time())
+        self.clock.update()
 
-            display =self.Display.draw(self.screen)
-            Home = self.Button1.draw(self.screen)
-            Reset = self.Button2.draw(self.screen)
-            Zoom = self.Button3.draw(self.screen)
-            Help = self.Button4.draw(self.screen)
-            Stop = self.Button5.draw(self.screen)
-
-            if Home:
-                print("Home")
-            if Reset:
-                print("Reset")
-            if Zoom:
-                print("Zoom")
-            if Help:
-                print("Help")
-            if Stop:
-                running = False
-
-            pygame.display.update()
-            self.clock.tick(60)
+        for textbox in self.text_boxes:
+            textbox.draw(self.screen)

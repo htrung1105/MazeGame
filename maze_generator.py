@@ -122,6 +122,13 @@ class Maze:
         self.trace = [[(0, 0)] * size for _ in range(size)]
         self.hint = [[(0, 0)] * size for _ in range(size)]
 
+    def reset(self):
+        self.grid = [[Cell(self.screen, x, y, (y * (self.width - self.wall_width), x * (self.width - self.wall_width)), self.width, self.wall_width)
+                      for y in range(self.size)] for x in range(self.size)]
+
+        self.trace = [[(0, 0)] * self.size for _ in range(self.size)]
+        self.hint = [[(0, 0)] * self.size for _ in range(self.size)]
+
     # phá tường theo hướng (dx, dy)
     def breakWall(self, x: int, y: int, dx: int, dy: int):
         nx, ny = x + dx, y + dy

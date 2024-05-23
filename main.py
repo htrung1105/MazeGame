@@ -29,22 +29,23 @@ def main():
     clock = pygame.time.Clock()
     run = True
 
-    SIZE, WIDTH, WALL_WIDTH = 10, 95, 30
-    BACKGROUND_SIZE = (SIZE * (WIDTH - WALL_WIDTH) + WALL_WIDTH, SIZE * (WIDTH - WALL_WIDTH) + WALL_WIDTH)
+    SIZE, WIDTH, WALL_WIDTH = 10, 77, 10
+    #BACKGROUND_SIZE = (SIZE * (WIDTH - WALL_WIDTH) + WALL_WIDTH, SIZE * (WIDTH - WALL_WIDTH) + WALL_WIDTH)
+    BACKGROUND_SIZE = (680, 680)
 
     maze = Maze(pygame.surface.Surface(BACKGROUND_SIZE), SIZE, 0, 0, 9, 9, WIDTH, WALL_WIDTH)
     maze.mazeGenerate()
 
-    while run:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                run = False
+    game = Game(SCREEN, maze)
+    game.run()
 
-        game = Game(SCREEN, maze)
-        game.run()
-
-        pygame.display.update()
-        clock.tick(FPS)
+    # while run:
+    #     for event in pygame.event.get():
+    #         if event.type == pygame.QUIT:
+    #             run = False
+    #
+    #     pygame.display.update()
+    #     clock.tick(FPS)
 
 if __name__ == '__main__':
     main()
