@@ -1,16 +1,20 @@
 import pygame
 
-class Goal(pygame.sprite.Sprite):
-    def __init__(self, pos, groups):
-        super().__init__(groups)
+class Goal():
+    def __init__(self, tilesize, grid):
+        self.grid = grid
         self.image = pygame.image.load('assets/test/goal.png').convert_alpha()
-        self.image = pygame.transform.smoothscale(self.image, (setting.tilesize, setting.tilesize))
-        self.rect = self.image.get_rect(topleft = pos)
+        self.image = pygame.transform.smoothscale(self.image, (tilesize, tilesize))
 
-class Hint(pygame.sprite.Sprite):
-    def __init__(self, pos, dir, groups):
-        super().__init__(groups)
-        self.pos = pos
+    def render(self):
+        self.grid.draw(self.image)
+
+class Hint():
+    def __init__(self, dir, tilesize, grid):
+        self.dir = dir
+        self.grid = grid
         self.image = pygame.image.load(rf'assets/test/hint_{dir}.png').convert_alpha()
-        self.image = pygame.transform.smoothscale(self.image, (setting.tilesize, setting.tilesize))
-        self.rect = self.image.get_rect(topleft = pos)
+        self.image = pygame.transform.smoothscale(self.image, (tilesize, tilesize))
+
+    def render(self):
+        self.grid.draw(self.image)

@@ -37,7 +37,7 @@ class Player():
 
     def input(self):
         if self.status == 'catch':
-            self.direction = pygame.math.Vector2(0, 0)
+            self.direction = (0, 0)
             return
 
         if len(self.hintPath) > 0:
@@ -112,3 +112,4 @@ class Player():
         self.input()
         self.animate()
         self.move()
+        return self.status
