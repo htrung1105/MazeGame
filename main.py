@@ -1,7 +1,6 @@
 import pygame
 
 from game import *
-from maze_solver import *
 from maze_generator import *
 
 import pickle # save game/load game library
@@ -30,7 +29,10 @@ def main():
     clock = pygame.time.Clock()
     run = True
 
-    maze = Maze(5, 0, 0, 4, 4)
+    SIZE, WIDTH, WALL_WIDTH = 10, 95, 30
+    BACKGROUND_SIZE = (SIZE * (WIDTH - WALL_WIDTH) + WALL_WIDTH, SIZE * (WIDTH - WALL_WIDTH) + WALL_WIDTH)
+
+    maze = Maze(pygame.surface.Surface(BACKGROUND_SIZE), SIZE, 0, 0, 9, 9, WIDTH, WALL_WIDTH)
     maze.mazeGenerate()
 
     while run:
@@ -38,7 +40,7 @@ def main():
             if event.type == pygame.QUIT:
                 run = False
 
-        game = Game(SCREEN, maze, 50)
+        game = Game(SCREEN, maze)
         game.run()
 
         pygame.display.update()

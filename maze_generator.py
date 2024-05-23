@@ -3,9 +3,8 @@ file này gồm các class:
 class Cell: Một ô của mê cung
 class Maze: Mê cung
 '''
-import random
+import pygame, random
 from queue import Queue
-import pygame
 
 pygame.init()
 
@@ -16,7 +15,6 @@ GREEN = (0, 255, 0)
 RED = (255, 0, 0)
 BLUE = (0, 0, 255)
 
-
 # tạo class cho một ô
 class Cell:
     '''
@@ -25,16 +23,60 @@ class Cell:
     def render(self, screen, center_x, center_y): trả về
     '''
 
-    def __init__(self, x: int, y: int):
+    def __init__(self, screen, x, y, pos, width, wall_width):
         '''
-        :param x, y: chỉ số của ô trong ma trận
-
+        :param pos: tọa độ topleft của Cell
+        :param width: độ rộng của Cell
+        :param image_width: kích cỡ của tường
         vis_dir: hướng đi của gợi ý
         walls: các bức tường bao quanh ô
         '''
         self.x, self.y = x, y
+        self.screen = screen
         self.walls = {'top': True, 'right': True, 'bottom': True, 'left': True}
         self.vis_dir = {'top': False, 'right': False, 'bottom': False, 'left': False}
+
+        self.pos = pos
+        self.width = width
+        self.wall_width = wall_width
+
+        self.image = pygame.image.load('assets/tile/wall.png').convert_alpha()
+        self.image = pygame.transform.smoothscale(self.image, (wall_width, wall_width))
+        self.image_rect = self.image.get_rect()
+
+    def get_center(self):
+        return (self.pos[0] + self.width / 2, self.pos[1] + self.width / 2)
+
+    def draw(self, image):
+        rect = image.get_rect(center = self.get_center())
+        self.screen.blit(image, rect)
+
+    def render(self):
+        for i in range(self.width // self.wall_width):
+            if self.walls['top']:
+                self.image_rect.topleft = (self.pos[0] + i * self.wall_width, self.pos[1])
+                self.screen.blit(self.image, self.image_rect)
+            if self.walls['right']:
+                self.image_rect.topright = (self.pos[0] + self.width, self.pos[1] + i * self.wall_width)
+                self.screen.blit(self.image, self.image_rect)
+            if self.walls['bottom']:
+                self.image_rect.bottomleft = (self.pos[0] + i * self.wall_width, self.pos[1] + self.width)
+                self.screen.blit(self.image, self.image_rect)
+            if self.walls['left']:
+                self.image_rect.topleft = (self.pos[0], self.pos[1] + i * self.wall_width)
+                self.screen.blit(self.image, self.image_rect)
+
+        self.image_rect.topright = (self.pos[0] + self.width, self.pos[1])
+        self.screen.blit(self.image, self.image_rect)
+
+        self.image_rect.bottomright = (self.pos[0] + self.width, self.pos[1] + self.width)
+        self.screen.blit(self.image, self.image_rect)
+
+        self.image_rect.bottomright = (self.pos[0] + self.width, self.pos[1] + self.width)
+        self.screen.blit(self.image, self.image_rect)
+
+        self.image_rect.bottomleft = (self.pos[0], self.pos[1] + self.width)
+        self.screen.blit(self.image, self.image_rect)
 
     # trả về tọa độ của các ô kề cạnh không bị ngăn cách bởi tường
     def neighbor(self):
@@ -46,6 +88,7 @@ class Cell:
                 neibor.append((self.x + dx, self.y + dy))
         return neibor
 
+
 # tạo class cho một mê cung
 class Maze:
     '''
@@ -56,7 +99,7 @@ class Maze:
     def getHint(self, x: int, y: int) -> list[tuple]: trả về đường đi gợi ý cho người chơi hướng đến điểm kết thúc đến khi gặp ngã ba
     '''
 
-    def __init__(self, size: int, startX: int, startY: int, endX: int, endY: int):
+    def __init__(self, screen, size, startX, startY, endX, endY, width, wall_width):
         '''
         :param size: kích thước của mê cung
         :param startX, startY: tọa độ ô bắt đầu
@@ -66,11 +109,15 @@ class Maze:
         trace: tọa độ của ô trước đó đã đi vào ô (x, y)
         hint: gợi ý ô tiếp theo hướng đến điểm kết thúc
         '''
+        self.screen = screen
         self.size = size
+
         self.startX, self.startY = startX, startY
         self.endX, self.endY = endX, endY
 
-        self.grid = [[Cell(x, y) for y in range(size)] for x in range(size)]
+        self.width = width
+        self.wall_width = wall_width
+        self.grid = [[Cell(screen, x, y, (y * (width - wall_width), x * (width - wall_width)), width, wall_width) for y in range(size)] for x in range(size)]
 
         self.trace = [[(0, 0)] * size for _ in range(size)]
         self.hint = [[(0, 0)] * size for _ in range(size)]
@@ -93,20 +140,15 @@ class Maze:
 
     # trả về đường đi gợi ý cho người chơi hướng đến điểm kết thúc đến khi gặp ngã 3
     def getHint(self, x: int, y: int) -> list[tuple]:
-        
-        def addPath(hintPath, x, y, nx, ny):
-            dx, dy = nx - x, ny - y
-            hintPath.append((1 + x * 2 + dx, 1 + y * 2 + dy))
-            hintPath.append((1 + nx * 2, 1 + ny * 2))
-
         endNode = (self.endX, self.endY)
-
         hintPath = []
+
         while True:
             if (x, y) == endNode:
                 break
             nx, ny = self.hint[x][y]
-            addPath(hintPath, x, y, nx, ny)
+            hintPath.append((nx, ny))
+
             x, y = nx, ny
             if list(self.grid[x][y].walls.values()).count(False) > 2:
                 break
@@ -157,22 +199,7 @@ class Maze:
         # Sau khi sinh xong mê cung thì tạo gợi ý
         self.makeHint()
 
-    def convert(self) -> list[list[str]]:
-        grid = [['x'] * (self.size * 2 + 1) for _ in range(self.size * 2 + 1)]
-
-        for i in range(0, self.size):
-            for j in range(0, self.size):
-                x = 1 + i * 2
-                y = 1 + j * 2
-                grid[x][y] = ' '
-                walls = ['top', 'right', 'bottom', 'left']
-                dir = [(-1, 0), (0, 1), (1, 0), (0, -1)]
-                for wall, (dx, dy) in zip(walls, dir):
-                    if self.grid[i][j].walls[wall] == True:
-                        grid[x + dx][y + dy] = 'x'
-                    else:
-                        grid[x + dx][y + dy] = ' '
-        grid[1 + self.startX * 2][1 + self.startY * 2] = 'p'
-        grid[1 + self.endX * 2][1 + self.endY * 2] = 'e'
-
-        return grid
+    def render(self):
+        for x in range(self.size):
+            for y in range(self.size):
+                self.grid[x][y].render()
