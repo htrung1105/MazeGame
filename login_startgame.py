@@ -731,7 +731,7 @@ class MenuGame:
         hard.translate(465, 0)
         
         button = self.leaderboard.add.button('Return to main menu', pygame_menu.events.BACK)
-        button.translate(185, 435)
+        button.translate(-140, 435)
 
     def init_setting(self):
         self.setting_help = pygame_menu.Menu(
@@ -751,6 +751,7 @@ class MenuGame:
         self.settings_menu = pygame_menu.Menu(
         height=WINDOW_SIZE[1], #* 0.85,
         theme=self.my_settings_menu_theme,
+        overflow = (False, False),
         title='Settings',
         width=WINDOW_SIZE[0], #* 0.6
         #columns = 2,
