@@ -115,15 +115,20 @@ class Maze:
         self.startX, self.startY = startX, startY
         self.endX, self.endY = endX, endY
 
+        if size == 100:
+            self.BASE = 40
+        else:
+            self.BASE = 0
+
         self.width = width
         self.wall_width = wall_width
-        self.grid = [[Cell(screen, x, y, (y * (width - wall_width), x * (width - wall_width)), width, wall_width) for y in range(size)] for x in range(size)]
+        self.grid = [[Cell(screen, x, y, (y * (width - wall_width) + self.BASE, x * (width - wall_width) + self.BASE), width, wall_width) for y in range(size)] for x in range(size)]
 
         self.trace = [[(0, 0)] * size for _ in range(size)]
         self.hint = [[(0, 0)] * size for _ in range(size)]
 
     def reset(self):
-        self.grid = [[Cell(self.screen, x, y, (y * (self.width - self.wall_width), x * (self.width - self.wall_width)), self.width, self.wall_width)
+        self.grid = [[Cell(self.screen, x, y, (y * (self.width - self.wall_width) + self.BASE, x * (self.width - self.wall_width) + self.BASE), self.width, self.wall_width)
                       for y in range(self.size)] for x in range(self.size)]
 
         self.trace = [[(0, 0)] * self.size for _ in range(self.size)]
