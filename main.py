@@ -29,14 +29,7 @@ def main():
     clock = pygame.time.Clock()
     run = True
 
-    SIZE, WIDTH, WALL_WIDTH = 10, 77, 10
-    #BACKGROUND_SIZE = (SIZE * (WIDTH - WALL_WIDTH) + WALL_WIDTH, SIZE * (WIDTH - WALL_WIDTH) + WALL_WIDTH)
-    BACKGROUND_SIZE = (680, 680)
-
-    maze = Maze(pygame.surface.Surface(BACKGROUND_SIZE), SIZE, 0, 0, 9, 9, WIDTH, WALL_WIDTH)
-    maze.mazeGenerate()
-
-    game = Game(SCREEN, maze)
+    game = Game(SCREEN, 'auto', 'medium', 0, 0, 39, 39, (10, 10), 10, 'game', 'trung')
     game.run()
 
     # while run:

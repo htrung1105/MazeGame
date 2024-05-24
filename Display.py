@@ -7,6 +7,13 @@ class Clock:
         self.minutes = minutes
         self.seconds = seconds
 
+    def pack(self):
+        return (self.minutes, self.seconds)
+
+    def get(self, time):
+        self.minutes = time[0]
+        self.seconds = time[1]
+
     def reset(self):
         self.minutes = 0
         self.seconds = 0
