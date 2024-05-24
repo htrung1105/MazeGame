@@ -46,3 +46,6 @@ class Level:
             rect = self.player.image.get_rect(center=self.q.get())
             self.display_surface.blit(self.player.image, rect)
 
+
+
+
