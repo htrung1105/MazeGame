@@ -1,23 +1,29 @@
 import pygame
 from pygame.locals import *
+import time
 from database import UserDatabase
 
 class Clock:
     def __init__(self, minutes, seconds):
+        self.last_time = int(time.time())
         self.minutes = minutes
         self.seconds = seconds
 
     def reset(self):
+        self.last_tỉme = time.time()
         self.minutes = 0
         self.seconds = 0
 
     def update(self):
-        self.seconds += 1
-        if self.seconds == 60:
+        second_increase = int(time.time() - self.last_time)
+        self.seconds += second_increase
+        if self.seconds >= 60:
             self.minutes += 1
-            self.seconds = 0
+            self.seconds -= 60
         if self.minutes == 60:
             self.minutes = 0
+        if second_increase != 0:
+            self.last_time = int(time.time())
 
     def display_time(self):
         return f"{self.minutes:02d}:{self.seconds:02d}"
