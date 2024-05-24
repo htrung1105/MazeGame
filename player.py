@@ -2,12 +2,10 @@ import pygame
 from utils import import_folder
 from maze_generator import *
 
-# const
-PING = 300
-
 class Player():
-    def __init__(self, maze, tilesize):
+    def __init__(self, level, maze, tilesize):
         self.maze = maze
+        self.level = level
         self.loc = (maze.startX, maze.startY)
         self.tilesize = tilesize
 
@@ -18,18 +16,20 @@ class Player():
         # graphics setup
         self.import_player_assets()
         self.status = 'down'
+        self.speed = 50
 
         self.frame_index = 0
-        self.animation_speed = 1
+        self.animation_speed = 0.2
 
         self.direction = pygame.math.Vector2(0, 0)
         self.hintPath = []
+        self.stack = []
 
     def import_player_assets(self):
         character_path = 'assets/player/'
         self.animations = {'up': [], 'down': [], 'left': [], 'right': [],
                            'right_idle' : [], 'left_idle' : [], 'up_idle' : [], 'down_idle' : [],
-                           'catch_idle' : []}
+                           'catch' : [], 'catch_idle' : []}
 
         for animation in self.animations.keys():
             full_path = character_path + animation
@@ -80,17 +80,32 @@ class Player():
                 self.direction = (0, 0)
 
     def move(self):
-        new_loc = (self.loc[0] + self.direction[1], self.loc[1] + self.direction[0])
-        self.maze.grid[new_loc[0]][new_loc[1]].draw(self.image)
-        self.loc = new_loc
-
         if self.direction != pygame.math.Vector2(0, 0):
-            pygame.time.delay(PING)
+            new_loc = (self.loc[0] + self.direction[1], self.loc[1] + self.direction[0])
+            pos_loc = self.maze.grid[self.loc[0]][self.loc[1]].get_center()
+            pos_new_loc = self.maze.grid[new_loc[0]][new_loc[1]].get_center()
+
+            BASE_DOT = 10
+            if self.direction[0] > 0:
+                for pos in [tmp / float(BASE_DOT) for tmp in range(pos_loc[0] * BASE_DOT, pos_new_loc[0] * BASE_DOT, self.speed)]:
+                    self.level.q.put((pos, pos_loc[1]))
+            elif self.direction[0] < 0:
+                for pos in [tmp / float(BASE_DOT) for tmp in range(pos_loc[0] * BASE_DOT, pos_new_loc[0] * BASE_DOT, -self.speed)]:
+                    self.level.q.put((pos, pos_loc[1]))
+            elif self.direction[1] > 0:
+                for pos in [tmp / float(BASE_DOT) for tmp in range(pos_loc[1] * BASE_DOT, pos_new_loc[1] * BASE_DOT, self.speed)]:
+                    self.level.q.put((pos_loc[0], pos))
+            elif self.direction[1] < 0:
+                for pos in [tmp / float(BASE_DOT) for tmp in range(pos_loc[1] * BASE_DOT, pos_new_loc[1] * BASE_DOT, -self.speed)]:
+                    self.level.q.put((pos_loc[0], pos))
+            self.loc = new_loc
+        else:
+            self.maze.grid[self.loc[0]][self.loc[1]].draw(self.image)
 
     def getPosition(self):
         return self.maze.grid[self.loc[0]][self.loc[1]].get_center()
 
-    def animate(self):
+    def animate(self, pause):
         # idle status
         if self.direction == (0, 0):
             if 'idle' not in self.status:
@@ -108,8 +123,9 @@ class Player():
     def getHint(self):
         self.hintPath = self.maze.getHint(self.loc[0], self.loc[1])
 
-    def update(self):
-        self.input()
-        self.animate()
-        self.move()
+    def update(self, pause):
+        if pause is False:
+            self.input()
+            self.move()
+        self.animate(pause)
         return self.status
