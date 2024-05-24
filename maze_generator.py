@@ -45,7 +45,7 @@ class Cell:
         self.image_rect = self.image.get_rect()
 
     def get_center(self):
-        return (self.pos[0] + self.width / 2, self.pos[1] + self.width / 2)
+        return (self.pos[0] + self.width // 2, self.pos[1] + self.width // 2)
 
     def draw(self, image):
         rect = image.get_rect(center = self.get_center())

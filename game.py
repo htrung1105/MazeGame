@@ -94,6 +94,5 @@ class Game:
                     if event.key == pygame.K_r:
                         pass
 
-
             pygame.display.update()
             self.clock.tick(FPS)

@@ -29,7 +29,7 @@ def main():
     clock = pygame.time.Clock()
     run = True
 
-    game = Game(SCREEN, 'auto', 'medium', 0, 0, 39, 39, (10, 10), 10, 'game', 'trung')
+    game = Game(SCREEN, 'auto', 'easy', 0, 0, 9, 9, (10, 10), 10, 'game', 'trung')
     game.run()
 
     # while run:
