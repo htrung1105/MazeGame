@@ -7,7 +7,7 @@ from Display import *
 from database import *
 
 # level: size_map, cell_width, wall_width
-ATRIBUTES = {'easy' : (10, 77, 10), 'medium' : (40, 22, 5), 'hard' : (100, 9, 2)}
+ATRIBUTES = {'easy' : (20, 77, 10), 'medium' : (40, 22, 5), 'hard' : (100, 9, 2)}
 
 class Game:
     def __init__(self, screen, mode_play, difficult, start_x, start_y, end_x, end_y, time, step, gamename, username, maze = None, status = None):
