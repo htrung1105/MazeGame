@@ -7,10 +7,10 @@ from Display import *
 from database import *
 
 # level: size_map, cell_width, wall_width
-ATRIBUTES = {'Easy' : (20, 42, 8), 'Medium' : (40, 22, 5), 'Hard' : (100, 7, 1)}
+ATRIBUTES = {'easy' : (20, 42, 8), 'medium' : (40, 22, 5), 'hard' : (100, 7, 1)}
 
 class Game:
-    def __init__(self, screen, mode_play, difficult, start_x, start_y, end_x, end_y, time, step, game_name, username, maze = None, status = None, volume = 1):
+    def __init__(self, screen, mode_play, difficult, start_x, start_y, end_x, end_y, time, step, game_name, username, maze = None, status = None):
 
         # general setup
         pygame.init()
@@ -30,10 +30,6 @@ class Game:
         self.start = (start_x, start_y)
         self.end = (end_x, end_y)
 
-        self.sound = pygame.mixer.Sound('sound/select sound.mp3')
-        self.sound.set_volume(volume)
-        self.volume = volume
-
         if maze is None:
             self.maze = Maze(self.display_surface, ATRIBUTES[difficult][0], start_x, start_y, end_x, end_y, ATRIBUTES[difficult][1], ATRIBUTES[difficult][2])
             self.maze.mazeGenerate()
@@ -45,7 +41,7 @@ class Game:
         else:
             self.level = status
 
-        self.menu = Display(self.screen, {'home' : ((815, 589), volume), 'new' : ((938, 589), volume), 'save' : ((1061, 589), volume), 'help' : ((1184, 589), volume)},
+        self.menu = Display(self.screen, {'home' : (815, 589), 'new' : (938, 589), 'save' : (1061, 589), 'help' : (1184, 589)},
                             [(f'Name: {game_name}', (860, 300)), (f'Difficult: {difficult}', (860, 360)), (f'Mode: {mode_play}', (860, 420)), ('Time: 00:00', (860, 480))])
         self.menu.clock.get(time)
 
@@ -59,13 +55,13 @@ class Game:
         data['step'] = self.step
         data['game_name'] = self.game_name
         data['username'] = self.username
-        data['maze'] = self.maze
-        data['status'] = self.level
-        return data
+        # data['maze'] = self.maze
+        # data['status'] = self.level
+        return data, self.maze, self.level, 
 
     def run(self):
         running = True
-        if self.mode_play in ('Auto (A*)', 'Auto (BFS)'):
+        if self.mode_play in ('A*', 'BFS'):
             self.level.getAuto(self.mode_play)
 
         while running:
@@ -76,7 +72,7 @@ class Game:
             self.screen.blit(self.display_surface, (39, 33))
             self.screen.blit(self.img_border, (0, 0))
 
-            status = self.menu.render(self.level.pause_sound)
+            status = self.menu.render()
             if status == 'home':
                 running = False
                 return False
@@ -85,8 +81,7 @@ class Game:
                 self.maze.mazeGenerate()
                 self.level = Level(self, int(self.maze.width - 2 * self.maze.wall_width))
                 self.menu.reset_time()
-                self.step = 0
-                if self.mode_play in ('Auto (A*)', 'Auto (BFS)'):
+                if self.mode_play in ('A*', 'BFS'):
                     self.level.getAuto(self.mode_play)
             elif status == 'save':
                 if UserDatabase().save_game(self.username, self.game_name, self.pack_data()):
@@ -102,19 +97,15 @@ class Game:
                     pygame.quit()
                     sys.exit()
                 if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_h and self.mode_play not in ('Auto (A*)', 'Auto (BFS)'):
-                        self.sound.play()
+                    if event.key == pygame.K_h and self.mode_play not in ('A*', 'BFS'):
                         self.level.player.getHint()
-                    if event.key == pygame.K_r and self.mode_play in ('Auto (A*)', 'Auto (BFS)') and len(self.level.visited) > 0:
-                        self.sound.play()
-                        if self.mode_play == 'Auto (A*)':
-                            self.mode_play = 'Auto (BFS)'
+                    if event.key == pygame.K_r and self.mode_play in ('A*', 'BFS') and len(self.level.visited) > 0:
+                        if self.mode_play == 'A*':
+                            self.mode_play = 'BFS'
                         else:
-                            self.mode_play = 'Auto (A*)'
+                            self.mode_play = 'A*'
                         self.menu.text_boxes[2].update(f'Mode: {self.mode_play}')
                         self.level.getAuto(self.mode_play)
 
             pygame.display.update()
             self.clock.tick(FPS)
-
-#Game(pygame.display.set_mode((1300, 750)), 'Auto (A*)', 'Easy', 0, 0, 9, 9, (10, 10), 10, 'game1', 'user1', volume=0.5).run()
