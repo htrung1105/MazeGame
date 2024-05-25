@@ -28,6 +28,9 @@ class Level:
         self.find = []
         self.index = 0
 
+        self.image_win = pygame.image.load('assets/tilemap/winning.png')
+        self.image_win = pygame.transform.scale(self.image_win, (540, 300))
+
     def getAuto(self, option):
         self.visited.clear()
         self.step = []
@@ -98,6 +101,8 @@ class Level:
 
         if xx == self.game.maze.endX and yy == self.game.maze.endY:
             self.player.status = 'catch'
+            rect = self.image_win.get_rect(center = (344, 344))
+            self.display_surface.blit(self.image_win, rect)
         else:
             self.goal.render()
 
