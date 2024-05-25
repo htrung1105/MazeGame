@@ -3,7 +3,6 @@ import pygame
 import pygame_menu
 from pygame_menu.examples import create_example_window
 from database import UserDatabase
-from game import *
 
 from typing import Tuple, Optional
 
@@ -510,20 +509,21 @@ class MenuGame:
                 print('valid !! playgame now')
 
                 if level == 20:
-                    difficult = 'easy'
+                    difficult = 'Easy'
                 elif level == 40:
-                    difficult = 'medium'
+                    difficult = 'Medium'
                 else:
-                    difficult = 'hard'
+                    difficult = 'Hard'
 
                 tmp = data['mode_play'][1]
                 if tmp == 0:
-                    modePlay = 'Human'
+                    modePlay = 'Player'
                 elif tmp == 1:
-                    modePlay = 'A*'
+                    modePlay = 'Auto (A*)'
                 else:
-                    modePlay = 'BFS'
+                    modePlay = 'Auto (BFS)'
 
+                from game import Game
                 Game(self.surface, modePlay, difficult, data['start_x'], data['start_y'], data['end_x'], data['end_y'],
                      (0, 0), 0, data['game_name'], self.username).run()
 

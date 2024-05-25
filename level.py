@@ -27,9 +27,16 @@ class Level:
         self.stay = []
         self.find = []
         self.index = 0
+        self.pause_sound = False
 
         self.image_win = pygame.image.load('assets/tilemap/winning.png')
         self.image_win = pygame.transform.scale(self.image_win, (540, 300))
+
+        self.sound = pygame.mixer.Sound('sound/jump.mp3')
+        self.sound.set_volume(self.game.volume)
+
+        self.sound_trace = pygame.mixer.Sound('sound/tracePath.mp3')
+        self.sound_trace.set_volume(self.game.volume)
 
     def getAuto(self, option):
         self.visited.clear()
@@ -38,9 +45,9 @@ class Level:
         self.find = []
         self.index = 0
 
-        if option == 'A*':
+        if option == 'Auto (A*)':
             self.visited = self.solver.AStarSearch()
-        elif option == 'BFS':
+        elif option == 'Auto (BFS)':
             self.visited = self.solver.BFS()
         self.visited.reverse()
 
@@ -81,6 +88,8 @@ class Level:
                 self.find[i].render()
 
             if self.index < len(self.find):
+                if self.index % 12 == 0:
+                    self.sound_trace.play()
                 self.index += 1
             else:
                 for hint in self.stack:
@@ -90,6 +99,7 @@ class Level:
                     dir = self.player.update(False)
                     if dir in ('left', 'right', 'up', 'down'):
                         self.game.step += 1
+                        self.sound.play()
                         if len(self.stack) > 0 and (dir, self.stack[-1].dir) in LIST_DIR_OPPOSITE:
                             self.stack.pop()
                         else:
@@ -103,6 +113,11 @@ class Level:
             self.player.status = 'catch'
             rect = self.image_win.get_rect(center = (344, 344))
             self.display_surface.blit(self.image_win, rect)
+            if not self.pause_sound:
+                sound = pygame.mixer.Sound('sound/winning sound.mp3')
+                sound.set_volume(self.game.volume * 5)
+                sound.play()
+                self.pause_sound = True
         else:
             self.goal.render()
 
