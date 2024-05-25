@@ -2,6 +2,7 @@ import pygame
 
 from game import *
 from maze_generator import *
+from login_startgame import *
 
 import pickle # save game/load game library
 
@@ -29,16 +30,11 @@ def main():
     clock = pygame.time.Clock()
     run = True
 
-    game = Game(SCREEN, 'A*', 'easy', 0, 0, 0, 1, (10, 10), 10, 'game1', 'user1')
-    game.run()
+    # game = Game(SCREEN, 'A*', 'easy', 0, 0, 0, 1, (10, 10), 10, 'game1', 'user1')
+    # game.run()
 
-    # while run:
-    #     for event in pygame.event.get():
-    #         if event.type == pygame.QUIT:
-    #             run = False
-    #
-    #     pygame.display.update()
-    #     clock.tick(FPS)
+    g = LoginMenu()
+    g.start()
 
 if __name__ == '__main__':
     main()

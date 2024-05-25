@@ -3,6 +3,7 @@ import pygame
 import pygame_menu
 from pygame_menu.examples import create_example_window
 from database import UserDatabase
+from game import *
 
 from typing import Tuple, Optional
 
@@ -507,6 +508,25 @@ class MenuGame:
                 pygame.mixer.music.unload()
 
                 print('valid !! playgame now')
+
+                if level == 20:
+                    difficult = 'easy'
+                elif level == 40:
+                    difficult = 'medium'
+                else:
+                    difficult = 'hard'
+
+                tmp = data['mode_play'][1]
+                if tmp == 0:
+                    modePlay = 'Human'
+                elif tmp == 1:
+                    modePlay = 'A*'
+                else:
+                    modePlay = 'BFS'
+
+                Game(self.surface, modePlay, difficult, data['start_x'], data['start_y'], data['end_x'], data['end_y'],
+                     (0, 0), 0, data['game_name'], self.username).run()
+
                 self.running_menu = False
 
         game_name = self.start_game_menu.add.text_input(
@@ -882,7 +902,6 @@ class MenuGame:
         self.init_menu()
 
         self.running_menu = True
-
         while self.running_menu:
             
             # Main menu

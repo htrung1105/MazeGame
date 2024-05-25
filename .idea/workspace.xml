@@ -1,0 +1,502 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="aedf8e1e-af6f-41f9-a6e6-b1bac15b7d08" name="Changes" comment="Update winning">
+      <change beforePath="$PROJECT_DIR$/Themebeach/Auto_mode.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Themebeach/button1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Themebeach/button10.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Themebeach/button2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Themebeach/button3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Themebeach/button4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Themebeach/button5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Themebeach/button6.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Themebeach/button7.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Themebeach/button8.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Themebeach/button9.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Themebeach/o.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Themebeach/oo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Themebeach/start_game.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/button10.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/button2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/button3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/button4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/button5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/button6.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/button7.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/button8.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/button9.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/o.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/oo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/start_game.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/login_startgame.py" beforeDir="false" afterPath="$PROJECT_DIR$/login_startgame.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user_data.json" beforeDir="false" afterPath="$PROJECT_DIR$/user_data.json" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;htrung1105&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="recentNewPullRequestHead">
+      <RepoCoordinatesHolder>
+        <option name="owner" value="htrung1105" />
+        <option name="repository" value="MazeGame" />
+      </RepoCoordinatesHolder>
+    </option>
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="13ec492c-dcc6-4294-bddc-2384f75a25a4" />
+        <option name="url" value="https://github.com/htrung1105/MazeGame.git" />
+      </UrlAndAccount>
+    </option>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="2flaxyjnMyt1PiRW2RPN5047GPW" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "Python.Display.executor": "Run",
+    "Python.GAME2.executor": "Run",
+    "Python.button.executor": "Run",
+    "Python.database.executor": "Run",
+    "Python.display_menu.executor": "Run",
+    "Python.entities.executor": "Run",
+    "Python.game.executor": "Run",
+    "Python.game_play.executor": "Run",
+    "Python.level.executor": "Run",
+    "Python.login_page.executor": "Run",
+    "Python.login_startgame.executor": "Run",
+    "Python.main.executor": "Run",
+    "Python.maze_generator.executor": "Run",
+    "Python.maze_solver.executor": "Run",
+    "Python.omg.executor": "Run",
+    "Python.player.executor": "Run",
+    "Python.test_menu_DT.executor": "Run",
+    "Python.testing.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "duong",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "D:/Data Trung/4. HCMUS/4. Đồ án/2. TH Lập trình AI/Maze Game (LOCAL)",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "ChangesTree.GroupingKeys": [
+      "directory"
+    ]
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\MazeGame\assets\Display Game-Play" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-python-sdk-d68999036c7f-b11f5e8da5ad-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-233.14475.56" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="aedf8e1e-af6f-41f9-a6e6-b1bac15b7d08" name="Changes" comment="" />
+      <created>1714378368252</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1714378368252</updated>
+      <workItem from="1714378369293" duration="1624000" />
+      <workItem from="1714622511017" duration="45171000" />
+      <workItem from="1714959396326" duration="5025000" />
+      <workItem from="1714964658203" duration="697000" />
+      <workItem from="1714965373094" duration="12298000" />
+      <workItem from="1715057946306" duration="11541000" />
+      <workItem from="1715135162525" duration="2328000" />
+      <workItem from="1715166985954" duration="15640000" />
+      <workItem from="1715311780019" duration="1508000" />
+      <workItem from="1715509715494" duration="2166000" />
+      <workItem from="1715674778180" duration="995000" />
+      <workItem from="1715768777853" duration="8590000" />
+      <workItem from="1715816855831" duration="16813000" />
+      <workItem from="1715958031133" duration="12953000" />
+      <workItem from="1716026049069" duration="475000" />
+      <workItem from="1716133388864" duration="20000" />
+      <workItem from="1716133557764" duration="10344000" />
+      <workItem from="1716209198980" duration="40502000" />
+      <workItem from="1716370202725" duration="44153000" />
+      <workItem from="1716507410393" duration="10435000" />
+      <workItem from="1716541481221" duration="24421000" />
+    </task>
+    <task id="LOCAL-00001" summary="Update main.py">
+      <option name="closed" value="true" />
+      <created>1714378549953</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1714378549953</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Add 2 folders: assets, sound&#10;Folder &quot;assets&quot;: dùng để lưu trữ hình ảnh&#10;Folder &quot;sound&quot;: dùng để lưu trữ âm thanh">
+      <option name="closed" value="true" />
+      <created>1714379346969</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1714379346969</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Update sound: 3 new sounds">
+      <option name="closed" value="true" />
+      <created>1714381155932</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1714381155932</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Update: test thử thuật toán BFS cải tiến">
+      <option name="closed" value="true" />
+      <created>1714673289750</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1714673289750</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Update: test thử display_menu">
+      <option name="closed" value="true" />
+      <created>1714846665374</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1714846665374</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Update: test thử display_menu">
+      <option name="closed" value="true" />
+      <created>1714846746225</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1714846746225</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Update: Cập nhật assets/sound">
+      <option name="closed" value="true" />
+      <created>1714965636694</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1714965636695</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Update maze_solver.py: Hoàn thành thuật toán BFS">
+      <option name="closed" value="true" />
+      <created>1714979442487</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1714979442487</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Update maze_solver.py: Hoàn thành thuật toán BFS">
+      <option name="closed" value="true" />
+      <created>1715183947286</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1715183947286</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Update maze_solver.py: Hoàn thành thuật toán BFS">
+      <option name="closed" value="true" />
+      <created>1715965349430</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1715965349430</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Update maze_solver.py: Hoàn thành thuật toán BFS">
+      <option name="closed" value="true" />
+      <created>1715965445078</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1715965445078</updated>
+    </task>
+    <task id="LOCAL-00012" summary="UPDATE GAME.PY">
+      <option name="closed" value="true" />
+      <created>1715966728511</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1715966728511</updated>
+    </task>
+    <task id="LOCAL-00013" summary="UPDATE game.py, debug.py, level.py, player.py, settings.py, tile.py, utils.py">
+      <option name="closed" value="true" />
+      <created>1716134577063</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1716134577063</updated>
+    </task>
+    <task id="LOCAL-00014" summary="UPDATE element">
+      <option name="closed" value="true" />
+      <created>1716135350659</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1716135350660</updated>
+    </task>
+    <task id="LOCAL-00015" summary="UPDATE background.png&#10;Cập nhật TILESIZE">
+      <option name="closed" value="true" />
+      <created>1716137768469</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1716137768469</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Update GOAL">
+      <option name="closed" value="true" />
+      <created>1716143033696</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1716143033696</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Update animation of tom">
+      <option name="closed" value="true" />
+      <created>1716221797264</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1716221797265</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Update animation of tom">
+      <option name="closed" value="true" />
+      <created>1716222603720</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1716222603720</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Update animation of tom catch jerry">
+      <option name="closed" value="true" />
+      <created>1716224567036</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1716224567037</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Update display">
+      <option name="closed" value="true" />
+      <created>1716259277812</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1716259277812</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Update ảnh vết của đường đi">
+      <option name="closed" value="true" />
+      <created>1716290348648</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1716290348648</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Update settings.py">
+      <option name="closed" value="true" />
+      <created>1716334386776</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1716334386777</updated>
+    </task>
+    <task id="LOCAL-00023" summary="UPDATE thành ma trận cũ">
+      <option name="closed" value="true" />
+      <created>1716395527455</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1716395527455</updated>
+    </task>
+    <task id="LOCAL-00024" summary="UPDATE thành ma trận cũ">
+      <option name="closed" value="true" />
+      <created>1716395546683</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1716395546683</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Hoàn thành giao diện, chưa có nút tương tác">
+      <option name="closed" value="true" />
+      <created>1716438153026</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1716438153027</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Hoàn thành giao diện tự chơi">
+      <option name="closed" value="true" />
+      <created>1716484003810</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1716484003811</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Update pack_data">
+      <option name="closed" value="true" />
+      <created>1716527116769</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1716527116769</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Fix xong animation cho nhân vật">
+      <option name="closed" value="true" />
+      <created>1716531559109</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1716531559109</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Fix mode easy">
+      <option name="closed" value="true" />
+      <created>1716557354965</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1716557354966</updated>
+    </task>
+    <task id="LOCAL-00030" summary="Update mode auto">
+      <option name="closed" value="true" />
+      <created>1716603441633</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1716603441633</updated>
+    </task>
+    <task id="LOCAL-00031" summary="Update button">
+      <option name="closed" value="true" />
+      <created>1716604002781</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1716604002781</updated>
+    </task>
+    <task id="LOCAL-00032" summary="Update winning">
+      <option name="closed" value="true" />
+      <created>1716608823644</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1716608823644</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="CUSTOM_BOOLEAN_PROPERTIES">
+                <map>
+                  <entry key="Show.Git.Branches" value="true" />
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="Add 2 folders: assets, sound&#10;Folder &quot;assets&quot;: dùng để lưu trữ hình ảnh&#10;Folder &quot;sound&quot;: dùng để lưu trữ âm thanh" />
+    <MESSAGE value="Update sound: 3 new sounds" />
+    <MESSAGE value="Update: test thử thuật toán BFS cải tiến" />
+    <MESSAGE value="Update: test thử display_menu" />
+    <MESSAGE value="Update: Cập nhật assets/sound" />
+    <MESSAGE value="Update maze_solver.py: Hoàn thành thuật toán BFS" />
+    <MESSAGE value="UPDATE GAME.PY" />
+    <MESSAGE value="UPDATE game.py, debug.py, level.py, player.py, settings.py, tile.py, utils.py" />
+    <MESSAGE value="UPDATE element" />
+    <MESSAGE value="UPDATE background.png&#10;Cập nhật TILESIZE" />
+    <MESSAGE value="Update GOAL" />
+    <MESSAGE value="Update animation of tom" />
+    <MESSAGE value="Update animation of tom catch jerry" />
+    <MESSAGE value="Update display" />
+    <MESSAGE value="Update ảnh vết của đường đi" />
+    <MESSAGE value="Update settings.py" />
+    <MESSAGE value="UPDATE thành ma trận cũ" />
+    <MESSAGE value="Hoàn thành giao diện, chưa có nút tương tác" />
+    <MESSAGE value="Hoàn thành giao diện tự chơi" />
+    <MESSAGE value="Update pack_data" />
+    <MESSAGE value="Fix xong animation cho nhân vật" />
+    <MESSAGE value="Fix mode easy" />
+    <MESSAGE value="Update mode auto" />
+    <MESSAGE value="Update button" />
+    <MESSAGE value="Update winning" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update winning" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/MazeGame$login_startgame.coverage" NAME="login_startgame Coverage Results" MODIFIED="1716613016174" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/MazeGame$database.coverage" NAME="database Coverage Results" MODIFIED="1716532003109" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/MazeGame$login_page.coverage" NAME="login_page Coverage Results" MODIFIED="1714890131008" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/MazeGame$omg.coverage" NAME="omg Coverage Results" MODIFIED="1714788108908" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/MazeGame$main.coverage" NAME="main Coverage Results" MODIFIED="1716608803565" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/MazeGame$testing.coverage" NAME="testing Coverage Results" MODIFIED="1714890134421" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/MazeGame$game.coverage" NAME="game Coverage Results" MODIFIED="1716557866213" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/MazeGame$button.coverage" NAME="button Coverage Results" MODIFIED="1714877240896" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/MazeGame$level.coverage" NAME="level Coverage Results" MODIFIED="1716594226215" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/MazeGame$entities.coverage" NAME="entities Coverage Results" MODIFIED="1715960637793" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/scripts" />
+    <SUITE FILE_PATH="coverage/MazeGame$test_menu_DT.coverage" NAME="test_menu_DT Coverage Results" MODIFIED="1714622594790" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/MazeGame$display_menu.coverage" NAME="display_menu Coverage Results" MODIFIED="1714893584656" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/MazeGame$game_play.coverage" NAME="game_play Coverage Results" MODIFIED="1715965516740" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/MazeGame$maze_generator.coverage" NAME="maze_generator Coverage Results" MODIFIED="1716375671941" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/MazeGame$player.coverage" NAME="player Coverage Results" MODIFIED="1716393371419" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/MazeGame$GAME2.coverage" NAME="GAME2 Coverage Results" MODIFIED="1715675384863" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/MazeGame$maze_solver.coverage" NAME="maze_solver Coverage Results" MODIFIED="1715817386525" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/MazeGame$Display.coverage" NAME="Display Coverage Results" MODIFIED="1716404188053" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+  </component>
+</project>
