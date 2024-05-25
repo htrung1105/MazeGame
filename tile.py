@@ -18,3 +18,12 @@ class Hint():
 
     def render(self):
         self.grid.draw(self.image)
+
+class Auto():
+    def __init__(self, nametile, tilesize, grid):
+        self.grid = grid
+        self.image = pygame.image.load(rf'assets/test/{nametile}.png').convert_alpha()
+        self.image = pygame.transform.smoothscale(self.image, (tilesize - 1, tilesize - 1))
+
+    def render(self):
+        self.grid.draw(self.image)

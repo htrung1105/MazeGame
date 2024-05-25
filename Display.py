@@ -136,7 +136,7 @@ class Display():
         # get button
         self.buttons = buttons
         for button in self.buttons.keys():
-            self.buttons[button] = Button_Image(button, self.buttons[button],(96, 96))
+            self.buttons[button] = Button_Image(button, self.buttons[button],(96, 115))
 
         # get board
         self.text_boxes = []

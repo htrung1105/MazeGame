@@ -61,6 +61,9 @@ class Game:
 
     def run(self):
         running = True
+        if self.mode_play in ('A*', 'BFS'):
+            self.level.getAuto(self.mode_play)
+
         while running:
             self.display_surface.blit(self.img_ground, (0, 0))
             self.level.run()
@@ -77,6 +80,8 @@ class Game:
                 self.maze.mazeGenerate()
                 self.level = Level(self, int(self.maze.width - 2 * self.maze.wall_width))
                 self.menu.reset_time()
+                if self.mode_play in ('A*', 'BFS'):
+                    self.level.getAuto(self.mode_play)
             elif status == 'save':
                 if UserDatabase().save_game(self.username, self.game_name, self.pack_data()):
                     print('Saved')
@@ -91,10 +96,15 @@ class Game:
                     pygame.quit()
                     sys.exit()
                 if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_h:
+                    if event.key == pygame.K_h and self.mode_play not in ('A*', 'BFS'):
                         self.level.player.getHint()
-                    if event.key == pygame.K_r:
-                        pass
+                    if event.key == pygame.K_r and self.mode_play in ('A*', 'BFS') and len(self.level.visited) > 0:
+                        if self.mode_play == 'A*':
+                            self.mode_play = 'BFS'
+                        else:
+                            self.mode_play = 'A*'
+                        self.menu.text_boxes[2].update(f'Mode: {self.mode_play}')
+                        self.level.getAuto(self.mode_play)
 
             pygame.display.update()
             self.clock.tick(FPS)
