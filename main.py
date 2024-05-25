@@ -1,6 +1,5 @@
 import pygame
 
-from game import *
 from maze_generator import *
 from login_startgame import *
 
@@ -29,9 +28,6 @@ def getImage(filename: str):
 def main():
     clock = pygame.time.Clock()
     run = True
-
-    # game = Game(SCREEN, 'A*', 'easy', 0, 0, 0, 1, (10, 10), 10, 'game1', 'user1')
-    # game.run()
 
     g = LoginMenu()
     g.start()

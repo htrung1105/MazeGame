@@ -82,7 +82,7 @@ class Button:
             self.blink_color = (220,20,60)  # Reset màu nhấp nháy khi không được nhấn
 
 class Button_Image():
-    def __init__(self, image_path, pos, scale):
+    def __init__(self, image_path, pos, scale, volume):
         BASE_PATH = 'assets/button/'
         image = pygame.image.load(BASE_PATH + image_path + '.png')
         self.image = pygame.transform.scale(image, scale)
@@ -92,6 +92,9 @@ class Button_Image():
 
         self.rect = self.image.get_rect(topleft=pos)
         self.clicked = False
+
+        self.sound = pygame.mixer.Sound('sound/select sound - ver 2.mp3')
+        self.sound.set_volume(volume)
 
     def draw(self, surface):
         action = False
@@ -107,10 +110,12 @@ class Button_Image():
         if pygame.mouse.get_pressed()[0] == 0:
             self.clicked = False
 
+        if action:
+            self.sound.play()
         return action
 
 class TextBox:
-    def __init__(self, pos, text = ''):
+    def __init__(self, pos, text = '', volume = 1):
         self.pos = pos
         self.font = pygame.font.Font('font/Montserrat-SemiBold.ttf', 40)
         self.text = self.font.render(text, True, (211, 151, 68))
@@ -136,7 +141,7 @@ class Display():
         # get button
         self.buttons = buttons
         for button in self.buttons.keys():
-            self.buttons[button] = Button_Image(button, self.buttons[button],(96, 115))
+            self.buttons[button] = Button_Image(button, self.buttons[button][0],(96, 115), self.buttons[button][1])
 
         # get board
         self.text_boxes = []
@@ -152,14 +157,15 @@ class Display():
     def reset_time(self):
         self.clock.reset()
 
-    def render(self): # need update
+    def render(self, pause):
         self.draw_page()
         for button in self.buttons.keys():
             if self.buttons[button].draw(self.screen):
                 return button
 
         self.text_boxes[-1].update('Clock: ' + self.clock.display_time())
-        self.clock.update()
+        if not pause:
+            self.clock.update()
 
         for textbox in self.text_boxes:
             textbox.draw(self.screen)

@@ -1,5 +1,6 @@
 import json
 import pprint
+import pickle
 
 class UserDatabase:
     """
@@ -36,6 +37,27 @@ class UserDatabase:
         self.filename = filename
         self.users = {}
         self.load_data()
+
+    # save a maze into a file
+    def saveMaze(self, maze, level, username: str, filename: str):
+        fileMaze = username + '_' + filename + '_maze' 
+        fileLevel = username + '_' + filename + '_level'
+
+        with open(fileMaze, 'wb') as f:
+            pickle.dump(maze, f)
+        with open(fileLevel, 'wb') as f:
+            pickle.dump(level, f)
+
+    # load a maze from a file and return it
+    def loadMaze(self, username: str, filename: str):
+        fileMaze = username + '_' + filename + '_maze'
+        fileLevel = username + '_' + filename + '_level'
+
+        with open(fileMaze, 'rb') as f:
+            maze = pickle.load(f)
+        with open(fileLevel, 'rb') as f:
+            level = pickle.load(f)
+        return maze, level
 
     # Load data from json database
     def load_data(self):
@@ -80,14 +102,20 @@ class UserDatabase:
     def load_game(self, username, game_name):
         if username in self.users:
             if game_name in self.users[username]:
-                return self.users[username][game_name]
+                return self.users[username][game_name], self.loadMaze(username, game_name)
         return False
     
     # Use this function to save a game to a user 
     def save_game(self, username, game_name, data):
+        pprint.pprint(data)
         if username in self.users:
+            maze, level = data[1], data[2]
+            data = data[0]
             self.users[username][game_name] = data
+            print('\n\n')
+            pprint.pprint(data)
             self.save_data()
+            self.saveMaze(maze, level, username, game_name)
             return True
         return False
 
@@ -119,24 +147,6 @@ class UserDatabase:
         hard_list.sort(key=lambda x: x['time'])
 
         return (easy_list, medium_list, hard_list)
-
-    def pack_data(self, maze, level, start_x, start_y, end_x, end_y, time, step, status, username):
-        data = {}
-        data['maze'] = maze
-        data['level'] = level
-        if level == 'hard':
-            data['size'] = 100
-        if level == 'medium':
-            data['size'] = 40
-        if level == 'easy':
-            data['size'] = 20
-        data['start'] = [start_x, start_y]
-        data['end'] = [end_x, end_y]
-        data['time'] = time
-        data['step'] = step
-        data['status'] = status
-        data['username'] = username
-        return data
 
 
 #########################DEMO##########################
@@ -181,4 +191,3 @@ def init_some_user():
     #pprint.pprint(db.users)
 
     pprint.pprint(db.load_users('user4', 'pas1'))
-
