@@ -4,36 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="aedf8e1e-af6f-41f9-a6e6-b1bac15b7d08" name="Changes" comment="Update winning">
-      <change beforePath="$PROJECT_DIR$/Themebeach/Auto_mode.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Themebeach/button1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Themebeach/button10.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Themebeach/button2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Themebeach/button3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Themebeach/button4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Themebeach/button5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Themebeach/button6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Themebeach/button7.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Themebeach/button8.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Themebeach/button9.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Themebeach/o.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Themebeach/oo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Themebeach/start_game.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/button10.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/button2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/button3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/button4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/button5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/button6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/button7.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/button8.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/button9.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/o.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/oo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/start_game.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/login_startgame.py" beforeDir="false" afterPath="$PROJECT_DIR$/login_startgame.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user_data.json" beforeDir="false" afterPath="$PROJECT_DIR$/user_data.json" afterDir="false" />
+    <list default="true" id="aedf8e1e-af6f-41f9-a6e6-b1bac15b7d08" name="Changes" comment="Thêm game vào start game để play">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -169,7 +141,7 @@
       <workItem from="1716209198980" duration="40502000" />
       <workItem from="1716370202725" duration="44153000" />
       <workItem from="1716507410393" duration="10435000" />
-      <workItem from="1716541481221" duration="24421000" />
+      <workItem from="1716541481221" duration="24620000" />
     </task>
     <task id="LOCAL-00001" summary="Update main.py">
       <option name="closed" value="true" />
@@ -427,7 +399,15 @@
       <option name="project" value="LOCAL" />
       <updated>1716608823644</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="Thêm game vào start game để play">
+      <option name="closed" value="true" />
+      <created>1716613230975</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1716613230975</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -452,7 +432,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Add 2 folders: assets, sound&#10;Folder &quot;assets&quot;: dùng để lưu trữ hình ảnh&#10;Folder &quot;sound&quot;: dùng để lưu trữ âm thanh" />
     <MESSAGE value="Update sound: 3 new sounds" />
     <MESSAGE value="Update: test thử thuật toán BFS cải tiến" />
     <MESSAGE value="Update: test thử display_menu" />
@@ -477,14 +456,15 @@
     <MESSAGE value="Update mode auto" />
     <MESSAGE value="Update button" />
     <MESSAGE value="Update winning" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update winning" />
+    <MESSAGE value="Thêm game vào start game để play" />
+    <option name="LAST_COMMIT_MESSAGE" value="Thêm game vào start game để play" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/MazeGame$login_startgame.coverage" NAME="login_startgame Coverage Results" MODIFIED="1716613016174" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/MazeGame$database.coverage" NAME="database Coverage Results" MODIFIED="1716532003109" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/MazeGame$login_page.coverage" NAME="login_page Coverage Results" MODIFIED="1714890131008" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/MazeGame$omg.coverage" NAME="omg Coverage Results" MODIFIED="1714788108908" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/MazeGame$main.coverage" NAME="main Coverage Results" MODIFIED="1716608803565" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/MazeGame$main.coverage" NAME="main Coverage Results" MODIFIED="1716613185690" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/MazeGame$testing.coverage" NAME="testing Coverage Results" MODIFIED="1714890134421" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/MazeGame$game.coverage" NAME="game Coverage Results" MODIFIED="1716557866213" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/MazeGame$button.coverage" NAME="button Coverage Results" MODIFIED="1714877240896" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
