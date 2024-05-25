@@ -6,23 +6,117 @@
          "password": "pas1",
          "time": 12308,
          "level": "easy"
+      }
+   },
+   "user2": {
+      "password": "pas1",
+      "game1": {
+         "username": "user2",
+         "password": "pas1",
+         "time": 456,
+         "level": "easy"
       },
-      "sheet1": {
-         "mode_play": "Human",
-         "level": "easy",
-         "start": [
-            0,
-            0
-         ],
-         "end": [
-            10,
-            10
-         ],
-         "time": [
-            0,
-            11
-         ],
-         "step": 6,
-         "game_name": "sheet1",
-         "username": "user1",
-         "maze": 
+      "aaabsd": {
+         "username": "user2",
+         "password": "pas1",
+         "time": 34,
+         "level": "hard"
+      },
+      "aadasdsd": {
+         "username": "user2",
+         "password": "pas1",
+         "time": 556,
+         "level": "hard"
+      }
+   },
+   "user3": {
+      "password": "pas1",
+      "game1": {
+         "username": "user3",
+         "password": "pas1",
+         "time": 789,
+         "level": "easy"
+      }
+   },
+   "user4": {
+      "password": "pas1",
+      "game1": {
+         "username": "user4",
+         "password": "pas1",
+         "time": 1234,
+         "level": "medium"
+      },
+      "game2": {
+         "username": "user4",
+         "password": "pas1",
+         "time": 34,
+         "level": "hard"
+      },
+      "game3": {
+         "username": "user4",
+         "password": "pas1",
+         "time": 455,
+         "level": "hard"
+      },
+      "gameeasy": {
+         "username": "user4",
+         "password": "pas1",
+         "time": 23,
+         "level": "hard"
+      },
+      "gamekhooday": {
+         "username": "user4",
+         "password": "pas1",
+         "time": 1,
+         "level": "hard"
+      },
+      "t1lol234": {
+         "username": "user4",
+         "password": "pas1",
+         "time": 2324,
+         "level": "hard"
+      },
+      "gaasooday": {
+         "username": "user4",
+         "password": "pas1",
+         "time": 12,
+         "level": "hard"
+      },
+      "tccdds34": {
+         "username": "user4",
+         "password": "pas1",
+         "time": 34424,
+         "level": "hard"
+      }
+   },
+   "user5": {
+      "password": "pas1",
+      "game1": {
+         "username": "user5",
+         "password": "pas1",
+         "time": 4567,
+         "level": "medium"
+      }
+   },
+   "user6": {
+      "password": "pas1",
+      "game1": {
+         "username": "user6",
+         "password": "pas1",
+         "time": 7890,
+         "level": "hard"
+      },
+      "game2": {
+         "username": "user6",
+         "password": "pas1",
+         "time": 23,
+         "level": "hard"
+      },
+      "game3": {
+         "username": "user6",
+         "password": "pas1",
+         "time": 4,
+         "level": "hard"
+      }
+   }
+}
