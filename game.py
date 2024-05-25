@@ -75,6 +75,7 @@ class Game:
             status = self.menu.render()
             if status == 'home':
                 running = False
+                return False
             elif status == 'new':
                 self.maze.reset()
                 self.maze.mazeGenerate()
