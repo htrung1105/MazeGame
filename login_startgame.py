@@ -510,19 +510,19 @@ class MenuGame:
                 print('valid !! playgame now')
 
                 if level == 20:
-                    difficult = 'easy'
+                    difficult = 'Easy'
                 elif level == 40:
-                    difficult = 'medium'
+                    difficult = 'Medium'
                 else:
-                    difficult = 'hard'
+                    difficult = 'Hard'
 
                 tmp = data['mode_play'][1]
                 if tmp == 0:
-                    modePlay = 'Human'
+                    modePlay = 'Player'
                 elif tmp == 1:
-                    modePlay = 'A*'
+                    modePlay = 'Auto (A*)'
                 else:
-                    modePlay = 'BFS'
+                    modePlay = 'Auto (BFS)'
 
                 from game import Game
                 if Game(self.surface, modePlay, difficult, data['start_x'], data['start_y'], data['end_x'], data['end_y'],
