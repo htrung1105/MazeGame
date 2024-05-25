@@ -44,6 +44,9 @@ class Cell:
         self.image = pygame.transform.smoothscale(self.image, (wall_width, wall_width))
         self.image_rect = self.image.get_rect()
 
+    def pack_data(self):
+        return (self.walls, self.vis_dir)
+
     def get_center(self):
         return (self.pos[0] + self.width // 2, self.pos[1] + self.width // 2)
 
@@ -126,6 +129,9 @@ class Maze:
 
         self.trace = [[(0, 0)] * size for _ in range(size)]
         self.hint = [[(0, 0)] * size for _ in range(size)]
+
+    def pack_data(self):
+
 
     def reset(self):
         self.grid = [[Cell(self.screen, x, y, (y * (self.width - self.wall_width) + self.BASE, x * (self.width - self.wall_width) + self.BASE), self.width, self.wall_width)
