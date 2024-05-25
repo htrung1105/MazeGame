@@ -79,6 +79,7 @@ class Game:
             status = self.menu.render(self.level.pause_sound)
             if status == 'home':
                 running = False
+                return False
             elif status == 'new':
                 self.maze.reset()
                 self.maze.mazeGenerate()

@@ -3,6 +3,7 @@ import pygame
 import pygame_menu
 from pygame_menu.examples import create_example_window
 from database import UserDatabase
+from game import *
 
 from typing import Tuple, Optional
 
@@ -256,7 +257,7 @@ class LoginMenu:
             pygame.display.flip()
 
 class MenuGame:
-    def __init__(self, username, password, theme_idx = 0):
+    def __init__(self, username, password = None, theme_idx = 0):
         self.username = username
         self.password = password
         self.running_menu = True
@@ -495,7 +496,7 @@ class MenuGame:
             locations = [data['start_x'], data['start_y'], data['end_x'], data['end_y']]
             next_step = True
             for location in locations:
-                if location < 0 or location > level:
+                if location < 0 or location >= level:
                     #randomm_noti.show()
                     #randomm.hide()
                     randomm.set_title('Choose again!')
@@ -509,25 +510,31 @@ class MenuGame:
                 print('valid !! playgame now')
 
                 if level == 20:
-                    difficult = 'Easy'
+                    difficult = 'easy'
                 elif level == 40:
-                    difficult = 'Medium'
+                    difficult = 'medium'
                 else:
-                    difficult = 'Hard'
+                    difficult = 'hard'
 
                 tmp = data['mode_play'][1]
                 if tmp == 0:
-                    modePlay = 'Player'
+                    modePlay = 'Human'
                 elif tmp == 1:
-                    modePlay = 'Auto (A*)'
+                    modePlay = 'A*'
                 else:
-                    modePlay = 'Auto (BFS)'
+                    modePlay = 'BFS'
 
                 from game import Game
-                Game(self.surface, modePlay, difficult, data['start_x'], data['start_y'], data['end_x'], data['end_y'],
-                     (0, 0), 0, data['game_name'], self.username).run()
+                if Game(self.surface, modePlay, difficult, data['start_x'], data['start_y'], data['end_x'], data['end_y'],
+                     (0, 0), 0, data['game_name'], self.username).run() == False:
+                    print('game done!!')
+                    
+                    self.running_menu = False
+                    global g 
+                    g = MenuGame(self.username, self.password, self.theme_idx)
+                    
+                    g.start(self.enabled_sound, self.sound)
 
-                self.running_menu = False
 
         game_name = self.start_game_menu.add.text_input(
             title='Game name:  ',
@@ -615,7 +622,7 @@ class MenuGame:
         ).hide()
         giahuy_row = self.start_game_menu.add.text_input(
             'Gia Huy location (row): ',
-            default=40,
+            default=39,
             maxchar=3,
             maxwidth=3,
             textinput_id='end_x',
@@ -624,7 +631,7 @@ class MenuGame:
         ).hide()
         giahuy_col = self.start_game_menu.add.text_input(
             'Gia Huy location (col): ',
-            default=40,
+            default=39,
             maxchar=3,
             maxwidth=3,
             textinput_id='end_y',
