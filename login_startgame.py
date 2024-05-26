@@ -301,18 +301,22 @@ class MenuGame:
         level_easy = []
         level_medium = []
         level_hard = []
+
         for level in data:
-            for player in level:
-                if player['level'] == 'easy':
-                    level_easy.append(player['username'])
-                    level_easy.append(player['time'])
-                elif player['level'] == 'medium':
-                    level_medium.append(player['username'])
-                    level_medium.append(player['time'])
-                elif player['level'] == 'hard':
-                    level_hard.append(player['username'])
-                    level_hard.append(player['time'])
-        #print(level_easy, level_medium, level_hard)
+            for game in level:
+                if game['level'] == 'Easy':
+                    level_easy.append(game['username'])
+                    time = game['time']
+                    level_easy.append(str(time[0]) + 'p ' + str(time[1]) + 's')
+                elif game['level'] == 'Medium':
+                    level_medium.append(game['username'])
+                    time = game['time']
+                    level_medium.append(str(time[0]) + 'p ' + str(time[1]) + 's')
+                elif game['level'] == 'Hard':
+                    level_hard.append(game['username'])
+                    time = game['time']
+                    level_hard.append(str(time[0]) + 'p ' + str(time[1]) + 's')
+        #print('danh sach::',level_easy, level_medium, level_hard)
         if level_to_return == 'easy':
             return level_easy
         elif level_to_return == 'medium':
@@ -342,6 +346,7 @@ class MenuGame:
 
         if Game(pygame.display.set_mode((1300, 750)), data['mode_play'], data['level'], data['start'][0], data['start'][1], data['end'][0], data['end'][1],data['time'], data['step'], data['game_name'], data['username'], maze = data['maze'], status = data['status'], volume=0.5).run() == False:
             self.init_load_game()
+            self.init_leaderboard()
 
         return (self.username, self.password, game_name) ## START A SAVED GAME
 
@@ -714,9 +719,11 @@ class MenuGame:
             width=WINDOW_SIZE[0], #* 0.9
             )
 
-        easy_labels = [self.leaderboard.add.label(easy_list[i] + ' : ' + str(easy_list[i + 1]) + 's') for i in range(0, len(easy_list), 2)]
-        medium_labels = [self.leaderboard.add.label(medium_list[i] + ' : ' + str(medium_list[i + 1]) + 's') for i in range(0, len(medium_list), 2)]
-        hard_labels = [self.leaderboard.add.label(hard_list[i] + ' : ' + str(hard_list[i + 1]) + 's') for i in range(0, len(hard_list), 2)]
+        easy_labels = [self.leaderboard.add.label(easy_list[i] + ' : ' + str(easy_list[i + 1])) for i in range(0, len(easy_list), 2)]
+        medium_labels = [self.leaderboard.add.label(medium_list[i] + ' : ' + str(medium_list[i + 1])) for i in range(0, len(medium_list), 2)]
+        hard_labels = [self.leaderboard.add.label(hard_list[i] + ' : ' + str(hard_list[i + 1])) for i in range(0, len(hard_list), 2)]
+
+        # print(easy_list, medium_list, hard_list)
 
         easy = self.leaderboard.add.frame_v(
             background_color=(0, 0, 0, 0),   #'#d2d3f7',
@@ -753,18 +760,18 @@ class MenuGame:
 
         for j in easy_labels:
             easy.pack(j)
-        easy.translate(-250, 0)
+        easy.translate(90, 0)
 
         for j in medium_labels:
             medium.pack(j)
-        medium.translate(110, 0)
+        medium.translate(460, 0)
 
         for j in hard_labels:
             hard.pack(j)
-        hard.translate(465, 0)
+        hard.translate(150, 0)
         
         button = self.leaderboard.add.button('Return to main menu', pygame_menu.events.BACK)
-        button.translate(180, 435)
+        button.translate(-140, 435)
 
     def init_setting(self):
         self.setting_help = pygame_menu.Menu(

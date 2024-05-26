@@ -100,25 +100,25 @@ class UserDatabase:
         for user in self.users:
             for game_name in self.users[user]:
                 if game_name != 'password':
-                    if self.users[user][game_name]['level'] == 'easy':
+                    if self.users[user][game_name]['level'] == 'Easy' and self.users[user][game_name]['isdone'] == True:
                         easy_list.append(self.users[user][game_name])
-        easy_list.sort(key=lambda x: x['time'])
+        easy_list.sort(key=lambda x: x['time'][0]* 60 + x['time'][1])
 
         medium_list = []
         for user in self.users:
             for game_name in self.users[user]:
                 if game_name != 'password':
-                    if self.users[user][game_name]['level'] == 'medium':
+                    if self.users[user][game_name]['level'] == 'Medium' and self.users[user][game_name]['isdone'] == True:
                         medium_list.append(self.users[user][game_name])
-        medium_list.sort(key=lambda x: x['time'])
+        medium_list.sort(key=lambda x: x['time'][0]* 60 + x['time'][1])
 
         hard_list = []
         for user in self.users:
             for game_name in self.users[user]:
                 if game_name != 'password':
-                    if self.users[user][game_name]['level'] == 'hard':
+                    if self.users[user][game_name]['level'] == 'Hard' and self.users[user][game_name]['isdone'] == True:
                         hard_list.append(self.users[user][game_name])
-        hard_list.sort(key=lambda x: x['time'])
+        hard_list.sort(key=lambda x: x['time'][0]* 60 + x['time'][1])
 
         return (easy_list, medium_list, hard_list)
 

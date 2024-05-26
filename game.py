@@ -58,6 +58,7 @@ class Game:
         data['step'] = self.step
         data['game_name'] = self.game_name
         data['username'] = self.username
+        data['isdone'] = True # thay bằng self.bool game đã xong hay chưa
         data['maze'] = self.maze.pack_data()
         data['status'] = self.level.pack_data(self.mode_play)
         return data
