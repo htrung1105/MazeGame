@@ -80,7 +80,7 @@ class LoginMenu:
             
     def init_theme(self):
         asset= ['Themebeach/', 'assets/']
-        x=0
+        x=1
         b_img = pygame_menu.baseimage.BaseImage(
             drawing_mode=101,
             image_path=asset[x] + 'background.png',
@@ -377,7 +377,7 @@ class MenuGame:
         self.main_menu.set_sound(self.sound, recursive=True)
 
     def init_theme(self):
-        asset = ['Themebeach/', 'assets/']
+        asset = ['assets/','Themebeach/']
         x = self.theme_idx
         background_img = pygame_menu.baseimage.BaseImage(
             drawing_mode=101,
@@ -837,8 +837,9 @@ class MenuGame:
 
 
         # Theme
-        items = [('  Beach  ', 'Theme2'),
-                (' Default ', 'Theme1'),]
+        items = [(' Default ', 'Theme1'),
+                 ('  Beach  ', 'Theme2'),
+              ]
 
         select_theme = self.settings_menu.add.selector(
             'Select theme (enter to apply)',
