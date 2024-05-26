@@ -813,8 +813,8 @@ class MenuGame:
         title='Help',
         width=WINDOW_SIZE[0], #* 0.6
         )
-        button = self.setting_help.add.button('       Come Back   ', pygame_menu.events.BACK)
-        button.translate(850, 330)
+        button = self.setting_help.add.button('       Come Back         ', pygame_menu.events.BACK)
+        button.translate(853, 334)
 
         self.setting_about = pygame_menu.Menu(
         height=WINDOW_SIZE[1], #* 0.85,
@@ -822,8 +822,8 @@ class MenuGame:
         title='About',
         width=WINDOW_SIZE[0], #* 0.6
         )
-        button = self.setting_about.add.button('          Come Back   ', pygame_menu.events.BACK)
-        button.translate(600, 435)
+        button = self.setting_about.add.button('          Come Back            ', pygame_menu.events.BACK)
+        button.translate(610, 430)
 
         self.settings_menu = pygame_menu.Menu(
         height=WINDOW_SIZE[1], #* 0.85,
