@@ -8,7 +8,7 @@ pygame.init()
 LIST_DIR_OPPOSITE = [('left', 'right'), ('up', 'down'), ('down', 'up'), ('right', 'left')]
 
 class Level:
-    def __init__(self, game, tilesize):
+    def __init__(self, game, tilesize, data = None):
 
         # get the display surface
         self.display_surface = game.display_surface
@@ -16,12 +16,17 @@ class Level:
 
         self.tilesize = tilesize
         self.player = Player(self, game.maze, tilesize)
+        self.stack = []
+
+        if data is not None:
+            self.player.loc = data[0]
+            for tmp in data[1]:
+                self.stack.append(Hint(tmp[0], self.tilesize - 1, self.game.maze.grid[tmp[1]][tmp[2]]))
+
         self.goal = Goal(self.tilesize, game.maze.grid[game.maze.endX][game.maze.endY])
         self.solver = MazeSolver(game.maze)
 
-        self.stack = []
         self.q = Queue()
-
         self.visited = []
         self.step = []
         self.stay = []
@@ -37,6 +42,15 @@ class Level:
 
         self.sound_trace = pygame.mixer.Sound('sound/tracePath.mp3')
         self.sound_trace.set_volume(self.game.volume)
+
+    def pack_data(self, mode_play):
+        if mode_play in ('Auto (A*)', 'Auto (BFS)'):
+            data = [(self.game.maze.startX, self.game.maze.startY), []]
+        else:
+            data = [self.player.loc, []]
+            for hint in self.stack:
+                data[1].append(hint.pack_data())
+        return data
 
     def getAuto(self, option):
         self.visited.clear()
