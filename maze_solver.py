@@ -77,12 +77,12 @@ class MazeSolver:
         visited = []
         while pq:
             _, x, y = pq.pop()
-            # ô (x, y) đã đươc thăm
-            visited.append((x, y, maze.grid[x][y].neighbor()))
-            
             # tìm thấy đường đi
             if (x, y) == (endX, endY):
                 break
+
+            # ô (x, y) đã đươc thăm
+            visited.append((x, y, maze.grid[x][y].neighbor()))
             
             # duyệt qua các ô xung quanh
             for nx, ny in maze.grid[x][y].neighbor():
@@ -116,12 +116,12 @@ class MazeSolver:
         while q.qsize() > 0:
             x, y = q.get()
 
-            # ô (x, y) đã đươc thăm
-            visited.append((x, y, maze.grid[x][y].neighbor()))
-
             # Tìm thấy đường đi
             if (x, y) == (endX, endY):
                 break
+
+            # ô (x, y) đã đươc thăm
+            visited.append((x, y, maze.grid[x][y].neighbor()))
 
             # Duyệt các ô xung quanh chưa thăm
             for nx, ny in maze.grid[x][y].neighbor():
