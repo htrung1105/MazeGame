@@ -8,9 +8,7 @@ from game import *
 from typing import Tuple, Optional
 
 pygame.init()
-pygame.mixer.music.load('sound/bgm.mp3')
-pygame.mixer.music.set_volume(0.4)
-pygame.mixer.music.play(-1)
+
 
 # Constants and global variables
 WINDOW_SIZE = (1300, 750)
@@ -25,7 +23,7 @@ WINDOW_SIZE = (1300, 750)
 #   g.start()
 # -------------------------------------------------------
 class LoginMenu:
-    def __init__(self):
+    def __init__(self, theme_idx = 0):
         self.running_menu = True
 
         self.surface = create_example_window('Maze Game', WINDOW_SIZE)
@@ -37,6 +35,16 @@ class LoginMenu:
         self.sound.set_sound(pygame_menu.sound.SOUND_TYPE_ERROR, None)
         self.enabled_sound = True
         self.bgm_volume = 0.5
+        self.theme_idx = theme_idx
+
+        if theme_idx == 0:
+            pygame.mixer.music.load('sound/bgm.mp3')
+            pygame.mixer.music.set_volume(0.4)
+            pygame.mixer.music.play(-1)
+        else:
+            pygame.mixer.music.load('sound/The_beach_theme.mp3')
+            pygame.mixer.music.set_volume(0.4)
+            pygame.mixer.music.play(-1)
 
     def check_login(self):
         data = self.login_menu.get_input_data()
@@ -52,7 +60,7 @@ class LoginMenu:
             self.login_menu.force_surface_update()
             print('login successful')
             self.running_menu = False
-            g = MenuGame(data['username'], data['password'])
+            g = MenuGame(data['username'], data['password'], self.theme_idx)
             g.start(self.enabled_sound, self.sound)
 
     def check_register(self):
@@ -70,7 +78,7 @@ class LoginMenu:
             g.start()
         else:
             print('not register ok')
-            self.regis_noti.set_title('Invalid username or password')
+            self.regis_noti.set_title('Username already exists')
 
     def reset_noti_regis(self, a):
         self.regis_noti.set_title('User Registration')
@@ -79,8 +87,8 @@ class LoginMenu:
         self.login_noti.set_title('User Login')
             
     def init_theme(self):
-        asset= ['Themebeach/', 'assets/']
-        x=1
+        asset= ['assets/', 'Themebeach/']
+        x = self.theme_idx
         b_img = pygame_menu.baseimage.BaseImage(
             drawing_mode=101,
             image_path=asset[x] + 'background.png',
@@ -175,11 +183,11 @@ class LoginMenu:
             onchange = self.reset_noti_login)
         passw_login = self.login_menu.add.text_input(
             title='                       ',
-            maxchar=10,
+            maxchar=17,
             textinput_id='password',
             input_underline = '__',
             # input_underline_vmargin = 1,
-            password=False,
+            password=True,
             onchange = self.reset_noti_login)
         self.login_menu.add.button('      Login      ', self.check_login).translate(260,5)
         self.login_menu.add.button('   Return to main menu  ', pygame_menu.events.BACK).translate(375,135)
@@ -204,10 +212,10 @@ class LoginMenu:
             onchange = self.reset_noti_regis)
         passw_regis = self.register_menu.add.text_input(
             title='                     ',
-            maxchar=10,
+            maxchar=17,
             textinput_id='password',
             input_underline = '__',
-            password=False,
+            password=True,
             onchange = self.reset_noti_regis)
         self.register_menu.add.button('    Register    ', self.check_register).translate(261,5)
         self.register_menu.add.button('   Return to main menu  ', pygame_menu.events.BACK).translate(375,135)
@@ -266,6 +274,15 @@ class MenuGame:
         self.sound.set_sound(pygame_menu.sound.SOUND_TYPE_ERROR, None)
         self.enabled_sound = True # can be changed in init_def
 
+        if theme_idx == 0:
+            pygame.mixer.music.load('sound/bgm.mp3')
+            pygame.mixer.music.set_volume(0.4)
+            pygame.mixer.music.play(-1)
+        else:
+            pygame.mixer.music.load('sound/The_beach_theme.mp3')
+            pygame.mixer.music.set_volume(0.4)
+            pygame.mixer.music.play(-1)
+
         self.theme_idx = theme_idx
 
         self.surface = create_example_window('Maze Game', WINDOW_SIZE)
@@ -292,7 +309,7 @@ class MenuGame:
 
     def return_to_login(self):
         self.running_menu = False
-        g = LoginMenu()
+        g = LoginMenu(self.theme_idx)
         g.start(self.enabled_sound, self.sound)
 
     def get_data_leaderboard(self, level_to_return):
@@ -307,15 +324,15 @@ class MenuGame:
                 if game['level'] == 'Easy':
                     level_easy.append(game['username'])
                     time = game['time']
-                    level_easy.append(str(time[0]) + 'p ' + str(time[1]) + 's')
+                    level_easy.append(str(time[0]) + 'm ' + str(time[1]) + 's')
                 elif game['level'] == 'Medium':
                     level_medium.append(game['username'])
                     time = game['time']
-                    level_medium.append(str(time[0]) + 'p ' + str(time[1]) + 's')
+                    level_medium.append(str(time[0]) + 'm ' + str(time[1]) + 's')
                 elif game['level'] == 'Hard':
                     level_hard.append(game['username'])
                     time = game['time']
-                    level_hard.append(str(time[0]) + 'p ' + str(time[1]) + 's')
+                    level_hard.append(str(time[0]) + 'm ' + str(time[1]) + 's')
         #print('danh sach::',level_easy, level_medium, level_hard)
         if level_to_return == 'easy':
             return level_easy
@@ -377,7 +394,7 @@ class MenuGame:
         self.main_menu.set_sound(self.sound, recursive=True)
 
     def init_theme(self):
-        asset = ['assets/','Themebeach/']
+        asset = ['assets/', 'Themebeach/']
         x = self.theme_idx
         background_img = pygame_menu.baseimage.BaseImage(
             drawing_mode=101,
@@ -510,8 +527,6 @@ class MenuGame:
         self.my_about_theme.selection_color = (247, 12, 12),                            # màu chữ được chọn
         self.my_about_theme.widget_box_background_color = (0, 0, 0, 0) 
         #my_start_game_theme.widget_margin = (0, 0)
-        
-        
 
     def init_start_game(self):
         self.start_game_menu = pygame_menu.Menu(
@@ -524,9 +539,9 @@ class MenuGame:
         #columns= 2,
         #rows = [5, 6],
         )
-        items_levels = [('  Easy (20x20)   ', '20'),
+        items_levels = [('   Easy (20x20)   ', '20'),
              (' Medium (40x40) ', '40'),
-             (' Hard (100x100) ', '100')]
+             (' Hard (100x100)  ', '100')]
 
         def data_fun_sgm() -> None:
             """
@@ -537,7 +552,20 @@ class MenuGame:
             for k in data.keys():
                 print(f'\t{k}\t=>\t{data[k]}')
             level = int(data['level'][0][1])
-            locations = [data['start_x'], data['start_y'], data['end_x'], data['end_y']]
+            if data['location_mode'][1] == 1:
+                print('select::')
+                locations = [data['start_x'], data['start_y'], data['end_x'], data['end_y']]
+            else:
+                print('random::')
+                import random
+                while True:
+                    a, b = random.randint(0, level - 1), random.randint(0, level - 1)
+                    c, d = random.randint(0, level - 1), random.randint(0, level - 1)
+                    if {a, b} != {c, d}:
+                        break
+                locations = [a, b, c, d]
+                data['start_x'], data['start_y'], data['end_x'], data['end_y'] = a, b, c, d
+
             next_step = True
             for location in locations:
                 if location < 0 or location >= level:
@@ -548,8 +576,8 @@ class MenuGame:
                     next_step = False
                     break
             if next_step:
-                pygame.mixer.music.stop()
-                pygame.mixer.music.unload()
+                #pygame.mixer.music.stop()
+                #pygame.mixer.music.unload()
 
                 print('valid !! playgame now')
 
@@ -574,19 +602,13 @@ class MenuGame:
                     print('game done!!')
                     
                     self.running_menu = False
-                    global g 
-                    g = MenuGame(self.username, self.password, self.theme_idx)
-                    
-                    g.start(self.enabled_sound, self.sound)
-
+                    MenuGame(self.username, self.password, self.theme_idx).start(self.enabled_sound, self.sound)
 
         game_name = self.start_game_menu.add.text_input(
             title='Game name:  ',
             maxchar=10,
             textinput_id='game_name',
-            input_underline = '__',
-            # input_underline_vmargin = 1,
-            password=False)        
+            input_underline = '__',)        
 
         # Add some buttons
         self.start_game_menu.add.selector(
@@ -838,8 +860,7 @@ class MenuGame:
 
         # Theme
         items = [(' Default ', 'Theme1'),
-                 ('  Beach  ', 'Theme2'),
-              ]
+                ('  Beach  ', 'Theme2'),]
 
         select_theme = self.settings_menu.add.selector(
             'Select theme (enter to apply)',
