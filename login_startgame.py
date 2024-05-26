@@ -8,9 +8,7 @@ from game import *
 from typing import Tuple, Optional
 
 pygame.init()
-pygame.mixer.music.load('sound/bgm.mp3')
-pygame.mixer.music.set_volume(0.4)
-pygame.mixer.music.play(-1)
+
 
 # Constants and global variables
 WINDOW_SIZE = (1300, 750)
@@ -38,6 +36,15 @@ class LoginMenu:
         self.enabled_sound = True
         self.bgm_volume = 0.5
         self.theme_idx = theme_idx
+
+        if theme_idx == 0:
+            pygame.mixer.music.load('sound/bgm.mp3')
+            pygame.mixer.music.set_volume(0.4)
+            pygame.mixer.music.play(-1)
+        else:
+            pygame.mixer.music.load('sound/The_beach_theme.mp3')
+            pygame.mixer.music.set_volume(0.4)
+            pygame.mixer.music.play(-1)
 
     def check_login(self):
         data = self.login_menu.get_input_data()
@@ -267,6 +274,15 @@ class MenuGame:
         self.sound.set_sound(pygame_menu.sound.SOUND_TYPE_ERROR, None)
         self.enabled_sound = True # can be changed in init_def
 
+        if theme_idx == 0:
+            pygame.mixer.music.load('sound/bgm.mp3')
+            pygame.mixer.music.set_volume(0.4)
+            pygame.mixer.music.play(-1)
+        else:
+            pygame.mixer.music.load('sound/The_beach_theme.mp3')
+            pygame.mixer.music.set_volume(0.4)
+            pygame.mixer.music.play(-1)
+
         self.theme_idx = theme_idx
 
         self.surface = create_example_window('Maze Game', WINDOW_SIZE)
@@ -308,15 +324,15 @@ class MenuGame:
                 if game['level'] == 'Easy':
                     level_easy.append(game['username'])
                     time = game['time']
-                    level_easy.append(str(time[0]) + 'p ' + str(time[1]) + 's')
+                    level_easy.append(str(time[0]) + 'm ' + str(time[1]) + 's')
                 elif game['level'] == 'Medium':
                     level_medium.append(game['username'])
                     time = game['time']
-                    level_medium.append(str(time[0]) + 'p ' + str(time[1]) + 's')
+                    level_medium.append(str(time[0]) + 'm ' + str(time[1]) + 's')
                 elif game['level'] == 'Hard':
                     level_hard.append(game['username'])
                     time = game['time']
-                    level_hard.append(str(time[0]) + 'p ' + str(time[1]) + 's')
+                    level_hard.append(str(time[0]) + 'm ' + str(time[1]) + 's')
         #print('danh sach::',level_easy, level_medium, level_hard)
         if level_to_return == 'easy':
             return level_easy
@@ -523,9 +539,9 @@ class MenuGame:
         #columns= 2,
         #rows = [5, 6],
         )
-        items_levels = [('  Easy (20x20)   ', '20'),
+        items_levels = [('   Easy (20x20)   ', '20'),
              (' Medium (40x40) ', '40'),
-             (' Hard (100x100) ', '100')]
+             (' Hard (100x100)  ', '100')]
 
         def data_fun_sgm() -> None:
             """
