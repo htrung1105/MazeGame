@@ -301,18 +301,22 @@ class MenuGame:
         level_easy = []
         level_medium = []
         level_hard = []
+
         for level in data:
-            for player in level:
-                if player['level'] == 'easy':
-                    level_easy.append(player['username'])
-                    level_easy.append(player['time'])
-                elif player['level'] == 'medium':
-                    level_medium.append(player['username'])
-                    level_medium.append(player['time'])
-                elif player['level'] == 'hard':
-                    level_hard.append(player['username'])
-                    level_hard.append(player['time'])
-        #print(level_easy, level_medium, level_hard)
+            for game in level:
+                if game['level'] == 'Easy':
+                    level_easy.append(game['username'])
+                    time = game['time']
+                    level_easy.append(str(time[0]) + 'p ' + str(time[1]) + 's')
+                elif game['level'] == 'Medium':
+                    level_medium.append(game['username'])
+                    time = game['time']
+                    level_medium.append(str(time[0]) + 'p ' + str(time[1]) + 's')
+                elif game['level'] == 'Hard':
+                    level_hard.append(game['username'])
+                    time = game['time']
+                    level_hard.append(str(time[0]) + 'p ' + str(time[1]) + 's')
+        #print('danh sach::',level_easy, level_medium, level_hard)
         if level_to_return == 'easy':
             return level_easy
         elif level_to_return == 'medium':
@@ -342,6 +346,7 @@ class MenuGame:
 
         if Game(pygame.display.set_mode((1300, 750)), data['mode_play'], data['level'], data['start'][0], data['start'][1], data['end'][0], data['end'][1],data['time'], data['step'], data['game_name'], data['username'], maze = data['maze'], status = data['status'], volume=0.5).run() == False:
             self.init_load_game()
+            self.init_leaderboard()
 
         return (self.username, self.password, game_name) ## START A SAVED GAME
 
@@ -393,6 +398,14 @@ class MenuGame:
         Leaderboard_img=pygame_menu.baseimage.BaseImage(
             drawing_mode=101,
             image_path =asset[x] + 'leaderboard.png',
+            image_id = 'nbackground')
+        Help_img=pygame_menu.baseimage.BaseImage(
+            drawing_mode=101,
+            image_path =asset[x] + 'Help.png',
+            image_id = 'nbackground')
+        About_img=pygame_menu.baseimage.BaseImage(
+            drawing_mode=101,
+            image_path =asset[x] + 'About.png',
             image_id = 'nbackground')
               
         my_theme = pygame_menu.themes.Theme(
@@ -452,6 +465,7 @@ class MenuGame:
         self.my_start_game_theme.selection_color = (247, 12, 12),                            # màu chữ được chọn
         self.my_start_game_theme.widget_box_background_color = (0, 0, 0, 0) 
         #my_start_game_theme.widget_margin = (0, 0)
+
         
         self.my_load_game_theme = my_theme.copy()
         self.my_load_game_theme.widget_font_size = 25
@@ -474,6 +488,30 @@ class MenuGame:
         self.my_settings_menu_theme.widget_offset = (125, 0)
         self.my_settings_menu_theme.widget_margin = (-180, 25)
         self.my_settings_menu_theme.widget_alignment = pygame_menu.locals.ALIGN_LEFT
+        
+        self.my_help_theme = my_theme.copy()
+        self.my_help_theme.background_color= Help_img
+        self.my_help_theme.widget_font_size = 25
+        self.my_help_theme.widget_alignment = pygame_menu.locals.ALIGN_LEFT
+        self.my_help_theme.widget_offset = (70, 200)
+        self.my_help_theme.widget_margin = (-60, 20)
+        self.my_help_theme.widget_font_color = (0, 0, 0),                        # màu chữ chưa được chọn
+        self.my_help_theme.selection_color = (247, 12, 12),                            # màu chữ được chọn
+        self.my_help_theme.widget_box_background_color = (0, 0, 0, 0) 
+        
+        
+        self.my_about_theme = my_theme.copy()
+        self.my_about_theme.background_color= About_img
+        self.my_about_theme.widget_font_size = 25
+        self.my_about_theme.widget_alignment = pygame_menu.locals.ALIGN_LEFT
+        self.my_about_theme.widget_offset = (70, 200)
+        self.my_about_theme.widget_margin = (-60, 20)
+        self.my_about_theme.widget_font_color = (0, 0, 0),                        # màu chữ chưa được chọn
+        self.my_about_theme.selection_color = (247, 12, 12),                            # màu chữ được chọn
+        self.my_about_theme.widget_box_background_color = (0, 0, 0, 0) 
+        #my_start_game_theme.widget_margin = (0, 0)
+        
+        
 
     def init_start_game(self):
         self.start_game_menu = pygame_menu.Menu(
@@ -714,9 +752,11 @@ class MenuGame:
             width=WINDOW_SIZE[0], #* 0.9
             )
 
-        easy_labels = [self.leaderboard.add.label(easy_list[i] + ' : ' + str(easy_list[i + 1]) + 's') for i in range(0, len(easy_list), 2)]
-        medium_labels = [self.leaderboard.add.label(medium_list[i] + ' : ' + str(medium_list[i + 1]) + 's') for i in range(0, len(medium_list), 2)]
-        hard_labels = [self.leaderboard.add.label(hard_list[i] + ' : ' + str(hard_list[i + 1]) + 's') for i in range(0, len(hard_list), 2)]
+        easy_labels = [self.leaderboard.add.label(easy_list[i] + ' : ' + str(easy_list[i + 1])) for i in range(0, len(easy_list), 2)]
+        medium_labels = [self.leaderboard.add.label(medium_list[i] + ' : ' + str(medium_list[i + 1])) for i in range(0, len(medium_list), 2)]
+        hard_labels = [self.leaderboard.add.label(hard_list[i] + ' : ' + str(hard_list[i + 1])) for i in range(0, len(hard_list), 2)]
+
+        # print(easy_list, medium_list, hard_list)
 
         easy = self.leaderboard.add.frame_v(
             background_color=(0, 0, 0, 0),   #'#d2d3f7',
@@ -753,33 +793,38 @@ class MenuGame:
 
         for j in easy_labels:
             easy.pack(j)
-        easy.translate(-250, 0)
+        easy.translate(90, 0)
 
         for j in medium_labels:
             medium.pack(j)
-        medium.translate(110, 0)
+        medium.translate(460, 0)
 
         for j in hard_labels:
             hard.pack(j)
-        hard.translate(465, 0)
+        hard.translate(150, 0)
         
         button = self.leaderboard.add.button('Return to main menu', pygame_menu.events.BACK)
-        button.translate(180, 435)
+        button.translate(215, 435)
+        button.translate(-140, 435)
 
     def init_setting(self):
         self.setting_help = pygame_menu.Menu(
         height=WINDOW_SIZE[1], #* 0.85,
-        theme=self.my_settings_menu_theme,
+        theme=self.my_help_theme,
         title='Help',
         width=WINDOW_SIZE[0], #* 0.6
         )
+        button = self.setting_help.add.button('       Come Back   ', pygame_menu.events.BACK)
+        button.translate(850, 330)
 
         self.setting_about = pygame_menu.Menu(
         height=WINDOW_SIZE[1], #* 0.85,
-        theme=self.my_settings_menu_theme,
+        theme=self.my_about_theme,
         title='About',
         width=WINDOW_SIZE[0], #* 0.6
         )
+        button = self.setting_about.add.button('          Come Back   ', pygame_menu.events.BACK)
+        button.translate(600, 435)
 
         self.settings_menu = pygame_menu.Menu(
         height=WINDOW_SIZE[1], #* 0.85,
