@@ -53,7 +53,7 @@ class LoginMenu:
             self.login_menu.force_surface_update()
             print('login successful')
             self.running_menu = False
-            g = MenuGame(data['username'], data['password'])
+            g = MenuGame(data['username'], data['password'], self.theme_idx)
             g.start(self.enabled_sound, self.sound)
 
     def check_register(self):
