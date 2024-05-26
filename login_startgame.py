@@ -25,7 +25,7 @@ WINDOW_SIZE = (1300, 750)
 #   g.start()
 # -------------------------------------------------------
 class LoginMenu:
-    def __init__(self):
+    def __init__(self, theme_idx = 0):
         self.running_menu = True
 
         self.surface = create_example_window('Maze Game', WINDOW_SIZE)
@@ -37,6 +37,7 @@ class LoginMenu:
         self.sound.set_sound(pygame_menu.sound.SOUND_TYPE_ERROR, None)
         self.enabled_sound = True
         self.bgm_volume = 0.5
+        self.theme_idx = theme_idx
 
     def check_login(self):
         data = self.login_menu.get_input_data()
@@ -79,8 +80,8 @@ class LoginMenu:
         self.login_noti.set_title('User Login')
             
     def init_theme(self):
-        asset= ['Themebeach/', 'assets/']
-        x=1
+        asset= ['assets/', 'Themebeach/']
+        x = self.theme_idx
         b_img = pygame_menu.baseimage.BaseImage(
             drawing_mode=101,
             image_path=asset[x] + 'background.png',
@@ -292,7 +293,7 @@ class MenuGame:
 
     def return_to_login(self):
         self.running_menu = False
-        g = LoginMenu()
+        g = LoginMenu(self.theme_idx)
         g.start(self.enabled_sound, self.sound)
 
     def get_data_leaderboard(self, level_to_return):
@@ -377,7 +378,7 @@ class MenuGame:
         self.main_menu.set_sound(self.sound, recursive=True)
 
     def init_theme(self):
-        asset = ['assets/','Themebeach/']
+        asset = ['assets/', 'Themebeach/']
         x = self.theme_idx
         background_img = pygame_menu.baseimage.BaseImage(
             drawing_mode=101,
@@ -510,8 +511,6 @@ class MenuGame:
         self.my_about_theme.selection_color = (247, 12, 12),                            # màu chữ được chọn
         self.my_about_theme.widget_box_background_color = (0, 0, 0, 0) 
         #my_start_game_theme.widget_margin = (0, 0)
-        
-        
 
     def init_start_game(self):
         self.start_game_menu = pygame_menu.Menu(
@@ -838,8 +837,7 @@ class MenuGame:
 
         # Theme
         items = [(' Default ', 'Theme1'),
-                 ('  Beach  ', 'Theme2'),
-              ]
+                ('  Beach  ', 'Theme2'),]
 
         select_theme = self.settings_menu.add.selector(
             'Select theme (enter to apply)',
