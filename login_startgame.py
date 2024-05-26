@@ -71,7 +71,7 @@ class LoginMenu:
             g.start()
         else:
             print('not register ok')
-            self.regis_noti.set_title('Invalid username or password')
+            self.regis_noti.set_title('Username already exists')
 
     def reset_noti_regis(self, a):
         self.regis_noti.set_title('User Registration')
@@ -176,11 +176,11 @@ class LoginMenu:
             onchange = self.reset_noti_login)
         passw_login = self.login_menu.add.text_input(
             title='                       ',
-            maxchar=10,
+            maxchar=17,
             textinput_id='password',
             input_underline = '__',
             # input_underline_vmargin = 1,
-            password=False,
+            password=True,
             onchange = self.reset_noti_login)
         self.login_menu.add.button('      Login      ', self.check_login).translate(260,5)
         self.login_menu.add.button('   Return to main menu  ', pygame_menu.events.BACK).translate(375,135)
@@ -205,10 +205,10 @@ class LoginMenu:
             onchange = self.reset_noti_regis)
         passw_regis = self.register_menu.add.text_input(
             title='                     ',
-            maxchar=10,
+            maxchar=17,
             textinput_id='password',
             input_underline = '__',
-            password=False,
+            password=True,
             onchange = self.reset_noti_regis)
         self.register_menu.add.button('    Register    ', self.check_register).translate(261,5)
         self.register_menu.add.button('   Return to main menu  ', pygame_menu.events.BACK).translate(375,135)
@@ -592,9 +592,7 @@ class MenuGame:
             title='Game name:  ',
             maxchar=10,
             textinput_id='game_name',
-            input_underline = '__',
-            # input_underline_vmargin = 1,
-            password=False)        
+            input_underline = '__',)        
 
         # Add some buttons
         self.start_game_menu.add.selector(
