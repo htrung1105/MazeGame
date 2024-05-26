@@ -536,7 +536,20 @@ class MenuGame:
             for k in data.keys():
                 print(f'\t{k}\t=>\t{data[k]}')
             level = int(data['level'][0][1])
-            locations = [data['start_x'], data['start_y'], data['end_x'], data['end_y']]
+            if data['location_mode'][1] == 1:
+                print('select::')
+                locations = [data['start_x'], data['start_y'], data['end_x'], data['end_y']]
+            else:
+                print('random::')
+                import random
+                while True:
+                    a, b = random.randint(0, level - 1), random.randint(0, level - 1)
+                    c, d = random.randint(0, level - 1), random.randint(0, level - 1)
+                    if {a, b} != {c, d}:
+                        break
+                locations = [a, b, c, d]
+                data['start_x'], data['start_y'], data['end_x'], data['end_y'] = a, b, c, d
+
             next_step = True
             for location in locations:
                 if location < 0 or location >= level:
@@ -547,8 +560,8 @@ class MenuGame:
                     next_step = False
                     break
             if next_step:
-                pygame.mixer.music.stop()
-                pygame.mixer.music.unload()
+                #pygame.mixer.music.stop()
+                #pygame.mixer.music.unload()
 
                 print('valid !! playgame now')
 
@@ -573,11 +586,7 @@ class MenuGame:
                     print('game done!!')
                     
                     self.running_menu = False
-                    global g 
-                    g = MenuGame(self.username, self.password, self.theme_idx)
-                    
-                    g.start(self.enabled_sound, self.sound)
-
+                    MenuGame(self.username, self.password, self.theme_idx).start(self.enabled_sound, self.sound)
 
         game_name = self.start_game_menu.add.text_input(
             title='Game name:  ',
