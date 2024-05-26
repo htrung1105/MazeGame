@@ -34,7 +34,6 @@ class Cell:
         self.x, self.y = x, y
         self.screen = screen
         self.walls = {'top': True, 'right': True, 'bottom': True, 'left': True}
-        self.vis_dir = {'top': False, 'right': False, 'bottom': False, 'left': False}
 
         self.pos = pos
         self.width = width
@@ -45,7 +44,7 @@ class Cell:
         self.image_rect = self.image.get_rect()
 
     def pack_data(self):
-        return (self.walls, self.vis_dir)
+        return self.walls
 
     def get_center(self):
         return (self.pos[0] + self.width // 2, self.pos[1] + self.width // 2)
@@ -109,7 +108,6 @@ class Maze:
         :param endX, endY: tọa độ ô kết thúc
 
         grid: ma trận của mê cung
-        trace: tọa độ của ô trước đó đã đi vào ô (x, y)
         hint: gợi ý ô tiếp theo hướng đến điểm kết thúc
         '''
         self.screen = screen
@@ -127,7 +125,6 @@ class Maze:
         self.wall_width = wall_width
         self.grid = [[Cell(screen, x, y, (y * (width - wall_width) + self.BASE, x * (width - wall_width) + self.BASE), width, wall_width) for y in range(size)] for x in range(size)]
 
-        self.trace = [[(0, 0)] * size for _ in range(size)]
         self.hint = [[(0, 0)] * size for _ in range(size)]
 
     def pack_data(self):
@@ -137,7 +134,6 @@ class Maze:
         self.grid = [[Cell(self.screen, x, y, (y * (self.width - self.wall_width) + self.BASE, x * (self.width - self.wall_width) + self.BASE), self.width, self.wall_width)
                       for y in range(self.size)] for x in range(self.size)]
 
-        self.trace = [[(0, 0)] * self.size for _ in range(self.size)]
         self.hint = [[(0, 0)] * self.size for _ in range(self.size)]
 
     # phá tường theo hướng (dx, dy)
