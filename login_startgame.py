@@ -51,7 +51,6 @@ class LoginMenu:
             self.login_noti.set_title('Login DONE!')
             self.login_menu.force_surface_update()
             print('login successful')
-            pygame.time.delay(300)
             self.running_menu = False
             g = MenuGame(data['username'], data['password'])
             g.start(self.enabled_sound, self.sound)
@@ -324,8 +323,8 @@ class MenuGame:
             return None
 
     def start_a_saved_game(self):
-        pygame.mixer.music.stop()
-        pygame.mixer.music.unload()
+        #pygame.mixer.music.stop()
+        #pygame.mixer.music.unload()
 
         game = self.saved_games.get_index()
         data = self.saved_games.get_widgets()
@@ -337,6 +336,13 @@ class MenuGame:
                 game_name = data[i + 2:]
                 break
         print('Load game:: ' + game_name)
+
+        DB = UserDatabase()
+        data = DB.load_game(self.username, game_name)
+
+        if Game(pygame.display.set_mode((1300, 750)), data['mode_play'], data['level'], data['start'][0], data['start'][1], data['end'][0], data['end'][1],data['time'], data['step'], data['game_name'], data['username'], maze = data['maze'], status = data['status'], volume=0.5).run() == False:
+            self.init_load_game()
+
         return (self.username, self.password, game_name) ## START A SAVED GAME
 
     def change_theme(self, a, b):

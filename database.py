@@ -38,27 +38,6 @@ class UserDatabase:
         self.users = {}
         self.load_data()
 
-    # save a maze into a file
-    def saveMaze(self, maze, level, username: str, filename: str):
-        fileMaze = username + '_' + filename + '_maze' 
-        fileLevel = username + '_' + filename + '_level'
-
-        with open(fileMaze, 'wb') as f:
-            pickle.dump(maze, f)
-        with open(fileLevel, 'wb') as f:
-            pickle.dump(level, f)
-
-    # load a maze from a file and return it
-    def loadMaze(self, username: str, filename: str):
-        fileMaze = username + '_' + filename + '_maze'
-        fileLevel = username + '_' + filename + '_level'
-
-        with open(fileMaze, 'rb') as f:
-            maze = pickle.load(f)
-        with open(fileLevel, 'rb') as f:
-            level = pickle.load(f)
-        return maze, level
-
     # Load data from json database
     def load_data(self):
         try:
@@ -102,20 +81,15 @@ class UserDatabase:
     def load_game(self, username, game_name):
         if username in self.users:
             if game_name in self.users[username]:
-                return self.users[username][game_name], self.loadMaze(username, game_name)
+                return self.users[username][game_name]
         return False
     
     # Use this function to save a game to a user 
     def save_game(self, username, game_name, data):
-        pprint.pprint(data)
+        # pprint.pprint(data)
         if username in self.users:
-            maze, level = data[1], data[2]
-            data = data[0]
             self.users[username][game_name] = data
-            print('\n\n')
-            pprint.pprint(data)
             self.save_data()
-            self.saveMaze(maze, level, username, game_name)
             return True
         return False
 

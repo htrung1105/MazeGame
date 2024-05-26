@@ -78,6 +78,7 @@ class Game:
             status = self.menu.render(self.level.pause_sound)
             if status == 'home':
                 running = False
+                return False
             elif status == 'new':
                 self.maze.reset()
                 self.maze.mazeGenerate()
@@ -87,11 +88,11 @@ class Game:
                 if self.mode_play in ('Auto (A*)', 'Auto (BFS)'):
                     self.level.getAuto(self.mode_play)
             elif status == 'save':
-                print(self.pack_data())
-                # if UserDatabase().save_game(self.username, self.game_name, self.pack_data()):
-                #     print('Saved')
-                # else:
-                #     print('Saving failed')
+                # print(self.pack_data())
+                if UserDatabase().save_game(self.username, self.game_name, self.pack_data()):
+                    print('Saved')
+                else:
+                    print('Saving failed')
             elif status == 'help':
                 print('help')
 
