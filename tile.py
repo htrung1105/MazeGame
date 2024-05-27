@@ -16,6 +16,9 @@ class Hint():
         self.image = pygame.image.load(rf'assets/test/hint_{dir}.png').convert_alpha()
         self.image = pygame.transform.smoothscale(self.image, (tilesize, tilesize))
 
+    def pack_data(self):
+        return (self.dir, self.grid.x, self.grid.y)
+
     def render(self):
         self.grid.draw(self.image)
 

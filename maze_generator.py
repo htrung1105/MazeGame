@@ -23,7 +23,7 @@ class Cell:
     def render(self, screen, center_x, center_y): trả về
     '''
 
-    def __init__(self, screen, x, y, pos, width, wall_width):
+    def __init__(self, screen, x, y, pos, width, wall_width, data = None):
         '''
         :param pos: tọa độ topleft của Cell
         :param width: độ rộng của Cell
@@ -33,8 +33,10 @@ class Cell:
         '''
         self.x, self.y = x, y
         self.screen = screen
-        self.walls = {'top': True, 'right': True, 'bottom': True, 'left': True}
-        self.vis_dir = {'top': False, 'right': False, 'bottom': False, 'left': False}
+        if data is None:
+            self.walls = {'top': True, 'right': True, 'bottom': True, 'left': True}
+        else:
+            self.walls = data
 
         self.pos = pos
         self.width = width
@@ -99,14 +101,13 @@ class Maze:
     def getHint(self, x: int, y: int) -> list[tuple]: trả về đường đi gợi ý cho người chơi hướng đến điểm kết thúc đến khi gặp ngã ba
     '''
 
-    def __init__(self, screen, size, startX, startY, endX, endY, width, wall_width):
+    def __init__(self, screen, size, startX, startY, endX, endY, width, wall_width, data = None):
         '''
         :param size: kích thước của mê cung
         :param startX, startY: tọa độ ô bắt đầu
         :param endX, endY: tọa độ ô kết thúc
 
         grid: ma trận của mê cung
-        trace: tọa độ của ô trước đó đã đi vào ô (x, y)
         hint: gợi ý ô tiếp theo hướng đến điểm kết thúc
         '''
         self.screen = screen
@@ -122,10 +123,23 @@ class Maze:
 
         self.width = width
         self.wall_width = wall_width
-        self.grid = [[Cell(screen, x, y, (y * (width - wall_width) + self.BASE, x * (width - wall_width) + self.BASE), width, wall_width) for y in range(size)] for x in range(size)]
+
+        if data is None:
+            self.grid = [[Cell(screen, x, y, (y * (width - wall_width) + self.BASE, x * (width - wall_width) + self.BASE), width, wall_width) for y in range(size)] for x in range(size)]
+        else:
+            self.grid = [[Cell(screen, x, y,(y * (width - wall_width) + self.BASE, x * (width - wall_width) + self.BASE), width, wall_width, data[x][y]) for y in range(size)] for x in range(size)]
 
         self.trace = [[(0, 0)] * size for _ in range(size)]
         self.hint = [[(0, 0)] * size for _ in range(size)]
+        self.makeHint()
+
+    def pack_data(self):
+        data = []
+        for x in range(self.size):
+            data.append([])
+            for y in range(self.size):
+                data[-1].append(self.grid[x][y].walls)
+        return data
 
     def reset(self):
         self.grid = [[Cell(self.screen, x, y, (y * (self.width - self.wall_width) + self.BASE, x * (self.width - self.wall_width) + self.BASE), self.width, self.wall_width)

@@ -1,5 +1,6 @@
 import json
 import pprint
+import pickle
 
 class UserDatabase:
     """
@@ -22,11 +23,6 @@ class UserDatabase:
         def save_game(username, game_name, data) ::
             Save a game to a user
             Return False if fail, return True if success
-
-        def pack_data() ::
-            Pack a game data into a dictionary, included keys:
-                - 'map', 'level', 'size', 'start', 'end', 'time', 'status', 'username'
-            Return a dictionary
 
         def leaderboard() ::
             return False if no user, return a tuple of 3 list:
@@ -85,6 +81,7 @@ class UserDatabase:
     
     # Use this function to save a game to a user 
     def save_game(self, username, game_name, data):
+        # pprint.pprint(data)
         if username in self.users:
             self.users[username][game_name] = data
             self.save_data()
@@ -98,87 +95,24 @@ class UserDatabase:
         for user in self.users:
             for game_name in self.users[user]:
                 if game_name != 'password':
-                    if self.users[user][game_name]['level'] == 'easy':
+                    if self.users[user][game_name]['level'] == 'Easy' and self.users[user][game_name]['isdone'] == True and self.users[user][game_name]['mode_play'] == 'Player':
                         easy_list.append(self.users[user][game_name])
-        easy_list.sort(key=lambda x: x['time'])
+        easy_list.sort(key=lambda x: x['time'][0]* 60 + x['time'][1])
 
         medium_list = []
         for user in self.users:
             for game_name in self.users[user]:
                 if game_name != 'password':
-                    if self.users[user][game_name]['level'] == 'medium':
+                    if self.users[user][game_name]['level'] == 'Medium' and self.users[user][game_name]['isdone'] == True and self.users[user][game_name]['mode_play'] == 'Player':
                         medium_list.append(self.users[user][game_name])
-        medium_list.sort(key=lambda x: x['time'])
+        medium_list.sort(key=lambda x: x['time'][0]* 60 + x['time'][1])
 
         hard_list = []
         for user in self.users:
             for game_name in self.users[user]:
                 if game_name != 'password':
-                    if self.users[user][game_name]['level'] == 'hard':
+                    if self.users[user][game_name]['level'] == 'Hard' and self.users[user][game_name]['isdone'] == True and self.users[user][game_name]['mode_play'] == 'Player':
                         hard_list.append(self.users[user][game_name])
-        hard_list.sort(key=lambda x: x['time'])
+        hard_list.sort(key=lambda x: x['time'][0]* 60 + x['time'][1])
 
         return (easy_list, medium_list, hard_list)
-
-    def pack_data(self, maze, level, start_x, start_y, end_x, end_y, time, step, status, username):
-        data = {}
-        data['maze'] = maze
-        data['level'] = level
-        if level == 'hard':
-            data['size'] = 100
-        if level == 'medium':
-            data['size'] = 40
-        if level == 'easy':
-            data['size'] = 20
-        data['start'] = [start_x, start_y]
-        data['end'] = [end_x, end_y]
-        data['time'] = time
-        data['step'] = step
-        data['status'] = status
-        data['username'] = username
-        return data
-
-
-#########################DEMO##########################
-
-def init_some_user():
-    db = UserDatabase('user_data.json')
-
-    # Dang ki tai khoan
-    print(db.register_user('user1', 'pas1'))
-    print(db.register_user('user2', 'pas1'))
-    print(db.register_user('user3', 'pas1'))
-    print(db.register_user('user4', 'pas1'))
-    print(db.register_user('user5', 'pas1'))
-    print(db.register_user('user6', 'pas1'))
-    # Dang nhap
-    #print(db.login_user('user3', 'pas1'))
-
-    # update thong tin user
-    db.save_game('user1', 'game1', {'username':'user1', 'password':'pas1', 'time':12308, 'level' : 'easy'})
-    pprint.pprint(db.leaderboard())
-    db.save_game('user2', 'game1', {'username':'user2', 'password':'pas1', 'time':456, 'level' : 'easy'})
-    db.save_game('user3', 'game1', {'username':'user3', 'password':'pas1', 'time':789, 'level' : 'easy'})
-    db.save_game('user4', 'game1', {'username':'user4', 'password':'pas1', 'time':1234, 'level' : 'medium'})
-    db.save_game('user5', 'game1', {'username':'user5', 'password':'pas1', 'time':4567, 'level' : 'medium'})
-    db.save_game('user6', 'game1', {'username':'user6', 'password':'pas1', 'time':7890, 'level' : 'hard'})
-    db.save_game('user6', 'game2', {'username':'user6', 'password':'pas1', 'time':23, 'level' : 'hard'})
-
-    pprint.pprint(db.leaderboard())
-    db.save_game('user6', 'game3', {'username':'user6', 'password':'pas1', 'time':4, 'level' : 'hard'})
-    db.save_game('user4', 'game2', {'username':'user4', 'password':'pas1', 'time':34, 'level' : 'hard'})
-    db.save_game('user4', 'game3', {'username':'user4', 'password':'pas1', 'time':455, 'level' : 'hard'})
-    db.save_game('user4', 'gameeasy', {'username':'user4', 'password':'pas1', 'time':23, 'level' : 'hard'})
-    db.save_game('user4', 'gamekhooday', {'username':'user4', 'password':'pas1', 'time': 1, 'level' : 'hard'})
-    db.save_game('user2', 'aaabsd', {'username':'user2', 'password':'pas1', 'time':34, 'level' : 'hard'})
-    db.save_game('user4', 't1lol234', {'username':'user4', 'password':'pas1', 'time': 2324, 'level' : 'hard'})
-    db.save_game('user4', 'gaasooday', {'username':'user4', 'password':'pas1', 'time': 12, 'level' : 'hard'})
-    db.save_game('user2', 'aadasdsd', {'username':'user2', 'password':'pas1', 'time':556, 'level' : 'hard'})
-    db.save_game('user4', 'tccdds34', {'username':'user4', 'password':'pas1', 'time': 34424, 'level' : 'hard'})
-
-
-    pprint.pprint(db.leaderboard())
-    #pprint.pprint(db.users)
-
-    pprint.pprint(db.load_users('user4', 'pas1'))
-

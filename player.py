@@ -23,7 +23,6 @@ class Player():
 
         self.direction = pygame.math.Vector2(0, 0)
         self.hintPath = []
-        self.stack = []
 
     def import_player_assets(self):
         character_path = 'assets/player/'

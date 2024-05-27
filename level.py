@@ -8,7 +8,7 @@ pygame.init()
 LIST_DIR_OPPOSITE = [('left', 'right'), ('up', 'down'), ('down', 'up'), ('right', 'left')]
 
 class Level:
-    def __init__(self, game, tilesize):
+    def __init__(self, game, tilesize, data = None):
 
         # get the display surface
         self.display_surface = game.display_surface
@@ -16,20 +16,41 @@ class Level:
 
         self.tilesize = tilesize
         self.player = Player(self, game.maze, tilesize)
+        self.stack = []
+
+        if data is not None:
+            self.player.loc = data[0]
+            for tmp in data[1]:
+                self.stack.append(Hint(tmp[0], self.tilesize - 1, self.game.maze.grid[tmp[1]][tmp[2]]))
+
         self.goal = Goal(self.tilesize, game.maze.grid[game.maze.endX][game.maze.endY])
         self.solver = MazeSolver(game.maze)
 
-        self.stack = []
         self.q = Queue()
-
         self.visited = []
         self.step = []
         self.stay = []
         self.find = []
         self.index = 0
+        self.pause_sound = False
 
         self.image_win = pygame.image.load('assets/tilemap/winning.png')
         self.image_win = pygame.transform.scale(self.image_win, (540, 300))
+
+        self.sound = pygame.mixer.Sound('sound/jump.mp3')
+        self.sound.set_volume(self.game.volume)
+
+        self.sound_trace = pygame.mixer.Sound('sound/tracePath.mp3')
+        self.sound_trace.set_volume(self.game.volume)
+
+    def pack_data(self, mode_play):
+        if mode_play in ('Auto (A*)', 'Auto (BFS)'):
+            data = [(self.game.maze.startX, self.game.maze.startY), []]
+        else:
+            data = [self.player.loc, []]
+            for hint in self.stack:
+                data[1].append(hint.pack_data())
+        return data
 
     def getAuto(self, option):
         self.visited.clear()
@@ -38,9 +59,9 @@ class Level:
         self.find = []
         self.index = 0
 
-        if option == 'A*':
+        if option == 'Auto (A*)':
             self.visited = self.solver.AStarSearch()
-        elif option == 'BFS':
+        elif option == 'Auto (BFS)':
             self.visited = self.solver.BFS()
         self.visited.reverse()
 
@@ -81,6 +102,8 @@ class Level:
                 self.find[i].render()
 
             if self.index < len(self.find):
+                if self.index % 12 == 0:
+                    self.sound_trace.play()
                 self.index += 1
             else:
                 for hint in self.stack:
@@ -90,6 +113,7 @@ class Level:
                     dir = self.player.update(False)
                     if dir in ('left', 'right', 'up', 'down'):
                         self.game.step += 1
+                        self.sound.play()
                         if len(self.stack) > 0 and (dir, self.stack[-1].dir) in LIST_DIR_OPPOSITE:
                             self.stack.pop()
                         else:
@@ -103,6 +127,11 @@ class Level:
             self.player.status = 'catch'
             rect = self.image_win.get_rect(center = (344, 344))
             self.display_surface.blit(self.image_win, rect)
+            if not self.pause_sound:
+                sound = pygame.mixer.Sound('sound/winning sound.mp3')
+                sound.set_volume(self.game.volume * 5)
+                sound.play()
+                self.pause_sound = True
         else:
             self.goal.render()
 

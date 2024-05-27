@@ -1,0 +1,20 @@
+Index: user_data.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>{\r\n   \"user1\": {\r\n      \"password\": \"pas1\",\r\n      \"game1\": {\r\n         \"username\": \"user1\",\r\n         \"password\": \"pas1\",\r\n         \"time\": 12308,\r\n         \"level\": \"easy\"\r\n      }\r\n   },\r\n   \"user2\": {\r\n      \"password\": \"pas1\",\r\n      \"game1\": {\r\n         \"username\": \"user2\",\r\n         \"password\": \"pas1\",\r\n         \"time\": 456,\r\n         \"level\": \"easy\"\r\n      },\r\n      \"aaabsd\": {\r\n         \"username\": \"user2\",\r\n         \"password\": \"pas1\",\r\n         \"time\": 34,\r\n         \"level\": \"hard\"\r\n      },\r\n      \"aadasdsd\": {\r\n         \"username\": \"user2\",\r\n         \"password\": \"pas1\",\r\n         \"time\": 556,\r\n         \"level\": \"hard\"\r\n      }\r\n   },\r\n   \"user3\": {\r\n      \"password\": \"pas1\",\r\n      \"game1\": {\r\n         \"username\": \"user3\",\r\n         \"password\": \"pas1\",\r\n         \"time\": 789,\r\n         \"level\": \"easy\"\r\n      }\r\n   },\r\n   \"user4\": {\r\n      \"password\": \"pas1\",\r\n      \"game1\": {\r\n         \"username\": \"user4\",\r\n         \"password\": \"pas1\",\r\n         \"time\": 1234,\r\n         \"level\": \"medium\"\r\n      },\r\n      \"game2\": {\r\n         \"username\": \"user4\",\r\n         \"password\": \"pas1\",\r\n         \"time\": 34,\r\n         \"level\": \"hard\"\r\n      },\r\n      \"game3\": {\r\n         \"username\": \"user4\",\r\n         \"password\": \"pas1\",\r\n         \"time\": 455,\r\n         \"level\": \"hard\"\r\n      },\r\n      \"gameeasy\": {\r\n         \"username\": \"user4\",\r\n         \"password\": \"pas1\",\r\n         \"time\": 23,\r\n         \"level\": \"hard\"\r\n      },\r\n      \"gamekhooday\": {\r\n         \"username\": \"user4\",\r\n         \"password\": \"pas1\",\r\n         \"time\": 1,\r\n         \"level\": \"hard\"\r\n      },\r\n      \"t1lol234\": {\r\n         \"username\": \"user4\",\r\n         \"password\": \"pas1\",\r\n         \"time\": 2324,\r\n         \"level\": \"hard\"\r\n      },\r\n      \"gaasooday\": {\r\n         \"username\": \"user4\",\r\n         \"password\": \"pas1\",\r\n         \"time\": 12,\r\n         \"level\": \"hard\"\r\n      },\r\n      \"tccdds34\": {\r\n         \"username\": \"user4\",\r\n         \"password\": \"pas1\",\r\n         \"time\": 34424,\r\n         \"level\": \"hard\"\r\n      }\r\n   },\r\n   \"user5\": {\r\n      \"password\": \"pas1\",\r\n      \"game1\": {\r\n         \"username\": \"user5\",\r\n         \"password\": \"pas1\",\r\n         \"time\": 4567,\r\n         \"level\": \"medium\"\r\n      }\r\n   },\r\n   \"user6\": {\r\n      \"password\": \"pas1\",\r\n      \"game1\": {\r\n         \"username\": \"user6\",\r\n         \"password\": \"pas1\",\r\n         \"time\": 7890,\r\n         \"level\": \"hard\"\r\n      },\r\n      \"game2\": {\r\n         \"username\": \"user6\",\r\n         \"password\": \"pas1\",\r\n         \"time\": 23,\r\n         \"level\": \"hard\"\r\n      },\r\n      \"game3\": {\r\n         \"username\": \"user6\",\r\n         \"password\": \"pas1\",\r\n         \"time\": 4,\r\n         \"level\": \"hard\"\r\n      }\r\n   },\r\n   \"idk\": {\r\n      \"password\": \"idk\"\r\n   }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/user_data.json b/user_data.json
+--- a/user_data.json	(revision 34092804d0252e48c667357d4482920144978946)
++++ b/user_data.json	(date 1716610109251)
+@@ -121,5 +121,8 @@
+    },
+    "idk": {
+       "password": "idk"
++   },
++   "trung": {
++      "password": "1234"
+    }
+ }
+\ No newline at end of file

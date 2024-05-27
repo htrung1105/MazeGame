@@ -1,0 +1,18 @@
+Index: user_data.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>{\r\n   \"user1\": {\r\n      \"password\": \"pas1\",\r\n      \"game1\": {\r\n         \"username\": \"user1\",\r\n         \"password\": \"pas1\",\r\n         \"time\": 12308,\r\n         \"level\": \"easy\"\r\n      }\r\n   },\r\n   \"user2\": {\r\n      \"password\": \"pas1\",\r\n      \"game1\": {\r\n         \"username\": \"user2\",\r\n         \"password\": \"pas1\",\r\n         \"time\": 456,\r\n         \"level\": \"easy\"\r\n      }\r\n   },\r\n   \"user3\": {\r\n      \"password\": \"pas1\",\r\n      \"game1\": {\r\n         \"username\": \"user3\",\r\n         \"password\": \"pas1\",\r\n         \"time\": 789,\r\n         \"level\": \"easy\"\r\n      }\r\n   },\r\n   \"user4\": {\r\n      \"password\": \"pas1\",\r\n      \"game1\": {\r\n         \"username\": \"user4\",\r\n         \"password\": \"pas1\",\r\n         \"time\": 1234,\r\n         \"level\": \"medium\"\r\n      },\r\n      \"game2\": {\r\n         \"username\": \"user4\",\r\n         \"password\": \"pas1\",\r\n         \"time\": 34,\r\n         \"level\": \"hard\"\r\n      },\r\n      \"game3\": {\r\n         \"username\": \"user4\",\r\n         \"password\": \"pas1\",\r\n         \"time\": 455,\r\n         \"level\": \"hard\"\r\n      },\r\n      \"gameeasy\": {\r\n         \"username\": \"user4\",\r\n         \"password\": \"pas1\",\r\n         \"time\": 23,\r\n         \"level\": \"hard\"\r\n      },\r\n      \"gamekhooday\": {\r\n         \"username\": \"user4\",\r\n         \"password\": \"pas1\",\r\n         \"time\": 1,\r\n         \"level\": \"hard\"\r\n      }\r\n   },\r\n   \"user5\": {\r\n      \"password\": \"pas1\",\r\n      \"game1\": {\r\n         \"username\": \"user5\",\r\n         \"password\": \"pas1\",\r\n         \"time\": 4567,\r\n         \"level\": \"medium\"\r\n      }\r\n   },\r\n   \"user6\": {\r\n      \"password\": \"pas1\",\r\n      \"game1\": {\r\n         \"username\": \"user6\",\r\n         \"password\": \"pas1\",\r\n         \"time\": 7890,\r\n         \"level\": \"hard\"\r\n      },\r\n      \"game2\": {\r\n         \"username\": \"user6\",\r\n         \"password\": \"pas1\",\r\n         \"time\": 23,\r\n         \"level\": \"hard\"\r\n      },\r\n      \"game3\": {\r\n         \"username\": \"user6\",\r\n         \"password\": \"pas1\",\r\n         \"time\": 4,\r\n         \"level\": \"hard\"\r\n      }\r\n   }\r\n}
+===================================================================
+diff --git a/user_data.json b/user_data.json
+--- a/user_data.json	
++++ b/user_data.json	
+@@ -88,5 +88,8 @@
+          "time": 4,
+          "level": "hard"
+       }
++   },
++   "trung": {
++      "password": "1234"
+    }
+ }
+\ No newline at end of file
