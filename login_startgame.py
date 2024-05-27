@@ -273,6 +273,7 @@ class MenuGame:
         self.sound.load_example_sounds()
         self.sound.set_sound(pygame_menu.sound.SOUND_TYPE_ERROR, None)
         self.enabled_sound = True # can be changed in init_def
+        self.sfx_value = 0.5
 
         if theme_idx == 0:
             pygame.mixer.music.load('sound/bgm.mp3')
@@ -343,14 +344,13 @@ class MenuGame:
         else:
             return None
 
-    def start_a_saved_game(self):
+    def start_a_saved_game(self, idgame):
         #pygame.mixer.music.stop()
         #pygame.mixer.music.unload()
 
-        game = self.saved_games.get_index()
-        data = self.saved_games.get_widgets()
-        data = data[game].get_title()
-        #print(data)
+        data = pygame_menu.menu.Menu.get_current(self.saved_games).get_widgets()
+        data = data[idgame].get_title()
+        print(idgame, '-----------')
         game_name = ''
         for i in range(len(data) - 1):
             if data[i:i + 2] == ': ':
@@ -364,7 +364,13 @@ class MenuGame:
         if Game(pygame.display.set_mode((1300, 750)), data['mode_play'], data['level'], data['start'][0], data['start'][1], data['end'][0], data['end'][1],data['time'], data['step'], data['game_name'], data['username'], maze = data['maze'], status = data['status'], volume=0.5).run() == False:
             self.init_load_game()
             self.init_leaderboard()
-            
+            if self.theme_idx == 0:
+                pygame.mixer.music.load('sound/bgm.mp3')
+                pygame.mixer.music.play(-1)
+            else:
+                pygame.mixer.music.load('sound/The_beach_theme.mp3')
+                pygame.mixer.music.play(-1)
+
         return (self.username, self.password, game_name) ## START A SAVED GAME
 
     def change_theme(self, a, b):
@@ -390,6 +396,7 @@ class MenuGame:
 
     def change_sfx(self, volume):
         volume = int(volume) * 0.01
+        self.sfx_value = volume
         self.sound.load_example_sounds(volume = volume)
         self.main_menu.set_sound(self.sound, recursive=True)
 
@@ -603,6 +610,12 @@ class MenuGame:
                     
                     self.running_menu = False
                     MenuGame(self.username, self.password, self.theme_idx).start(self.enabled_sound, self.sound)
+                    if self.theme_idx == 0:
+                        pygame.mixer.music.load('sound/bgm.mp3')
+                        pygame.mixer.music.play(-1)
+                    else:
+                        pygame.mixer.music.load('sound/The_beach_theme.mp3')
+                        pygame.mixer.music.play(-1)
 
         game_name = self.start_game_menu.add.text_input(
             title='Game name:  ',
@@ -746,7 +759,7 @@ class MenuGame:
             width=600
         )
         f._pack_margin_warning = False
-        labels = [self.saved_games.add.button(f'Game {i + 1}: {games[i]}', self.start_a_saved_game,) for i in range(len(games))]
+        labels = [self.saved_games.add.button(f'Game {i + 1}: {games[i]}', self.start_a_saved_game, i + 1) for i in range(len(games))]
         for j in labels:
             f.pack(j)
         f.translate(100, -45)
