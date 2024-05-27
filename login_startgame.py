@@ -837,8 +837,8 @@ class MenuGame:
             hard.pack(j)
         hard.translate(125, 0)
         
-        button = self.leaderboard.add.button('Return to main menu', pygame_menu.events.BACK)
-        button.translate(-140, 445)
+        button = self.leaderboard.add.button('Return to main menu', pygame_menu.events.BACK, float = True)
+        button.translate(200, 435)
 
     def init_setting(self):
         self.setting_help = pygame_menu.Menu(
