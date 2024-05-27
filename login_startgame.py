@@ -324,15 +324,18 @@ class MenuGame:
                 if game['level'] == 'Easy':
                     level_easy.append(game['username'])
                     time = game['time']
-                    level_easy.append(str(time[0]) + 'm ' + str(time[1]) + 's')
+                    step = game['step']
+                    level_easy.append(str(time[0]) + 'm ' + str(time[1]) + 's' + ' - step: ' + str(step))
                 elif game['level'] == 'Medium':
                     level_medium.append(game['username'])
                     time = game['time']
-                    level_medium.append(str(time[0]) + 'm ' + str(time[1]) + 's')
+                    step = game['step']
+                    level_medium.append(str(time[0]) + 'm ' + str(time[1]) + 's' + ' - step: ' + str(step))
                 elif game['level'] == 'Hard':
                     level_hard.append(game['username'])
                     time = game['time']
-                    level_hard.append(str(time[0]) + 'm ' + str(time[1]) + 's')
+                    step = game['step']
+                    level_hard.append(str(time[0]) + 'm ' + str(time[1]) + 's' + ' - step: ' + str(step))
         #print('danh sach::',level_easy, level_medium, level_hard)
         if level_to_return == 'easy':
             return level_easy
@@ -764,6 +767,13 @@ class MenuGame:
         medium_list = self.get_data_leaderboard('medium')
         hard_list = self.get_data_leaderboard('hard')
 
+        len_easy, len_medium, len_hard = 0, 0, 0
+        for i in range(0, len(easy_list), 2):
+            len_easy = max(len_easy, len(easy_list[i] + ' : ' + str(easy_list[i + 1])))
+        for i in range(0, len(medium_list), 2):
+            len_medium = max(len_medium, len(medium_list[i] + ' : ' + str(medium_list[i + 1])))
+        for i in range(0, len(hard_list), 2):
+            len_hard = max(len_hard, len(hard_list[i] + ' : ' + str(hard_list[i + 1])))
         self.leaderboard = pygame_menu.Menu(
             height=WINDOW_SIZE[1], #* 0.45,
             theme=self.leaderboard_theme,
@@ -786,7 +796,8 @@ class MenuGame:
             float=True,
             height=max(len(easy_labels) * 40 , 320),
             max_height=320,
-            width=270
+            width=max(len_easy * 15 , 285),
+            max_width=285
         )
         easy._pack_margin_warning = False
 
@@ -797,7 +808,8 @@ class MenuGame:
             float=True,
             height=max(len(medium_labels) * 40 , 320),
             max_height=320,
-            width=270
+            width=max(len_easy * 15 , 285),
+            max_width=285
         )
         medium._pack_margin_warning = False
 
@@ -808,24 +820,25 @@ class MenuGame:
             float=True,
             height=max(len(hard_labels) * 40 , 320),
             max_height=320,
-            width=270
+            width=max(len_easy * 15 , 285),
+            max_width=285
         )
         hard._pack_margin_warning = False
 
         for j in easy_labels:
             easy.pack(j)
-        easy.translate(90, 0)
+        easy.translate(75, 0)
 
         for j in medium_labels:
             medium.pack(j)
-        medium.translate(460, 0)
+        medium.translate(425, 0)
 
         for j in hard_labels:
             hard.pack(j)
-        hard.translate(150, 0)
+        hard.translate(125, 0)
         
         button = self.leaderboard.add.button('Return to main menu', pygame_menu.events.BACK)
-        button.translate(-140, 435)
+        button.translate(-140, 445)
 
     def init_setting(self):
         self.setting_help = pygame_menu.Menu(
