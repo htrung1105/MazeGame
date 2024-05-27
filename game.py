@@ -95,13 +95,11 @@ class Game:
                 else:
                     print('Saving failed')
             elif status == 'help':
-                img = pygame.image.load('assets/Help.png')
-                txt = TextBox((500, 500), 'Press Esc to back')
+                img = pygame.image.load('assets/help_game.png')
                 running_help = True
                 while running_help:
                     print('oke')
                     self.screen.blit(img, (0, 0))
-                    txt.draw(self.screen)
                     for event in pygame.event.get():
                         if event.type == pygame.QUIT:
                             pygame.quit()
