@@ -364,13 +364,7 @@ class MenuGame:
         if Game(pygame.display.set_mode((1300, 750)), data['mode_play'], data['level'], data['start'][0], data['start'][1], data['end'][0], data['end'][1],data['time'], data['step'], data['game_name'], data['username'], maze = data['maze'], status = data['status'], volume=0.5).run() == False:
             self.init_load_game()
             self.init_leaderboard()
-            if self.theme_idx == 0:
-                pygame.mixer.music.load('sound/bgm.mp3')
-                pygame.mixer.music.play(-1)
-            else:
-                pygame.mixer.music.load('sound/The_beach_theme.mp3')
-                pygame.mixer.music.play(-1)
-
+            
         return (self.username, self.password, game_name) ## START A SAVED GAME
 
     def change_theme(self, a, b):
@@ -609,12 +603,6 @@ class MenuGame:
                     
                     self.running_menu = False
                     MenuGame(self.username, self.password, self.theme_idx).start(self.enabled_sound, self.sound)
-                    if self.theme_idx == 0:
-                        pygame.mixer.music.load('sound/bgm.mp3')
-                        pygame.mixer.music.play(-1)
-                    else:
-                        pygame.mixer.music.load('sound/The_beach_theme.mp3')
-                        pygame.mixer.music.play(-1)
 
         game_name = self.start_game_menu.add.text_input(
             title='Game name:  ',
