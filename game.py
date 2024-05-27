@@ -99,7 +99,6 @@ class Game:
                 img = pygame.image.load('assets/help_game.png')
                 running_help = True
                 while running_help:
-                    print('oke')
                     self.screen.blit(img, (0, 0))
                     for event in pygame.event.get():
                         if event.type == pygame.QUIT:
