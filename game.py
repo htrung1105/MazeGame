@@ -33,6 +33,9 @@ class Game:
         self.sound.set_volume(volume)
         self.volume = volume
 
+        pygame.mixer.music.load('sound/puzzle quest upbeat.mp3')
+        pygame.mixer.music.play(-1)
+
         if maze is None:
             self.maze = Maze(self.display_surface, ATRIBUTES[difficult][0], start_x, start_y, end_x, end_y, ATRIBUTES[difficult][1], ATRIBUTES[difficult][2])
             self.maze.mazeGenerate()
