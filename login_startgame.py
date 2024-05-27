@@ -778,18 +778,16 @@ class MenuGame:
             height=WINDOW_SIZE[1], #* 0.45,
             theme=self.leaderboard_theme,
             title='Leaderboard',
-            columns = 3,
-            rows = [len(easy_list)//2 + 1, len(medium_list)//2 + 1, len(hard_list)//2 + 2],
             width=WINDOW_SIZE[0], #* 0.9
             )
 
         easy_labels = [self.leaderboard.add.label(easy_list[i] + ' : ' + str(easy_list[i + 1])) for i in range(0, len(easy_list), 2)]
-        easy_labels.append(self.leaderboard.add.label(''))
+        #easy_labels.insert(0, self.leaderboard.add.label('Player:'))
         medium_labels = [self.leaderboard.add.label(medium_list[i] + ' : ' + str(medium_list[i + 1])) for i in range(0, len(medium_list), 2)]
-        medium_labels.append(self.leaderboard.add.label(''))
+        #medium_labels.insert(0, self.leaderboard.add.label('Player:'))
         hard_labels = [self.leaderboard.add.label(hard_list[i] + ' : ' + str(hard_list[i + 1])) for i in range(0, len(hard_list), 2)]
-        hard_labels.append(self.leaderboard.add.label(''))
-
+        #hard_labels.insert(0, self.leaderboard.add.label('Player:'))
+        # print(len(easy_labels), len(medium_labels), len(hard_labels))
         # print(easy_list, medium_list, hard_list)
 
         easy = self.leaderboard.add.frame_v(
@@ -830,18 +828,18 @@ class MenuGame:
 
         for j in easy_labels:
             easy.pack(j)
-        easy.translate(75, 0)
+        easy.translate(-270, -10)
 
         for j in medium_labels:
             medium.pack(j)
-        medium.translate(425, 0)
+        medium.translate(90, -10)
 
         for j in hard_labels:
             hard.pack(j)
-        hard.translate(125, 0)
+        hard.translate(440, -10)
         
-        button = self.leaderboard.add.button('Return to main menu', pygame_menu.events.BACK)
-        button.translate(200, 435)
+        button = self.leaderboard.add.button('Return to main menu', pygame_menu.events.BACK, float = True)
+        button.translate(180, 435)
 
     def init_setting(self):
         self.setting_help = pygame_menu.Menu(
@@ -1009,4 +1007,3 @@ if __name__ == '__main__':
     g.start()
     #g = MenuGame('user4','pas1')
     #g.start()
-#hêhe ddt va dong code thu 1012, done duoc chua??
