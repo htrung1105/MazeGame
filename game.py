@@ -78,6 +78,7 @@ class Game:
 
             status = self.menu.render(self.level.pause_sound)
             if status == 'home':
+                UserDatabase().save_game(self.username, self.game_name, self.pack_data())
                 running = False
                 return False
             elif status == 'new':
