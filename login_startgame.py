@@ -324,15 +324,18 @@ class MenuGame:
                 if game['level'] == 'Easy':
                     level_easy.append(game['username'])
                     time = game['time']
-                    level_easy.append(str(time[0]) + 'm ' + str(time[1]) + 's')
+                    step = game['step']
+                    level_easy.append(str(time[0]) + 'm ' + str(time[1]) + 's' + ' - step: ' + str(step))
                 elif game['level'] == 'Medium':
                     level_medium.append(game['username'])
                     time = game['time']
-                    level_medium.append(str(time[0]) + 'm ' + str(time[1]) + 's')
+                    step = game['step']
+                    level_medium.append(str(time[0]) + 'm ' + str(time[1]) + 's' + ' - step: ' + str(step))
                 elif game['level'] == 'Hard':
                     level_hard.append(game['username'])
                     time = game['time']
-                    level_hard.append(str(time[0]) + 'm ' + str(time[1]) + 's')
+                    step = game['step']
+                    level_hard.append(str(time[0]) + 'm ' + str(time[1]) + 's' + ' - step: ' + str(step))
         #print('danh sach::',level_easy, level_medium, level_hard)
         if level_to_return == 'easy':
             return level_easy
@@ -764,6 +767,13 @@ class MenuGame:
         medium_list = self.get_data_leaderboard('medium')
         hard_list = self.get_data_leaderboard('hard')
 
+        len_easy, len_medium, len_hard = 0, 0, 0
+        for i in range(0, len(easy_list), 2):
+            len_easy = max(len_easy, len(easy_list[i] + ' : ' + str(easy_list[i + 1])))
+        for i in range(0, len(medium_list), 2):
+            len_medium = max(len_medium, len(medium_list[i] + ' : ' + str(medium_list[i + 1])))
+        for i in range(0, len(hard_list), 2):
+            len_hard = max(len_hard, len(hard_list[i] + ' : ' + str(hard_list[i + 1])))
         self.leaderboard = pygame_menu.Menu(
             height=WINDOW_SIZE[1], #* 0.45,
             theme=self.leaderboard_theme,
@@ -774,8 +784,11 @@ class MenuGame:
             )
 
         easy_labels = [self.leaderboard.add.label(easy_list[i] + ' : ' + str(easy_list[i + 1])) for i in range(0, len(easy_list), 2)]
+        easy_labels.append(self.leaderboard.add.label(''))
         medium_labels = [self.leaderboard.add.label(medium_list[i] + ' : ' + str(medium_list[i + 1])) for i in range(0, len(medium_list), 2)]
+        medium_labels.append(self.leaderboard.add.label(''))
         hard_labels = [self.leaderboard.add.label(hard_list[i] + ' : ' + str(hard_list[i + 1])) for i in range(0, len(hard_list), 2)]
+        hard_labels.append(self.leaderboard.add.label(''))
 
         # print(easy_list, medium_list, hard_list)
 
@@ -786,7 +799,8 @@ class MenuGame:
             float=True,
             height=max(len(easy_labels) * 40 , 320),
             max_height=320,
-            width=270
+            width=max(len_easy * 15 , 285),
+            max_width=285
         )
         easy._pack_margin_warning = False
 
@@ -797,7 +811,8 @@ class MenuGame:
             float=True,
             height=max(len(medium_labels) * 40 , 320),
             max_height=320,
-            width=270
+            width=max(len_easy * 15 , 285),
+            max_width=285
         )
         medium._pack_margin_warning = False
 
@@ -808,21 +823,22 @@ class MenuGame:
             float=True,
             height=max(len(hard_labels) * 40 , 320),
             max_height=320,
-            width=270
+            width=max(len_easy * 15 , 285),
+            max_width=285
         )
         hard._pack_margin_warning = False
 
         for j in easy_labels:
             easy.pack(j)
-        easy.translate(90, 0)
+        easy.translate(75, 0)
 
         for j in medium_labels:
             medium.pack(j)
-        medium.translate(460, 0)
+        medium.translate(425, 0)
 
         for j in hard_labels:
             hard.pack(j)
-        hard.translate(150, 0)
+        hard.translate(125, 0)
         
         button = self.leaderboard.add.button('Return to main menu', pygame_menu.events.BACK)
         button.translate(200, 435)
@@ -993,3 +1009,4 @@ if __name__ == '__main__':
     g.start()
     #g = MenuGame('user4','pas1')
     #g.start()
+#hêhe ddt va dong code thu 1012, done duoc chua??
